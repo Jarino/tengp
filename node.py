@@ -11,7 +11,8 @@ class Node():
 
 def active_path(nodes):
     stack = []
-    path = []
+    paths = []
+    path  = []
 
     # get all the output nodes
     index = len(nodes) - 1
@@ -26,12 +27,21 @@ def active_path(nodes):
     while len(stack) > 0:
         index, current_node = stack.pop()
 
+        not_first_output_node = len(path) != 0
+
+        if current_node.fun.__name__ == 'Variable' and not_first_output_node:
+           paths.append(reversed(path))
+           path = []
+
         path.append(index)
 
         for input_index in reversed(current_node.inputs):
             stack.append((input_index, nodes[input_index]))
 
-    return reversed(path)
+    if len(path) != 0:
+        paths.append(reversed(path))
+
+    return paths 
 
 
 
