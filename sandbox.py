@@ -3,24 +3,25 @@ import tensorflow as tf
 import numpy as np
 
 from node import Node, active_path 
+from mapper import map_to_phenotype
+from parameters import Parameters, FunctionSet
 
 X = [
-        np.array([1, 2, 3], dtype=np.float32),
-        np.array([4, 5, 6], dtype=np.float32), 
-        np.array([7, 8, 9], dtype=np.float32)
+    np.array([1, 2, 3], dtype=np.float32),
+    np.array([4, 5, 6], dtype=np.float32), 
+    np.array([7, 8, 9], dtype=np.float32)
 ]
 
 nodes = []
+genes = [0, 0, 1, 0, 0, 0, 1, 3, 2, 5]
 
-nodes.append(Node(tf.constant, []))
-nodes.append(Node(tf.constant, []))
-nodes.append(Node(tf.constant, []))
-nodes.append(Node(tf.add, [0, 1], 2))
-nodes.append(Node(tf.add, [0, 0], 2)) 
-nodes.append(Node(tf.sigmoid, [3, 2], 1))
-nodes.append(Node(tf.Variable, [5]))
+funset = FunctionSet()
+funset.add(tf.add, 2)
+funset.add(tf.sigmoid, 1)
 
-stack = []
+params = Parameters(3, 1, 1, 3, funset)
+
+nodes = map_to_phenotype(genes, params)
 
 for index in active_path(nodes):
     current_node = nodes[index]
