@@ -1,10 +1,10 @@
 import tensorflow as tf
-
 import numpy as np
 
 from node import Node, active_path 
 from mapper import map_to_phenotype
 from parameters import Parameters, FunctionSet
+from genotype_factory import GenotypeFactory
 
 X = [
     np.array([1, 2, 3], dtype=np.float32),
@@ -20,6 +20,10 @@ funset.add(tf.add, 2)
 funset.add(tf.sigmoid, 1)
 
 params = Parameters(3, 2, 1, 3, funset)
+
+g_factory = GenotypeFactory(params)
+
+genes, bounds = g_factory.create()
 
 nodes = map_to_phenotype(genes, params)
 
