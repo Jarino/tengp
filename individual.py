@@ -10,14 +10,11 @@ from utils import map_to_phenotype, active_paths, join_lists
 class Individual():
 
     def __init__(self, genes, bounds, params):
+        self.fitness = None
         self.genes = genes
-
         self.bounds = bounds
-
         self.nodes = map_to_phenotype(genes, params)
-
         self.paths = active_paths(self.nodes)
-
         self.params = params
 
     def transform(self, X):
@@ -56,6 +53,9 @@ class Individual():
                 return False
 
         return True
+
+    def __repr__(self):
+        return f'Program, f:{self.fitness}'
 
 class IndividualBuilder():
     def __init__(self, params):
