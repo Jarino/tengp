@@ -1,10 +1,19 @@
+from functools import reduce
+
 import tensorflow as tf
 
-from utils import map_to_phenotype, active_paths
+from genotype_factory import GenotypeFactory
+from utils import map_to_phenotype, active_paths, join_lists
+
+
 
 class Individual():
 
     def __init__(self, genes, bounds, params):
+        self.genes = genes
+
+        self.bounds = bounds
+
         self.nodes = map_to_phenotype(genes, params)
 
         self.paths = active_paths(self.nodes)
@@ -34,3 +43,28 @@ class Individual():
                 output.append(self.nodes[-i].value.eval())
 
         return output
+
+    def __eq__(self, other):
+        my_nodes = set(reduce(join_lists, self.paths))
+        other_nodes = set(reduce(join_lists, other.paths))
+        
+        for me, them in zip(my_nodes, other_nodes):
+            if self.nodes[me].fun != other.nodes[them].fun:
+                return False
+            
+            if self.nodes[me].inputs != other.nodes[them].inputs:
+                return False
+
+        return True
+
+class IndividualBuilder():
+    def __init__(self, params):
+        self.params = params
+        
+        self.g_factory = GenotypeFactory(params)
+
+    def create(self):
+        genes, bounds = self.g_factory.create()
+
+        return Individual(genes, bounds, self.params)
+

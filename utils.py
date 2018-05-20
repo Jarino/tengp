@@ -42,7 +42,7 @@ def active_paths(nodes):
         not_first_output_node = len(path) != 0
 
         if current_node.fun.__name__ == 'Variable' and not_first_output_node:
-           paths.append(reversed(path))
+           paths.append(list(reversed(path)))
            path = []
 
         path.append(index)
@@ -51,6 +51,12 @@ def active_paths(nodes):
             stack.append((input_index, nodes[input_index]))
 
     if len(path) != 0:
-        paths.append(reversed(path))
+        paths.append(list(reversed(path)))
 
     return paths 
+
+
+def join_lists(x, y):
+    # this abhorent method is used in individual comparison, so the 
+    # reduce would run few ms faster
+    return x + y
