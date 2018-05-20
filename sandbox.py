@@ -3,6 +3,7 @@ import numpy as np
 
 from parameters import Parameters, FunctionSet
 from individual import IndividualBuilder, Individual
+from mutations import point_mutation
 
 X = [
     np.array([1, 2, 3], dtype=np.float32),
@@ -26,6 +27,9 @@ output = individual.transform(X)
 
 print(output)
         
+individual = point_mutation(individual)
+
+print(individual.transform(X))
 
     
 
