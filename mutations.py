@@ -20,7 +20,7 @@ def point_mutation(individual):
 
     genes[index] = choice(possible_values)
 
-    return Individual(genes, bounds, individual.params)
+    return individual.params.individual_class(genes, bounds, individual.params)
 
 
 #def single_mutation(individual):
