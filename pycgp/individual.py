@@ -3,8 +3,8 @@ from functools import reduce
 
 import tensorflow as tf
 
-from genotype_factory import GenotypeFactory
-from utils import map_to_tf_phenotype, map_to_np_phenotype, active_paths, join_lists
+from .genotype_factory import GenotypeFactory
+from .utils import map_to_tf_phenotype, map_to_np_phenotype, active_paths, join_lists
 
 class Individual(ABC):
 

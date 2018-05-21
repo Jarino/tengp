@@ -1,4 +1,4 @@
-from individual import NPIndividual, TFIndividual
+from .individual import NPIndividual, TFIndividual
 
 class Parameters():
     def __init__(self, 

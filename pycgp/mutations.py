@@ -1,6 +1,6 @@
 from random import choice, random
 
-from individual import Individual
+from .individual import Individual
 
 
 def point_mutation(individual):

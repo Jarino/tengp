@@ -1,6 +1,6 @@
 import tensorflow as tf
 
-from node import Node
+from .node import Node
 
 def map_to_np_phenotype(genes, params):
     nodes = []

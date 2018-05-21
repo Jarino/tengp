@@ -1,6 +1,6 @@
-from mutations import point_mutation
-from individual import IndividualBuilder
-from parameters import FunctionSet, Parameters
+from .mutations import point_mutation
+from .individual import IndividualBuilder
+from .parameters import FunctionSet, Parameters
 
 
 def evolution_strategy(X, y, cost_function, params,

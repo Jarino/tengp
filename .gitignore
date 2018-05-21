@@ -1,4 +1,6 @@
 __pycache__
 **/__pycache__
+.cache
+.pytest_cache
 tags
 tags.*
