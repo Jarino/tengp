@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(
-    name='pycgp',
+    name='tengp',
     version='0.1',
     description='CGP library built on NumPy and TensorFlow',
     author='Jaroslav Loebl',

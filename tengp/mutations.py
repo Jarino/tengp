@@ -23,33 +23,32 @@ def point_mutation(individual):
     return individual.params.individual_class(genes, bounds, individual.params)
 
 
-#def single_mutation(individual):
-#    """ perform a 'single' mutation - mutate until active gene is changed """
-#
-#    active_changed = False
-#    genes = individual.genes[:]
-#    bounds = individual.bounds
-#    agenes = individual.active_genes
-#    changed_indices = []
-#
-#    while not active_changed:
-#        indices = [i for i, x in enumerate(bounds) if x != 0]
-#
-#        index = choice(indices)
-#
-#        changed_indices.append(index)
-#
-#        possible_values = [x for x in range(0, bounds[index] + 1)
-#                           if x != genes[index]]
-#
-#        genes[index] = choice(possible_values)
-#
-#        if agenes[index] == 1:
-#            active_changed = True
-#
-#    return Individual(genes, bounds, individual.params), changed_indices
-#
-#
+def single_mutation(individual):
+    """ perform a 'single' mutation - mutate until active gene is changed """
+
+    active_changed = False
+    genes = individual.genes[:]
+    bounds = individual.bounds
+    changed_indices = []
+
+    while not active_changed:
+        indices = [i for i, x in enumerate(bounds) if x != 0]
+
+        index = choice(indices)
+
+        changed_indices.append(index)
+
+        possible_values = [x for x in range(0, bounds[index] + 1)
+                           if x != genes[index]]
+
+        genes[index] = choice(possible_values)
+
+        if agenes[index] == 1:
+            active_changed = True
+
+    return Individual(genes, bounds, individual.params), changed_indices
+
+
 #def active_mutation(individual, _=None):
 #    """ Perform an active mutation - to-be mutated gene is chosen only
 #    from active genes """

@@ -19,7 +19,7 @@ def evolution_strategy(X, y, cost_function, params,
 
     for individual in population:
         output = individual.transform(X)
-        individual.fitness = cost_function(X, output)
+        individual.fitness = cost_function(y, output)
         n_evals += 1
 
 
@@ -37,10 +37,11 @@ def evolution_strategy(X, y, cost_function, params,
 
         for individual in population:
             output = individual.transform(X)
-            individual.fitness = cost_function(X, output)
+            individual.fitness = cost_function(y, output)
             n_evals += 1
 
-        print(set([x.fitness for x in population]))
+        if verbose and generation % 100 == 0:
+            print(f'Gen: {generation}, population: {sorted([x.fitness for x in population])}')
 
     return population
 

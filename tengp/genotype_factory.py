@@ -2,7 +2,6 @@ from random import randint
 
 class GenotypeFactory():
 
-   # def __init__(self, n_inputs, n_outputs, n_cols, n_rows, arity, funset):
     def __init__(self, parameters):
         self.n_ins = parameters.n_inputs
         self.n_outs = parameters.n_outputs
