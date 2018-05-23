@@ -6,5 +6,11 @@ setup(
     description='CGP library built on NumPy and TensorFlow',
     author='Jaroslav Loebl',
     author_email='jaroslavloebl@gmail.com',
-    packages=['pycgp']
+    packages=['tengp'],
+    install_requires=[
+      'numpy',
+      'scipy',
+      'sklearn',
+      'tensorflow'
+  ]
 )
