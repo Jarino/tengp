@@ -13,6 +13,7 @@ class Individual(ABC):
         self.genes = genes
         self.bounds = bounds
         self.paths = active_paths(self.nodes)
+        self.active_nodes = set(reduce(join_lists, self.paths))
         self.params = params
 
     @abstractmethod
@@ -20,10 +21,7 @@ class Individual(ABC):
         pass
 
     def __eq__(self, other):
-        my_nodes = set(reduce(join_lists, self.paths))
-        other_nodes = set(reduce(join_lists, other.paths))
-        
-        for me, them in zip(my_nodes, other_nodes):
+        for me, them in zip(self.active_nodes, other.active_nodes):
             if self.nodes[me].fun != other.nodes[them].fun:
                 return False
             
@@ -47,7 +45,7 @@ class NPIndividual(Individual):
                 current_node = self.nodes[index]
                 
                 if current_node.is_input: # is input node 
-                    current_node.value = X[index]
+                    current_node.value = X[:, index]
                 elif current_node.is_output:
                     input_index = current_node.inputs[0]
                     current_node.value = self.nodes[input_index].value
@@ -73,7 +71,7 @@ class TFIndividual(Individual):
                 current_node = self.nodes[index]
                 
                 if current_node.fun.__name__ == 'constant': # quite shitty way to check
-                    current_node.value = current_node.fun(X[index])
+                    current_node.value = current_node.fun(X[:, index])
                 elif current_node.fun.__name__ == 'Variable':
                     input_index = current_node.inputs[0]
                     initial_value = self.nodes[input_index].value 

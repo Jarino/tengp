@@ -4,7 +4,7 @@ import random
 import tensorflow as tf
 import numpy as np
 
-from pycgp import Parameters, FunctionSet, evolution_strategy
+from tengp import Parameters, FunctionSet, evolution_strategy
 from sklearn.metrics import mean_squared_error
 
 def test_integration():
