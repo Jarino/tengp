@@ -5,3 +5,4 @@ __pycache__
 tags
 tags.*
 pycgp.egg-info
+**/.ipynb_checkpoints
