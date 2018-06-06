@@ -4,5 +4,5 @@ __pycache__
 .pytest_cache
 tags
 tags.*
-pycgp.egg-info
+tengp.egg-info
 **/.ipynb_checkpoints
