@@ -33,6 +33,15 @@ class Individual(ABC):
     def __repr__(self):
         return f'Program, f:{self.fitness}'
 
+    def apply(self, move):
+        genes = self.genes[:]
+
+        for index, value in zip(move.indicies, move.changes):
+            genes[index] = value
+
+        return self.params.individual_class(genes, self.bounds, self.params)
+
+
 class NPIndividual(Individual):
 
     def __init__(self, genes, bounds, params):

@@ -1,26 +1,45 @@
+from collections import deque
 from random import choice, random
 
 from .individual import Individual
 
+class Move():
+    """
+    class holding a change 
+    contains two lists:
+        - list of affected indicies
+        - list of values to apply
+    """
+    def __init__(self, indices, changes):
+        self.indicies = indices
+        self.changes = changes
+
+    def __eq__(self, other):
+        if self.indicies != other.indicies:
+            return False
+        if self.changes != other.changes:
+            return False
+        return True
+
+
 
 def point_mutation(individual):
-    """ perform a point mutation on given individual """
-
-    genes = individual.genes[:]
-    bounds = individual.bounds  # this does not change
-
+    """ 
+    perform a point mutation on given individual 
+    returns two lists:
+        - list of indices to change
+        - mutated values for given indices
+    """
     # handle case, when there is only one possible value
     # of gene at certain position
-    indices = [i for i, x in enumerate(bounds) if x != 0]
+    indices = [i for i, x in enumerate(individual.bounds) if x != 0]
     index = choice(indices)
 
     # construct the list of acceptable values
     possible_values = [x for x in range(
-        0, bounds[index] + 1) if x != genes[index]]
+        0, individual.bounds[index] + 1) if x != individual.genes[index]]
 
-    genes[index] = choice(possible_values)
-
-    return individual.params.individual_class(genes, bounds, individual.params)
+    return Move([index], [choice(possible_values)])
 
 
 def single_mutation(individual):
