@@ -3,6 +3,7 @@ import random
 
 #import tensorflow as tf
 import numpy as np
+import pytest
 
 from tengp import Parameters, FunctionSet, evolution_strategy
 from sklearn.metrics import mean_squared_error
@@ -47,7 +48,7 @@ def test_integration():
 
     assert True, "passed without errors"
 
-
+@pytest.mark.skip
 def test_integration_with_inf():
     X = np.array([
         [1],

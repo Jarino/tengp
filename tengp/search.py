@@ -23,7 +23,7 @@ def evolution_strategy(X, y, cost_function, params,
 
     n_evals = 0
 
-    generation = 0 
+    generation = 0
 
     for individual in population:
         output = individual.transform(X)
@@ -113,13 +113,4 @@ def tabu_search(X, y, cost_function, params,
 
 
         return individual, same, cycles
-        
 
-
-
-
-
-
-
-
-    
