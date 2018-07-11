@@ -1,4 +1,4 @@
-import tensorflow as tf
+#import tensorflow as tf
 
 from .node import Node
 
@@ -72,7 +72,7 @@ def active_paths(nodes):
     if len(path) != 0:
         paths.append(list(reversed(path)))
 
-    return paths 
+    return paths
 
 
 def join_lists(x, y):

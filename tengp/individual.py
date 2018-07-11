@@ -1,7 +1,8 @@
 from abc import ABC, abstractmethod
 from functools import reduce
 
-import tensorflow as tf
+#import tensorflow as tf
+import numpy as np
 
 from .genotype_factory import GenotypeFactory
 from .utils import map_to_tf_phenotype, map_to_np_phenotype, active_paths, join_lists
@@ -52,7 +53,7 @@ class NPIndividual(Individual):
         for path in self.paths:
             for index in path:
                 current_node = self.nodes[index]
-                
+
                 if current_node.is_input: # is input node 
                     current_node.value = X[:, index]
                 elif current_node.is_output:
@@ -66,7 +67,7 @@ class NPIndividual(Individual):
         for i in range(1, self.params.n_outputs + 1):
             output.append(self.nodes[-i].value)
 
-        return output
+        return np.array(output).T
 
 class TFIndividual(Individual):
 

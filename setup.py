@@ -11,6 +11,6 @@ setup(
       'numpy',
       'scipy',
       'sklearn',
-      'tensorflow'
+#      'tensorflow'
   ]
 )
