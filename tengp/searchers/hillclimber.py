@@ -5,14 +5,14 @@ from ..individual import IndividualBuilder
 from ..mutations import  Move
 
 def hillclimber(X,
-        y,
-        cost_function,
-        params,
-        target_fitness=0,
-        evaluations=5000,
-        initial_solution=None,
-        random_state=None,
-        verbose=True):
+                y,
+                cost_function,
+                params,
+                target_fitness=0,
+                evaluations=5000,
+                initial_solution=None,
+                random_state=None,
+                verbose=True):
     """ simple hillclimbing algorithm """
 
     if random_state:
@@ -24,10 +24,12 @@ def hillclimber(X,
         ib = IndividualBuilder(params)
         solution = ib.create()
 
+    output = solution.transform(X)
+    solution.fitness = cost_function(y, output)
 
     n_evals = 0
-    genereation = 0
-    return False
+    generation = 0
+
     while n_evals < evaluations:
         generation += 1
 
@@ -40,11 +42,15 @@ def hillclimber(X,
         # for now, let's go with the deterministic route
         # so let's generate and test moves:
         for index, (gene, bound) in enumerate(zip(solution.genes, solution.bounds)):
+            # check for possible changes (i.e. can't increase when on upper bound
             ops = []
             if gene != bound:
                 ops.append(add)
             if gene != 0:
                 ops.append(sub)
+
+            if len(ops) == 0:
+                continue # not possible change for given gene
 
             candidates = []
             for operator in ops:
@@ -63,8 +69,11 @@ def hillclimber(X,
             if best_candidate.fitness <= solution.fitness:
                 solution = best_candidate
 
-        # test for terminate conditions
+        if solution.fitness <= target_fitness:
+            break
 
+
+        return solution
 
 
 

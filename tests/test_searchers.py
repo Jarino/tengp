@@ -9,13 +9,16 @@ from tengp import hillclimber, FunctionSet, Parameters
 
 def test_hillclimber():
     """ test case for hillclimber search algorithm """
-    X = [
-        np.array([1, 2, 3, 90, 180, 1], dtype=np.float32),
-        np.array([1, 2, 3, 90, 180, 1], dtype=np.float32)
-    ]
+    X = np.array([
+        [1],
+        [2],
+        [3],
+        [90],
+        [180],
+        [1],
+    ], dtype=np.float32)
 
-    y = np.array([3, 6, 9, 2,  12,  1])
-
+    y = np.array([3, 6, 9, 2, 12, 1])
 
     funset = FunctionSet()
     funset.add(np.add, 2)
