@@ -43,7 +43,7 @@ def map_to_tf_phenotype(genes, params):
 def active_paths(nodes):
     stack = []
     paths = []
-    path  = []
+    path = []
 
     # get all the output nodes
     index = len(nodes) - 1
@@ -61,8 +61,8 @@ def active_paths(nodes):
         not_first_output_node = len(path) != 0
 
         if current_node.is_output and not_first_output_node:
-           paths.append(list(reversed(path)))
-           path = []
+            paths.append(list(reversed(path)))
+            path = []
 
         path.append(index)
 
@@ -76,7 +76,7 @@ def active_paths(nodes):
 
 
 def join_lists(x, y):
-    # this abhorent method is used in individual comparison, so the 
+    # this abhorent method is used in individual comparison, so the
     # reduce would run few ms faster
     return x + y
 
@@ -91,3 +91,19 @@ def round_cma_vector(cma_vector, bounds):
             gene = 0
         processed_genes.append(gene)
     return processed_genes
+
+def handle_invalid_decorator(fun):
+    """ Decorates the inner cost_function, so it returns fitness_of_invalid value
+    defined in parameters in case of ValueError """
+    def wrapper(*args, **kwargs):
+        new_args = list(args)
+        cost_function = args[2]
+        params = args[3]
+        def wrapped_cost_function(*args, **kwargs):
+            try:
+                return cost_function(*args, **kwargs)
+            except ValueError as e:
+                return params.fitness_of_invalid
+        new_args[2] = wrapped_cost_function
+        return fun(*new_args, **kwargs)
+    return wrapper

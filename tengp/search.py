@@ -6,9 +6,9 @@ from deap import creator, base, cma, algorithms, tools
 from .mutations import point_mutation
 from .individual import IndividualBuilder
 from .parameters import FunctionSet, Parameters
-from .utils import round_cma_vector
+from .utils import round_cma_vector, handle_invalid_decorator
 
-
+@handle_invalid_decorator
 def simple_es(X, y, cost_function, params,
               target_fitness=0,
               population_size=5,

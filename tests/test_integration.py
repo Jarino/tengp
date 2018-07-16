@@ -21,7 +21,6 @@ def test_integration(function_set, input_data_1d):
     assert True, "passed without errors"
 
 
-@pytest.mark.skip
 def test_integration_with_inf(advanced_function_set, input_data_1d):
     X, y = input_data_1d
 
