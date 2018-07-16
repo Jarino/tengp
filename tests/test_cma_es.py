@@ -20,3 +20,17 @@ def test_cma_es_integration(function_set, input_data_1d):
 
     assert True, "passed without error"
 
+def test_integration_with_inf_and_CMA(advanced_function_set, input_data_1d):
+    """ Test whether CMA-ES will pass also with NaN or infinity in input for
+    cost_function evaluation."""
+    X, y = input_data_1d
+
+    params = Parameters(1, 1, 1, 3, advanced_function_set, use_tensorflow=False)
+
+    random.seed(0)
+    start = time()
+    hof, result = cma_es(X, y, mean_squared_error, params)
+
+    print(f'CMA-ES hall of fame: {hof}, time: {time() - start}')
+
+    assert True, "passed without errors"

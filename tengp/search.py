@@ -56,7 +56,7 @@ def simple_es(X, y, cost_function, params,
 
     return population
 
-
+@handle_invalid_decorator
 def cma_es(X, y, cost_function, params,
            sigma=1,
            lambda_=20,
