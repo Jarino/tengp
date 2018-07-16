@@ -1,2 +1,2 @@
 from .parameters import FunctionSet, Parameters
-from .search import evolution_strategy, cma_es
+from .search import simple_es, cma_es

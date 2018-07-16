@@ -7,7 +7,7 @@ from .parameters import FunctionSet, Parameters
 from .utils import round_cma_vector
 
 
-def evolution_strategy(X, y, cost_function, params,
+def simple_es(X, y, cost_function, params,
                        target_fitness=0,
                        population_size=5,
                        evaluations=5000,

@@ -5,7 +5,7 @@ import numpy as np
 import pytest
 from sklearn.metrics import mean_squared_error
 
-from tengp import Parameters, FunctionSet, evolution_strategy
+from tengp import Parameters, FunctionSet, simple_es
 
 def test_integration(function_set, input_data_1d):
     X, y = input_data_1d
@@ -14,7 +14,7 @@ def test_integration(function_set, input_data_1d):
 
     random.seed(0)
     start = time()
-    result = evolution_strategy(X, y, mean_squared_error, params)
+    result = simple_es(X, y, mean_squared_error, params)
 
     print(f'Numpy result: {result}, time: {time() - start}')
 
@@ -29,7 +29,7 @@ def test_integration_with_inf(advanced_function_set, input_data_1d):
 
     random.seed(0)
     start = time()
-    result = evolution_strategy(X, y, mean_squared_error, params)
+    result = simple_es(X, y, mean_squared_error, params)
 
     print(f'Numpy result: {result}, time: {time() - start}')
 
