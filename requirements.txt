@@ -1,5 +1,5 @@
 numpy
 scipy
 sklearn
-tensorflow
+deap
 

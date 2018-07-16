@@ -8,9 +8,10 @@ setup(
     author_email='jaroslavloebl@gmail.com',
     packages=['tengp'],
     install_requires=[
-      'numpy',
-      'scipy',
-      'sklearn',
-#      'tensorflow'
-  ]
+        'numpy',
+        'scipy',
+        'sklearn',
+#       'tensorflow'
+        'deap'
+    ]
 )
