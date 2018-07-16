@@ -4,8 +4,10 @@ import random
 from .mutations import point_mutation
 from .individual import IndividualBuilder
 from .parameters import FunctionSet, Parameters
+from .utils import handle_invalid_decorator
 
 
+@handle_invalid_decorator
 def evolution_strategy(X, y, cost_function, params,
                        target_fitness=0,
                        population_size=5,
