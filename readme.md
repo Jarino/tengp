@@ -47,7 +47,7 @@ def cost_function(y, y_pred):
 # tie everything together
 params = tengp.Parameters(4, 3, n_columns=25, n_rows=1, function_set=funset, use_tensorflow=False)
 
-res = tengp.evolution_strategy(X_train, y_train, cost_function, params, target_fitness=-1, random_state=42)
+res = tengp.simple_es(X_train, y_train, cost_function, params, target_fitness=-1, random_state=42)
 
 # evaluate the best individual
 y_pred = res[0].transform(X_test)

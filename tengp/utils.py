@@ -80,6 +80,18 @@ def join_lists(x, y):
     # reduce would run few ms faster
     return x + y
 
+def round_cma_vector(cma_vector, bounds):
+    """ convert float vector from CMA-ES to valid genes vector """
+    processed_genes = []
+    for number, bound in zip(cma_vector, bounds):
+        gene = int(round(number))
+        if gene > bound:
+            gene = bound
+        if gene < 0:
+            gene = 0
+        processed_genes.append(gene)
+    return processed_genes
+
 def handle_invalid_decorator(fun):
     """ Decorates the inner cost_function, so it returns fitness_of_invalid value
     defined in parameters in case of ValueError """

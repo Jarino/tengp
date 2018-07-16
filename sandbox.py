@@ -5,7 +5,6 @@ import tensorflow as tf
 import numpy as np
 
 from parameters import Parameters, FunctionSet
-from search import evolution_strategy
 from sklearn.metrics import mean_squared_error
 
 X = [
