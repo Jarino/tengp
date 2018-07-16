@@ -14,9 +14,9 @@ def test_cma_es_integration(function_set, input_data_1d):
 
     random.seed(0)
     start = time()
-    result = cma_es(X, y, mean_squared_error, params)
+    hof, result = cma_es(X, y, mean_squared_error, params)
 
-    print(f'CMA-ES result: {result}, time: {time() - start}')
+    print(f'CMA-ES hall of fame: {hof}, time: {time() - start}')
 
     assert True, "passed without error"
 
