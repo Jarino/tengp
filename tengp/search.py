@@ -7,11 +7,11 @@ from .parameters import FunctionSet, Parameters
 
 
 def evolution_strategy(X, y, cost_function, params,
-        target_fitness=0,
-        population_size=5,
-        evaluations=5000,
-        random_state=None,
-        verbose=True):
+                       target_fitness=0,
+                       population_size=5,
+                       evaluations=5000,
+                       random_state=None,
+                       verbose=True):
 
     if random_state:
         random.seed(random_state)
@@ -33,7 +33,7 @@ def evolution_strategy(X, y, cost_function, params,
 
     while n_evals < evaluations:
         generation += 1
-        
+
         parent = min(population, key=lambda x: x.fitness)
 
         if parent.fitness <= target_fitness:

@@ -4,6 +4,19 @@ from operator import add, sub
 from ..individual import IndividualBuilder
 from ..mutations import  Move
 
+class Memory():
+    def __init__(self):
+        self.solutions = []
+
+    def add(self, solution):
+        self.solutions.append(solution.genes)
+
+    def __contains__(self, solution):
+        return solution.genes in self.solutions
+
+    def __repr__(self):
+        print('\n'.join(self.solutions))
+
 def hillclimber(X,
                 y,
                 cost_function,
@@ -27,11 +40,15 @@ def hillclimber(X,
     output = solution.transform(X)
     solution.fitness = cost_function(y, output)
 
+    stats = {'genes': []}
     n_evals = 0
     generation = 0
+    memory = Memory()
 
     while n_evals < evaluations:
         generation += 1
+        if verbose:
+            print(f'Gen: {generation}, n_evals: {n_evals}, fitness: {solution.fitness}')
 
         # local move
         # how to perform local move?
@@ -54,15 +71,34 @@ def hillclimber(X,
 
             candidates = []
             for operator in ops:
-                move = Move([index], [operator(gene, 1)])
+                new_gene = operator(gene, 1)
+                move = Move([index], [new_gene])
                 new_solution = solution.apply(move)
+                while new_solution in memory:
+                    new_gene = operator(new_gene, 1)
+                    if new_gene > bound or new_gene < 0:
+                        new_solution = None
+                        break
+                    move = Move([index], [new_gene])
+                    new_solution = solution.apply(move)
+
+                if new_solution is None:
+                    continue
+
+                memory.add(new_solution)
+
                 if new_solution == solution:
                     new_solution.fitness = solution.fitness
                 else:
                     output = solution.transform(X)
                     new_solution.fitness = cost_function(y, output)
                     n_evals += 1
+
+                stats['genes'].append(new_solution.genes)
                 candidates.append(new_solution)
+
+            if len(candidates) == 0:
+                continue
 
             best_candidate = max(candidates, key=lambda x: x.fitness)
 
@@ -72,8 +108,9 @@ def hillclimber(X,
         if solution.fitness <= target_fitness:
             break
 
-
-        return solution
+    stats['n_evals'] = n_evals
+    stats['generations'] = generation
+    return solution, stats
 
 
 
