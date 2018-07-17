@@ -34,7 +34,7 @@ class FunctionSet():
 
     def __len__(self):
         return len(self.functions)
-    
+
     @property
     def max_arity(self):
         return max(self.functions, key=lambda x: x[1])[1]

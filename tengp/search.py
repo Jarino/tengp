@@ -1,7 +1,9 @@
+from array import array
 from collections import deque
 import random
 
 from deap import creator, base, cma, algorithms, tools
+import numpy as np
 
 from .mutations import point_mutation
 from .individual import IndividualBuilder
@@ -54,13 +56,14 @@ def simple_es(X, y, cost_function, params,
         if verbose and generation % 100 == 0:
             print(f'Gen: {generation}, population: {sorted([x.fitness for x in population])}')
 
+    population.sort(key=lambda x: x.fitness)
     return population
 
 @handle_invalid_decorator
 def cma_es(X, y, cost_function, params,
            sigma=1,
            lambda_=20,
-           max_generations=250,
+           evaluations=5000,
            hof_size=1,
            random_state=None,
            verbose=False):
@@ -82,25 +85,53 @@ def cma_es(X, y, cost_function, params,
 
     # deap shit
     creator.create('FitnessMin', base.Fitness, weights=(-1.0,))
-    creator.create('Individual', list, fitness=creator.FitnessMin)
+    creator.create('Individual', array, typecode='f', fitness=creator.FitnessMin)
 
     strategy = cma.Strategy(
-        centroid=initial_solution.genes, sigma=sigma, lambda_=lambda_*len(bounds))
+        centroid=initial_solution.genes, sigma=sigma)
 
     toolbox = base.Toolbox()
 
     toolbox.register('evaluate', cost_function_wrapper)
     toolbox.register('generate', strategy.generate, creator.Individual)
     toolbox.register('update', strategy.update)
-    hof = tools.HallOfFame(hof_size)
+    halloffame = tools.HallOfFame(hof_size)
 
-    res = algorithms.eaGenerateUpdate(
-        toolbox, ngen=max_generations, halloffame=hof, verbose=verbose)
+#    res = algorithms.eaGenerateUpdate(
+#        toolbox, ngen=max_generations, halloffame=hof, verbose=verbose)
+
+    # this is just a copy paste of eaGenerateUpdate function, with modification
+    # so it can terminate when a maximum number of evaluations is reached
+    logbook = tools.Logbook()
+    logbook.header = ['gen', 'nevals', 'total_evals']
+    nevals = 0
+    gen = 0
+
+    while nevals <= evaluations:
+        gen += 1
+        # Generate a new population
+        population = toolbox.generate()
+        # Evaluate the individuals
+        fitnesses = toolbox.map(toolbox.evaluate, population)
+        for ind, fit in zip(population, fitnesses):
+            ind.fitness.values = fit
+
+        if halloffame is not None:
+            halloffame.update(population)
+
+        # Update the strategy with the evaluated individuals
+        toolbox.update(population)
+
+        #record = stats.compile(population) if stats is not None else {}
+        nevals += len(population)
+        logbook.record(gen=gen, nevals=len(population), total_evals=nevals)#, **record)
+        if verbose:
+            print(logbook.stream)
 
     # return the best individual
-    individual = params.individual_class(round_cma_vector(hof[0], bounds), bounds, params)
+    individual = params.individual_class(round_cma_vector(halloffame[0], bounds), bounds, params)
     output = individual.transform(X)
     individual.fitness = cost_function(y, output)
-    return individual, res
+    return individual, logbook
 
 

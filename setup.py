@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='tengp',
-    version='0.1',
+    version='0.2',
     description='CGP library built on NumPy and TensorFlow',
     author='Jaroslav Loebl',
     author_email='jaroslavloebl@gmail.com',
