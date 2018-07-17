@@ -5,10 +5,10 @@ import random
 from deap import creator, base, cma, algorithms, tools
 import numpy as np
 
-from .mutations import point_mutation
+from .mutations import MUTATIONS
 from .individual import IndividualBuilder
 from .parameters import FunctionSet, Parameters
-from .utils import round_cma_vector, handle_invalid_decorator
+from .utils import round_cma_vector, handle_invalid_decorator, UnknownMutationException
 
 @handle_invalid_decorator
 def simple_es(X, y, cost_function, params,
@@ -16,7 +16,13 @@ def simple_es(X, y, cost_function, params,
               population_size=5,
               evaluations=5000,
               random_state=None,
+              mutation='point',
               verbose=False):
+
+    if mutation not in MUTATIONS:
+        raise UnknownMutationException("Provided type of mutation is not implemented.")
+
+    move = MUTATIONS[mutation]
 
     if random_state:
         random.seed(random_state)
@@ -44,7 +50,7 @@ def simple_es(X, y, cost_function, params,
         if parent.fitness <= target_fitness:
             return population
 
-        population = [parent.apply(point_mutation(parent)) for _ in range(population_size - 1)]
+        population = [parent.apply(move(parent)) for _ in range(population_size - 1)]
 
         population += [parent]
 

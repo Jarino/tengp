@@ -2,6 +2,9 @@
 
 from .node import Node
 
+class UnknownMutationException(Exception):
+    pass
+
 def map_to_np_phenotype(genes, params):
     nodes = []
     for _ in range(params.n_inputs):

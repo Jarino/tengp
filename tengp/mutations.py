@@ -5,7 +5,7 @@ from .individual import Individual
 
 class Move():
     """
-    class holding a change 
+    class holding a change
     contains two lists:
         - list of affected indicies
         - list of values to apply
@@ -24,11 +24,9 @@ class Move():
 
 
 def point_mutation(individual):
-    """ 
-    perform a point mutation on given individual 
-    returns two lists:
-        - list of indices to change
-        - mutated values for given indices
+    """
+    perform a point mutation on given individual
+    returns Move object
     """
     # handle case, when there is only one possible value
     # of gene at certain position
@@ -49,9 +47,10 @@ def single_mutation(individual):
     genes = individual.genes[:]
     bounds = individual.bounds
     changed_indices = []
+    changed_genes = []
+    indices = [i for i, x in enumerate(bounds) if x != 0]
 
     while not active_changed:
-        indices = [i for i, x in enumerate(bounds) if x != 0]
 
         index = choice(indices)
 
@@ -60,12 +59,14 @@ def single_mutation(individual):
         possible_values = [x for x in range(0, bounds[index] + 1)
                            if x != genes[index]]
 
-        genes[index] = choice(possible_values)
+        changed_genes.append(choice(possible_values))
 
-        if agenes[index] == 1:
+        # changing a gene from set of active genes
+
+        if individual.active_gene(index):
             active_changed = True
 
-    return Individual(genes, bounds, individual.params), changed_indices
+    return Move(changed_indices, changed_genes)
 
 
 #def active_mutation(individual, _=None):
@@ -109,3 +110,8 @@ def single_mutation(individual):
 #            changed_indices.append(index)
 #            genes[index] = choice(possible_values)
 #    return Individual(genes, bounds, individual.params), changed_indices
+
+MUTATIONS = {
+    'point': point_mutation,
+    'single': single_mutation
+}
