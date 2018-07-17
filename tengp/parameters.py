@@ -25,9 +25,11 @@ class Parameters():
 class FunctionSet():
     def __init__(self):
         self.functions = []
+        self.max_arity = 0
 
     def add(self, function, arity):
         self.functions.append((function, arity))
+        self.max_arity = max(self.functions, key=lambda x: x[1])[1]
 
     def __getitem__(self, index):
         return self.functions[index]
@@ -35,6 +37,3 @@ class FunctionSet():
     def __len__(self):
         return len(self.functions)
 
-    @property
-    def max_arity(self):
-        return max(self.functions, key=lambda x: x[1])[1]

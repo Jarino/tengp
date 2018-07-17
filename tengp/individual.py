@@ -17,6 +17,15 @@ class Individual(ABC):
         self.active_nodes = set(reduce(join_lists, self.paths))
         self.params = params
 
+    def active_gene(self, gene_index):
+        arity = self.params.function_set.max_arity
+        if gene_index >= self.params.n_nodes*(arity + 1):
+            return True
+        node_id = (gene_index//(arity + 1))+self.params.n_inputs
+        if node_id in self.active_nodes:
+            return True
+        return False
+
     @abstractmethod
     def transform(self, X):
         pass
@@ -25,7 +34,7 @@ class Individual(ABC):
         for me, them in zip(self.active_nodes, other.active_nodes):
             if self.nodes[me].fun != other.nodes[them].fun:
                 return False
-            
+
             if self.nodes[me].inputs != other.nodes[them].inputs:
                 return False
 
@@ -79,7 +88,7 @@ class TFIndividual(Individual):
         for path in self.paths:
             for index in path:
                 current_node = self.nodes[index]
-                
+
                 if current_node.fun.__name__ == 'constant': # quite shitty way to check
                     current_node.value = current_node.fun(X[:, index])
                 elif current_node.fun.__name__ == 'Variable':

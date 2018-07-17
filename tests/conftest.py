@@ -33,3 +33,12 @@ def input_data_1d():
     y = np.array([3, 6, 9, 2,  12,  1])
 
     return X, y
+
+@pytest.fixture
+def individual():
+    genes = [0, 0, 0, 0, 1, 0, 0, 1, 0, 3]
+    bounds = [0, 0, 0, 0, 1, 1, 0, 2, 2, 3]
+    funset = FunctionSet()
+    funset.add(np.add, 2)
+    params = Parameters(1, 1, 1, 3, funset)
+    return params.individual_class(genes, bounds, params)
