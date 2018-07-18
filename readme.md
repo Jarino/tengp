@@ -13,7 +13,11 @@ make develop
 
 Contains two algorithms for optimization of CGP system:
 
-- simple $(1+4)$ evolution strategy
+- simple $(1+4)$ evolution strategy using
+    - point mutation
+    - single mutation
+    - active mutation
+    - probabilistic mutation
 - [Covariance Matrix Adaptation Evolution Strategy](https://deap.readthedocs.io/en/master/examples/cmaes.html?highlight=cma) (provided by [DEAP](https://deap.readthedocs.io/en/master/index.html) package)
 
 
