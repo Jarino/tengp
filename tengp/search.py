@@ -1,6 +1,7 @@
 from array import array
 from collections import deque
 import random
+from functools import partial
 
 from deap import creator, base, cma, algorithms, tools
 import numpy as np
@@ -17,12 +18,15 @@ def simple_es(X, y, cost_function, params,
               evaluations=5000,
               random_state=None,
               mutation='point',
+              mutation_probability=0.25,
               verbose=False):
 
     if mutation not in MUTATIONS:
         raise UnknownMutationException("Provided type of mutation is not implemented.")
 
     move = MUTATIONS[mutation]
+    if mutation == 'probabilistic':
+        move = partial(move, probability=mutation_probability)
 
     if random_state:
         random.seed(random_state)

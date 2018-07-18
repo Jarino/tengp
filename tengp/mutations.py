@@ -44,11 +44,9 @@ def single_mutation(individual):
     """ perform a 'single' mutation - mutate until active gene is changed """
 
     active_changed = False
-    genes = individual.genes[:]
-    bounds = individual.bounds
     changed_indices = []
     changed_genes = []
-    indices = [i for i, x in enumerate(bounds) if x != 0]
+    indices = [i for i, x in enumerate(individual.bounds) if x != 0]
 
     while not active_changed:
 
@@ -56,8 +54,8 @@ def single_mutation(individual):
 
         changed_indices.append(index)
 
-        possible_values = [x for x in range(0, bounds[index] + 1)
-                           if x != genes[index]]
+        possible_values = [x for x in range(0, individual.bounds[index] + 1)
+                           if x != individual.genes[index]]
 
         changed_genes.append(choice(possible_values))
 
@@ -78,37 +76,39 @@ def active_mutation(individual):
     agenes = individual.get_active_genes()
 
     # choose only genes with more than one possible value
-    indices = [i for b, i in zip(bounds, agenes) if b != 0]
+    indices = []
+    for gene_index in agenes:
+        if bounds[gene_index] != 0:
+            indices.append(gene_index)
 
     index = choice(indices)
 
-    possible_values = [x for x in range(
-        0, bounds[index] + 1) if x != genes[index]]
+    possible_values = [x for x in range(0, bounds[index] + 1) if x != genes[index]]
 
     return Move([index], [choice(possible_values)])
 
 
-#def probabilistic_mutation(individual, rate=0.25):
-#    """ Perform a probabilistic mutation - at each gene position there is a
-#    chance it will mutate """
-#    
-#    genes = individual.genes[:]
-#    bounds = individual.bounds
-#    changed_indices = []
-#
-#    for index in range(0, len(genes)):
-#        chance = random()
-#        if chance < rate:
-#            possible_values = [x for x in range(0, bounds[index] + 1)
-#                    if x != genes[index]]
-#            if len(possible_values) == 0:
-#                continue
-#            changed_indices.append(index)
-#            genes[index] = choice(possible_values)
-#    return Individual(genes, bounds, individual.params), changed_indices
+def probabilistic_mutation(individual, probability=0.25):
+    """ Perform a probabilistic mutation - at each gene position there is a
+    chance it will mutate """
+    changed_indices = []
+    new_values = []
+
+    for index in range(0, len(individual.genes)):
+        chance = random()
+        if chance < probability:
+            possible_values = [x for x in range(0, individual.bounds[index] + 1)
+                               if x != individual.genes[index]]
+            if not possible_values:
+                continue
+            changed_indices.append(index)
+            new_values.append(choice(possible_values))
+
+    return Move(changed_indices, new_values)
 
 MUTATIONS = {
     'point': point_mutation,
     'single': single_mutation,
-    'active': active_mutation
+    'active': active_mutation,
+    'probabilistic': probabilistic_mutation
 }

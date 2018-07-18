@@ -64,6 +64,18 @@ def test_simple_es_with_active_mutation(function_set, input_data_1d):
 
     assert True, "passed without errors"
 
+def test_simple_es_with_probabilistic_mutation(function_set, input_data_1d):
+    X, y = input_data_1d
+
+    params = Parameters(1, 1, 1, 4, function_set)
+
+    random.seed(0)
+    start = time()
+    result = simple_es(X, y, mean_squared_error, params, mutation='probabilistic')
+
+    print_result(result, start)
+
+    assert True, "passed without errors"
 
 def test_simple_es_with_non_existing_mutation(function_set, input_data_1d):
     X, y = input_data_1d
