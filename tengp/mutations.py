@@ -75,29 +75,17 @@ def active_mutation(individual):
 
     genes = individual.genes[:]
     bounds = individual.bounds
-    nodes = individual.active_nodes
-    node_length = individual.params.function_set.max_arity + 1
-    for node in active_nodes:
-        start_index = node_length * node
-        node_genes = range(start_index, start_index + node_length)
-#        agenes = 
+    agenes = individual.get_active_genes()
 
-
-#    agens = ???
-
-    # simultaneously handle genes with only one possible values
-    # and inactive genes
-    indices = [i for i, (b, a) in enumerate(
-        zip(bounds, agenes)) if b != 0 and a == 1]
+    # choose only genes with more than one possible value
+    indices = [i for b, i in zip(bounds, agenes) if b != 0]
 
     index = choice(indices)
 
     possible_values = [x for x in range(
         0, bounds[index] + 1) if x != genes[index]]
 
-    genes[index] = choice(possible_values)
-
-    return Individual(genes, bounds, individual.params), index
+    return Move([index], [choice(possible_values)])
 
 
 #def probabilistic_mutation(individual, rate=0.25):
