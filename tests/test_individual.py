@@ -15,3 +15,16 @@ def test_active_gene_check(individual):
     assert individual.active_gene(gene_index)
     gene_index = 9
     assert individual.active_gene(gene_index)
+
+def test_get_active_genes(individual):
+    """ Should return indicies of all active genes of given individual """
+    active_genes = individual.get_active_genes()
+
+    assert  active_genes == [0, 1, 2, 6, 7, 8, 9]
+
+def test_get_active_genes_multi(individual_multi):
+    """ Should return indicies of all active genes of given individual with multiple
+    inputs and outputs"""
+    active_genes = individual_multi.get_active_genes()
+
+    assert  active_genes == [3, 4, 5, 9, 10]

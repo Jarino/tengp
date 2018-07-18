@@ -69,29 +69,37 @@ def single_mutation(individual):
     return Move(changed_indices, changed_genes)
 
 
-#def active_mutation(individual, _=None):
-#    """ Perform an active mutation - to-be mutated gene is chosen only
-#    from active genes """
-#
-#    genes = individual.genes[:]
-#    bounds = individual.bounds
-#    agenes = individual.active_genes
-#
-#    # simultaneously handle genes with only one possible values
-#    # and inactive genes
-#    indices = [i for i, (b, a) in enumerate(
-#        zip(bounds, agenes)) if b != 0 and a == 1]
-#
-#    index = choice(indices)
-#
-#    possible_values = [x for x in range(
-#        0, bounds[index] + 1) if x != genes[index]]
-#
-#    genes[index] = choice(possible_values)
-#
-#    return Individual(genes, bounds, individual.params), index
-#
-#
+def active_mutation(individual):
+    """ Perform an active mutation - to-be mutated gene is chosen only
+    from active genes """
+
+    genes = individual.genes[:]
+    bounds = individual.bounds
+    nodes = individual.active_nodes
+    node_length = individual.params.function_set.max_arity + 1
+    for node in active_nodes:
+        start_index = node_length * node
+        node_genes = range(start_index, start_index + node_length)
+#        agenes = 
+
+
+#    agens = ???
+
+    # simultaneously handle genes with only one possible values
+    # and inactive genes
+    indices = [i for i, (b, a) in enumerate(
+        zip(bounds, agenes)) if b != 0 and a == 1]
+
+    index = choice(indices)
+
+    possible_values = [x for x in range(
+        0, bounds[index] + 1) if x != genes[index]]
+
+    genes[index] = choice(possible_values)
+
+    return Individual(genes, bounds, individual.params), index
+
+
 #def probabilistic_mutation(individual, rate=0.25):
 #    """ Perform a probabilistic mutation - at each gene position there is a
 #    chance it will mutate """
@@ -113,5 +121,6 @@ def single_mutation(individual):
 
 MUTATIONS = {
     'point': point_mutation,
-    'single': single_mutation
+    'single': single_mutation,
+    'active': active_mutation
 }

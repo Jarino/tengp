@@ -18,6 +18,7 @@ class Individual(ABC):
         self.params = params
 
     def active_gene(self, gene_index):
+        """ Checks, whether given index is index of a active gene """
         arity = self.params.function_set.max_arity
         if gene_index >= self.params.n_nodes*(arity + 1):
             return True
@@ -25,6 +26,23 @@ class Individual(ABC):
         if node_id in self.active_nodes:
             return True
         return False
+
+    def get_active_genes(self):
+        """ Return all active genes. """
+        active_genes = []
+        arity = self.params.function_set.max_arity
+        for node in self.active_nodes:
+            if self.nodes[node].is_input:
+                continue
+
+            if self.nodes[node].is_output:
+                gindex = self.params.n_nodes * arity + node - self.params.n_inputs
+                active_genes.append(gindex)
+                continue
+
+            start_index = (arity+1)*(node-self.params.n_inputs)
+            active_genes += range(start_index, start_index + arity + 1)
+        return active_genes
 
     @abstractmethod
     def transform(self, X):
