@@ -51,3 +51,13 @@ def individual_multi():
     funset.add(np.add, 2)
     params = Parameters(2, 2, 1, 3, funset)
     return params.individual_class(genes, bounds, params)
+
+@pytest.fixture
+def individual_sin():
+    genes = [0, 0, 1, 1, 0, 2, 0, 0, 3, 4]
+    bounds = [1, 1, 1, 1, 2, 2, 1, 3, 3, 4]
+    funset = FunctionSet()
+    funset.add(np.add, 2)
+    funset.add(np.sin, 1)
+    params = Parameters(2, 1, 1, 3, funset)
+    return params.individual_class(genes, bounds, params)

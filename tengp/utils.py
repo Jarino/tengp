@@ -69,7 +69,12 @@ def active_paths(nodes):
 
         path.append(index)
 
-        for input_index in reversed(current_node.inputs):
+        if not current_node.is_output and not current_node.is_input:
+            inputs = current_node.inputs[:current_node.arity]
+        else:
+            inputs = current_node.inputs
+
+        for input_index in reversed(inputs):
             stack.append((input_index, nodes[input_index]))
 
     if len(path) != 0:
