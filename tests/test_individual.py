@@ -1,4 +1,5 @@
 """ Tests for individual abstract class and its derivatives """
+import pytest
 
 def test_active_gene_check(individual):
     """ Should return true/false value depending on whether the
@@ -28,3 +29,14 @@ def test_get_active_genes_multi(individual_multi):
     active_genes = individual_multi.get_active_genes()
 
     assert  active_genes == [3, 4, 5, 9, 10]
+
+def test_str_of_individual(individual):
+    """ Should return a phenotype (function expression) as string. """
+    expression = individual.get_expression()
+
+    assert expression == ['add(x0,add(x0,x0))']
+
+def test_str_of_multi_individual(individual_multi):
+    """ Should return a phenotype (function expression) as string. """
+    expression = individual_multi.get_expression()
+    assert expression == ['add(x0,x1)', 'add(x0,x1)']

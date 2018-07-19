@@ -19,6 +19,3 @@ class Node():
                 name = 'output'
         return f'{name}, {self.inputs}'
 
-
-
-

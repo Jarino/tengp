@@ -9,6 +9,7 @@ from .utils import map_to_tf_phenotype, map_to_np_phenotype, active_paths, join_
 
 class Individual(ABC):
 
+
     def __init__(self, genes, bounds, params):
         self.fitness = None
         self.genes = genes
@@ -16,6 +17,23 @@ class Individual(ABC):
         self.paths = active_paths(self.nodes)
         self.active_nodes = set(reduce(join_lists, self.paths))
         self.params = params
+
+    def __eq__(self, other):
+        for me, them in zip(self.active_nodes, other.active_nodes):
+            if self.nodes[me].fun != other.nodes[them].fun:
+                return False
+
+            if self.nodes[me].inputs != other.nodes[them].inputs:
+                return False
+
+        return True
+
+    def __repr__(self):
+        return f'Program, f:{self.fitness}'
+
+    @abstractmethod
+    def transform(self, X):
+        pass
 
     def active_gene(self, gene_index):
         """ Checks, whether given index is index of a active gene """
@@ -44,24 +62,28 @@ class Individual(ABC):
             active_genes += range(start_index, start_index + arity + 1)
         return active_genes
 
-    @abstractmethod
-    def transform(self, X):
-        pass
+    def get_expression(self):
+        """ Return string representation of expression (phenotype)."""
+        stack = []
+        result = []
 
-    def __eq__(self, other):
-        for me, them in zip(self.active_nodes, other.active_nodes):
-            if self.nodes[me].fun != other.nodes[them].fun:
-                return False
+        for path in self.paths:
+            for node in path:
+                current_node = self.nodes[node]
 
-            if self.nodes[me].inputs != other.nodes[them].inputs:
-                return False
+                if current_node.is_output:
+                    result.append(stack.pop())
+                elif current_node.is_input:
+                    stack.append(f'x{node}')
+                else:
+                    operands = reversed([stack.pop() for _ in range(0, current_node.arity)])
+                    stack.append('{}({})'.format(current_node.fun.__name__, ','.join(operands)))
 
-        return True
+        return result
 
-    def __repr__(self):
-        return f'Program, f:{self.fitness}'
 
     def apply(self, move):
+        """ Return new individual, as a result of applying given move to current individual."""
         genes = self.genes[:]
 
         for index, value in zip(move.indicies, move.changes):
