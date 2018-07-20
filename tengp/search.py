@@ -45,6 +45,70 @@ def simple_es(X, y, cost_function, params,
         individual.fitness = cost_function(y, output)
         n_evals += 1
 
+    while n_evals < evaluations:
+        generation += 1
+
+        parent = min(population, key=lambda x: x.fitness)
+
+        if parent.fitness <= target_fitness:
+            return population
+
+        population = [parent.apply(move(parent)) for _ in range(population_size - 1)]
+
+        population += [parent]
+
+        for individual in population:
+            output = individual.transform(X)
+            individual.fitness = cost_function(y, output)
+            n_evals += 1
+
+        if verbose and generation % 100 == 0:
+            print(f'Gen: {generation}, population: {sorted([x.fitness for x in population])}')
+
+    population.sort(key=lambda x: x.fitness)
+    return population
+
+@handle_invalid_decorator
+def gems_es(X, y, cost_function, params):
+    pass
+
+@handle_invalid_decorator
+def tabu_es(X, y, cost_function, params,
+            target_fitness=0,
+            population_size=5,
+            evaluations=5000,
+            random_state=None,
+            mutation='point',
+            mutation_probability=0.25,
+            memory_size=10,
+            verbose=False):
+
+    if mutation not in MUTATIONS:
+        raise UnknownMutationException("Provided type of mutation is not implemented.")
+
+    move = MUTATIONS[mutation]
+    if mutation == 'probabilistic':
+        move = partial(move, probability=mutation_probability)
+
+    if random_state:
+        random.seed(random_state)
+
+    # initialize memory
+    memory = []
+
+    # initial generation
+    ib = IndividualBuilder(params)
+
+    population = [ib.create() for _ in range(population_size)]
+
+    n_evals = 0
+
+    generation = 0
+
+    for individual in population:
+        output = individual.transform(X)
+        individual.fitness = cost_function(y, output)
+        n_evals += 1
 
     while n_evals < evaluations:
         generation += 1
@@ -53,6 +117,20 @@ def simple_es(X, y, cost_function, params,
 
         if parent.fitness <= target_fitness:
             return population
+
+        population = []
+        for _ in range(population_size -1):
+            _move = move(parent)
+
+            while _move in memory:
+                _move = move(parent)
+
+            if len(memory) > memory_size:
+                del memory[0]
+
+            memory.append(_move)
+
+            population.append(parent.apply(_move))
 
         population = [parent.apply(move(parent)) for _ in range(population_size - 1)]
 
