@@ -55,12 +55,15 @@ def simple_es(X, y, cost_function, params,
 
         population = [parent.apply(move(parent)) for _ in range(population_size - 1)]
 
-        population += [parent]
-
         for individual in population:
+            if individual == parent:
+                individual.fitness = parent.fitness
+                continue
             output = individual.transform(X)
             individual.fitness = cost_function(y, output)
             n_evals += 1
+
+        population += [parent]
 
         if verbose and generation % 100 == 0:
             print(f'Gen: {generation}, population: {sorted([x.fitness for x in population])}')
@@ -132,14 +135,16 @@ def tabu_es(X, y, cost_function, params,
 
             population.append(parent.apply(_move))
 
-        population = [parent.apply(move(parent)) for _ in range(population_size - 1)]
-
-        population += [parent]
 
         for individual in population:
+            if individual == parent:
+                individual.fitness = parent.fitness
+                continue
             output = individual.transform(X)
             individual.fitness = cost_function(y, output)
             n_evals += 1
+
+        population += [parent]
 
         if verbose and generation % 100 == 0:
             print(f'Gen: {generation}, population: {sorted([x.fitness for x in population])}')
