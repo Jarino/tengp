@@ -19,6 +19,9 @@ class Individual(ABC):
         self.params = params
 
     def __eq__(self, other):
+        if len(self.active_nodes) != len(other.active_nodes):
+            return False
+
         for me, them in zip(self.active_nodes, other.active_nodes):
             if self.nodes[me].fun != other.nodes[them].fun:
                 return False
