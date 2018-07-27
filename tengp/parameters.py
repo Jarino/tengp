@@ -8,6 +8,7 @@ class Parameters():
                  n_columns,
                  function_set,
                  fitness_of_invalid=float('inf'),
+                 real_valued=False,
                  use_tensorflow=False):
 
         self.n_inputs = n_inputs
@@ -21,6 +22,7 @@ class Parameters():
             self.individual_class = TFIndividual
         else:
             self.individual_class = NPIndividual
+        self.real_valued = real_valued
 
 class FunctionSet():
     def __init__(self):

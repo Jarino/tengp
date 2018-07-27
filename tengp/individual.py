@@ -1,3 +1,4 @@
+import math
 from abc import ABC, abstractmethod
 from functools import reduce
 
@@ -14,7 +15,7 @@ class Individual(ABC):
         self.fitness = None
         self.genes = genes
         self.bounds = bounds
-        self.paths = active_paths(self.nodes)
+        self.paths = active_paths(self.nodes, params.real_valued)
         self.active_nodes = set(reduce(join_lists, self.paths))
         self.params = params
 
@@ -96,12 +97,12 @@ class Individual(ABC):
 
 
 class NPIndividual(Individual):
-
     def __init__(self, genes, bounds, params):
-        self.nodes = map_to_np_phenotype(genes, params)
+        self.nodes = map_to_np_phenotype(genes, params, params.real_valued)
         Individual.__init__(self, genes, bounds, params)
 
     def transform(self, X):
+        funset = self.params.function_set
         for path in self.paths:
             for index in path:
                 current_node = self.nodes[index]
@@ -112,8 +113,31 @@ class NPIndividual(Individual):
                     input_index = current_node.inputs[0]
                     current_node.value = self.nodes[input_index].value
                 else:
-                    values = [self.nodes[i].value for i in current_node.inputs[:current_node.arity]]
-                    current_node.value = current_node.fun(*values)
+                    if self.params.real_valued:
+                        a = current_node.fun
+                        fun_lower, _ = funset[math.floor(current_node.fun)]
+                        fun_upper, _ = funset[math.ceil(current_node.fun)]
+                        b = current_node.inputs[0]
+                        c = current_node.inputs[1]
+
+                        # actual indices
+                        b_lower = math.floor(b)
+                        b_upper = math.ceil(b)
+
+                        # actual indices
+                        c_lower = math.floor(c)
+                        c_upper = math.ceil(b)
+                        values = self.nodes
+                        lower_function = (1-a)*( fun_lower((1-b) * values[b_lower].value, b*values[b_upper].value))
+
+                        upper_function = a*( fun_upper((1-c) * values[c_lower].value, c * values[c_upper].value))
+
+                        current_node.value = lower_function + upper_function
+                        print('evaluation', values[b_lower].value, current_node.value)
+                        pass
+                    else:
+                        values = [self.nodes[i].value for i in current_node.inputs[:current_node.arity]]
+                        current_node.value = current_node.fun(*values)
 
         output = []
         for i in range(1, self.params.n_outputs + 1):

@@ -1,11 +1,13 @@
 #import tensorflow as tf
+import math
 
-from .node import Node
+from .node import Node, RealValuedNode
 
 class UnknownMutationException(Exception):
     pass
 
-def map_to_np_phenotype(genes, params):
+def map_to_np_phenotype(genes, params, real_valued=False):
+
     nodes = []
     for _ in range(params.n_inputs):
         nodes.append(Node(None, [], is_input=True))
@@ -17,7 +19,10 @@ def map_to_np_phenotype(genes, params):
 
         function, arity = params.function_set[node_genes[0]]
 
-        nodes.append(Node(function, node_genes[1:], arity))
+        if real_valued:
+            nodes.append(RealValuedNode(node_genes[0], node_genes[1:], arity))
+        else:
+            nodes.append(Node(function, node_genes[1:], arity))
 
     for gene in genes[-params.n_outputs:]:
         nodes.append(Node(None, [gene], is_output=True))
@@ -43,7 +48,7 @@ def map_to_tf_phenotype(genes, params):
 
     return nodes
 
-def active_paths(nodes):
+def active_paths(nodes, real_valued=False):
     stack = []
     paths = []
     path = []
@@ -70,7 +75,11 @@ def active_paths(nodes):
         path.append(index)
 
         if not current_node.is_output and not current_node.is_input:
-            inputs = current_node.inputs[:current_node.arity]
+            if real_valued:
+                nested = [[math.floor(i), math.ceil(i)] for i in current_node.inputs[:current_node.arity]]
+                inputs = [x for y in nested for x in y]
+            else:
+                inputs = current_node.inputs[:current_node.arity]
         else:
             inputs = current_node.inputs
 
