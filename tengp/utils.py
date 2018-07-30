@@ -17,11 +17,11 @@ def map_to_np_phenotype(genes, params, real_valued=False):
     for i in range(params.n_nodes):
         node_genes = genes[i * chunk_size : (i * chunk_size) + chunk_size]
 
-        function, arity = params.function_set[node_genes[0]]
 
         if real_valued:
-            nodes.append(RealValuedNode(node_genes[0], node_genes[1:], arity))
+            nodes.append(RealValuedNode(node_genes[0], node_genes[1:], 2))
         else:
+            function, arity = params.function_set[node_genes[0]]
             nodes.append(Node(function, node_genes[1:], arity))
 
     for gene in genes[-params.n_outputs:]:
@@ -83,8 +83,18 @@ def active_paths(nodes, real_valued=False):
         else:
             inputs = current_node.inputs
 
+        inputs_to_stack = []
         for input_index in reversed(inputs):
-            stack.append((input_index, nodes[input_index]))
+            if real_valued:
+                lower = math.floor(input_index)
+                upper = math.ceil(input_index)
+
+                inputs_to_stack.append(lower)
+                inputs_to_stack.append(upper)
+            else:
+                inputs_to_stack.append(input_index)
+        for index in set(inputs_to_stack):
+            stack.append((index, nodes[index]))
 
     if len(path) != 0:
         paths.append(list(reversed(path)))

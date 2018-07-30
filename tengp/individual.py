@@ -111,9 +111,18 @@ class NPIndividual(Individual):
                     current_node.value = X[:, index]
                 elif current_node.is_output:
                     input_index = current_node.inputs[0]
-                    current_node.value = self.nodes[input_index].value
+                    if self.params.real_valued:
+                        lower = math.floor(input_index)
+                        upper = math.ceil(input_index)
+                        coeff = input_index
+                        value = (1-coeff)*self.nodes[lower].value + coeff*self.nodes[upper].value
+                        current_node.value = value
+                    else:
+                        current_node.value = self.nodes[input_index].value
                 else:
                     if self.params.real_valued:
+                        if current_node.value is not None:
+                            continue
                         a = current_node.fun
                         fun_lower, _ = funset[math.floor(current_node.fun)]
                         fun_upper, _ = funset[math.ceil(current_node.fun)]
@@ -127,14 +136,17 @@ class NPIndividual(Individual):
                         # actual indices
                         c_lower = math.floor(c)
                         c_upper = math.ceil(b)
-                        values = self.nodes
-                        lower_function = (1-a)*( fun_lower((1-b) * values[b_lower].value, b*values[b_upper].value))
 
-                        upper_function = a*( fun_upper((1-c) * values[c_lower].value, c * values[c_upper].value))
+                        # coefficients
+                        a = a - int(a)
+                        b = b - int(b)
+                        c = c - int(c)
+                        lower_function = (1-a)*( fun_lower((1-b) * self.nodes[b_lower].value, b*self.nodes[b_upper].value))
+
+                        upper_function = a*( fun_upper((1-c) * self.nodes[c_lower].value, c * self.nodes[c_upper].value))
 
                         current_node.value = lower_function + upper_function
-                        print('evaluation', values[b_lower].value, current_node.value)
-                        pass
+
                     else:
                         values = [self.nodes[i].value for i in current_node.inputs[:current_node.arity]]
                         current_node.value = current_node.fun(*values)

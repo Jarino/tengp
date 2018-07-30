@@ -7,6 +7,7 @@ class Node():
         self.arity = arity
         self.is_output = is_output
         self.is_input = is_input
+        self.visited = False
 
     def __repr__(self):
         name = ''
