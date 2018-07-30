@@ -141,11 +141,11 @@ class NPIndividual(Individual):
                         a = a - int(a)
                         b = b - int(b)
                         c = c - int(c)
-                        lower_function = (1-a)*( fun_lower((1-b) * self.nodes[b_lower].value, b*self.nodes[b_upper].value))
+                        lower_function = (1-a)*(fun_lower((1-b) * self.nodes[b_lower].value, (1-c)*self.nodes[c_lower].value))
 
-                        upper_function = a*( fun_upper((1-c) * self.nodes[c_lower].value, c * self.nodes[c_upper].value))
+#                        upper_function =     a*(fun_upper(   b  * self.nodes[b_upper].value,    c * self.nodes[c_upper].value))
 
-                        current_node.value = lower_function + upper_function
+                        current_node.value = lower_function# + upper_function
 
                     else:
                         values = [self.nodes[i].value for i in current_node.inputs[:current_node.arity]]

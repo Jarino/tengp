@@ -6,9 +6,10 @@ import numpy as np
 
 from tengp.node import RealValuedNode
 from tengp import FunctionSet, Parameters
-from tengp.individual import NPIndividual
+from tengp.individual import NPIndividual, IndividualBuilder
 from tengp.utils import map_to_np_phenotype, active_paths
 
+@pytest.mark.skip
 def test_real_valued_mapping():
     funset = FunctionSet()
     funset.add(None, 2)
@@ -18,51 +19,12 @@ def test_real_valued_mapping():
 
     nodes = map_to_np_phenotype(genes, params, real_valued=True)
 
-    print(nodes)
-
     paths = active_paths(nodes, real_valued=True)
-
-    print(paths)
 
     assert True
 
-def test_mapping_single_node():
-    inputs = np.array([[1,2], [3,4]])
-    nodes = [np.array([1,3]), np.array([2,4])]
-    funset = FunctionSet()
 
-    funset.add(np.add, 2)
-    funset.add(np.subtract, 2)
-    funset.add(np.multiply, 2)
-
-    node = RealValuedNode(0.6, [0.7, 0.2])
-
-    # coefficients
-    a = node.fun
-    b = node.inputs[0]
-    c = node.inputs[1]
-
-    fun_lower, _ = funset[math.floor(a)]
-    fun_upper, _ = funset[math.ceil(a)]
-
-    # actual indices
-    b_lower = math.floor(b)
-    b_upper = math.ceil(b)
-
-    # actual indices
-    c_lower = math.floor(c)
-    c_upper = math.ceil(b)
-
-    lower_function = (1-a)*( fun_lower((1-b) * nodes[b_lower], b*nodes[b_upper]))
-
-    upper_function = a*( fun_upper((1-c) * nodes[c_lower], c * nodes[c_upper]))
-
-    value = lower_function + upper_function
-    print('test', nodes[b_lower], value)
-
-    # assert
-    np.testing.assert_allclose(value, [0.92, 2.44])
-
+@pytest.mark.skip
 def test_real_valued_individual_creation():
     funset = FunctionSet()
     funset.add(None, 2)
@@ -74,10 +36,10 @@ def test_real_valued_individual_creation():
 
     individual = NPIndividual(genes, bounds, params)
 
-    print(individual.active_nodes)
 
     assert individual.active_nodes == {0, 1, 2, 4, 5}
 
+@pytest.mark.skip
 def test_real_valued_individual_evaluation():
     X = np.array([[1,2], [3,4]])
     funset = FunctionSet()
@@ -94,8 +56,43 @@ def test_real_valued_individual_evaluation():
 
     output = individual.transform(X).T[0]
 
-    print(output)
 
     # assert
     np.testing.assert_allclose(output, [1.7, 3.7])
+
+
+def test_same_output():
+    """ Classic integer individuals should output the same  value as the real
+    valued individual with same genes"""
+
+    X = np.array([[1,2], [3,4]])
+
+    def pdivide(x, y):
+        return np.divide(x, y, out=np.copy(x), where=x!=0)
+
+    funset = FunctionSet()
+    funset.add(np.add, 2)
+    funset.add(np.subtract, 2)
+    funset.add(np.multiply, 2)
+    funset.add(pdivide, 2)
+
+    genes = [2, 1, 0, 0, 1, 0, 2, 2, 1, 2, 3, 2, 2, 5, 5, 2, 5, 4, 0, 7, 6, 1, 0, 1, 1, 8, 9, 2, 1, 8, 8]
+    params = Parameters(2, 1, 1, 10, funset)
+    rv_params = Parameters(2, 1, 1, 10, funset, real_valued=True)
+    bounds = IndividualBuilder(params).create().bounds[:]
+
+
+    int_individual = params.individual_class(genes, bounds, params)
+
+
+    int_output = int_individual.transform(X)
+    print(int_output)
+
+    rv_individual = rv_params.individual_class(genes, bounds, rv_params)
+
+    rv_output = rv_individual.transform(X)
+    print(rv_output)
+
+    #assert int_output == rv_output
+    np.testing.assert_allclose(int_output, rv_output)
 
