@@ -1,41 +1,32 @@
-from time import time
-import random
-
-import tensorflow as tf
 import numpy as np
 
-from parameters import Parameters, FunctionSet
-from sklearn.metrics import mean_squared_error
+X = np.array([[3,4,5],[2,1,7], [1,1,1]])
+x0 = X[0,:]
+x1 = X[1,:]
+x2 = X[2,:]
 
-X = [
-    np.array([1, 2, 3], dtype=np.float32),
-]
+def fadd(x, y):
+    return x + y
 
-y = np.array([3, 6, 9])
+def fmul(x, y):
+    return x * y
 
-tf_funset = FunctionSet()
-tf_funset.add(tf.add, 2)
-tf_funset.add(tf.multiply, 2)
-tf_funset.add(tf.log, 1)
+def fsub(x, y):
+    return x - y
 
-funset = FunctionSet()
-funset.add(np.add, 2)
-funset.add(np.multiply, 2)
-funset.add(np.log, 1)
+def p(c):
+    return np.sin(np.pi*c)
 
-params = Parameters(1, 1, 1, 3, funset, use_tensorflow=False)
+0.1*fadd(p(0.9)*x1, p(0.3)*x1) + 0.9*fmul(p(0.1)*x2, p(0.7)*x2)
 
-random.seed(0)
-start = time()
-result = evolution_strategy(X, y, mean_squared_error, params)
+0.9*fmul(p(0.1)*x2, p(0.7)*x2) + 0.1*fsub(p(0.9)*x1, p(0.3)*x1)
 
-print(f'Numpy result: {result}, time: {time() - start}')
+0.8*fmul(p(0.1)*x2, p(0.7)*x2) + 0.2*fsub(p(0.9)*x1, p(0.3)*x1)
 
-params = Parameters(1, 1, 1, 3, tf_funset, use_tensorflow=True)
+0.7*fmul(p(0.1)*x2, p(0.7)*x2) + 0.3*fsub(p(0.9)*x1, p(0.3)*x1)
 
-random.seed(0)
+0.6*fmul(p(0.1)*x2, p(0.7)*x2) + 0.4*fsub(p(0.9)*x1, p(0.3)*x1)
 
-start = time()
-result = evolution_strategy(X, y, mean_squared_error, params)
+0.5*fmul(p(0.1)*x2, p(0.7)*x2) + 0.5*fsub(p(0.9)*x1, p(0.3)*x1)
 
-print(f'Tensorflow result: {result}, time: {time() - start}')
+0.4*fmul(p(0.9)*x1, p(0.3)*x1) + 0.6*fsub(p(0.1)*x2, p(0.7)*x2)

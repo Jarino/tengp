@@ -95,7 +95,6 @@ class Individual(ABC):
 
         return self.params.individual_class(genes, self.bounds, self.params)
 
-
 class NPIndividual(Individual):
     def __init__(self, genes, bounds, params):
         self.nodes = map_to_np_phenotype(genes, params, params.real_valued)
@@ -103,6 +102,7 @@ class NPIndividual(Individual):
 
     def transform(self, X):
         funset = self.params.function_set
+        sfn = self.params.sfn
         for path in self.paths:
             for index in path:
                 current_node = self.nodes[index]
@@ -141,11 +141,15 @@ class NPIndividual(Individual):
                         a = a - int(a)
                         b = b - int(b)
                         c = c - int(c)
-                        lower_function = (1-a)*(fun_lower((1-b) * self.nodes[b_lower].value, (1-c)*self.nodes[c_lower].value))
 
-#                        upper_function =     a*(fun_upper(   b  * self.nodes[b_upper].value,    c * self.nodes[c_upper].value))
+                        lower_inputs = [sfn(1-b) * self.nodes[b_lower].value, sfn(1-c)*self.nodes[c_lower].value]
+                        upper_inputs = [ sfn(b)  * self.nodes[b_upper].value, sfn(c) * self.nodes[c_upper].value]
 
-                        current_node.value = lower_function# + upper_function
+                        lower_function = sfn(1-a)*(fun_lower(*lower_inputs))# + sfn(a)*fun_lower(*upper_inputs)
+
+                        upper_function = sfn(a)*(fun_upper(*upper_inputs))# + sfn(1-a)*fun_upper(*lower_inputs)
+
+                        current_node.value = lower_function + upper_function
 
                     else:
                         values = [self.nodes[i].value for i in current_node.inputs[:current_node.arity]]
