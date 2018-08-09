@@ -95,11 +95,11 @@ class Individual(ABC):
 
         return self.params.individual_class(genes, self.bounds, self.params)
 
-def compute(a,b,c,x_l1,x_l2,x_u1,x_u2,f_l,f_u):
-    L = [(1-b)*x_l1, (1-c)*x_l2]
-    U = [b*x_u1, c*x_u2]
-    l = (1-a)*f_l(*L) + (1-a)*f_l(*U)
-    u = a*f_u(*L) + a*f_u(*U)
+def compute(a, b, c, x_l1, x_l2, x_u1, x_u2, f_l, f_u):
+    L = (1-b)*x_l1 + b*x_u1
+    U = (1-c)*x_l2 + c*x_u2
+    l = (1-a)*f_l(L, U)
+    u = a*f_u(L, U)
     return l + u
 
 class NPIndividual(Individual):
@@ -149,31 +149,15 @@ class NPIndividual(Individual):
                         b = b - int(b)
                         c = c - int(c)
 
+
                         current_node.value = compute(a,b,c,
                                 self.nodes[b_lower].value,self.nodes[c_lower].value,
                                 self.nodes[b_upper].value,self.nodes[c_upper].value,
                                 fun_lower, fun_upper)
-                        print('in')
-                        print(f'a={a}, b={b}, c={c}, x_l1={b_lower}, x_l2={c_lower}, x_u1={b_upper}, x_u2={c_upper}, f_l={fun_lower}, f_u={fun_upper}')
-                        print('out')
-                        print(current_node.value)
-
-#def compute(a,b,c,x_l1,x_l2,x_u1,x_u2,f_l,f_u):
-
-
-
-#                        lower_inputs = [(1-b) * self.nodes[b_lower].value, (1-c) * self.nodes[c_lower].value]
-#                        print(f'lower, b={b:.02}, c={c:.2}: {1-b:.2} * X{b_lower}, {1-c:.2} * X{c_lower}') 
-#
-#                        upper_inputs = [ (b)  * self.nodes[b_upper].value, (c)   * self.nodes[c_upper].value]
-#                        print(f'upper, b={b:.02}, c={c:.2}: {b:.2} * X{b_upper}, {c:.2} * X{c_upper}') 
-#
-#                        lower_function = (1-a)*fun_lower(*lower_inputs) + (1-a)*fun_lower(*upper_inputs)
-#
-#                        upper_function =     a*fun_upper(*lower_inputs) +     a*fun_upper(*upper_inputs)
-#
-#                        current_node.value = lower_function + upper_function
-#                        print(f'value: {current_node.value}')
+                        #print('in')
+                        #print(f'a={a}, b={b}, c={c}, x_l1={b_lower}, x_l2={c_lower}, x_u1={b_upper}, x_u2={c_upper}, f_l={fun_lower}, f_u={fun_upper}')
+                        #print('out')
+                        #print(current_node.value)
 
                     else:
                         values = [self.nodes[i].value for i in current_node.inputs[:current_node.arity]]

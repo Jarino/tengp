@@ -14,19 +14,47 @@ def fmul(x, y):
 def fsub(x, y):
     return x - y
 
+def pdivide(x, y):
+    return np.divide(x, y, out=np.copy(x), where=x!=0)
+
 def p(c):
     return np.sin(np.pi*c)
 
-0.1*fadd(p(0.9)*x1, p(0.3)*x1) + 0.9*fmul(p(0.1)*x2, p(0.7)*x2)
+import tengp
 
-0.9*fmul(p(0.1)*x2, p(0.7)*x2) + 0.1*fsub(p(0.9)*x1, p(0.3)*x1)
+from gpbenchmarks import get_data
 
-0.8*fmul(p(0.1)*x2, p(0.7)*x2) + 0.2*fsub(p(0.9)*x1, p(0.3)*x1)
+X, y = get_data('nguyenf12', 6, -1, 1)
+X = np.c_[np.ones(len(X)), X]
 
-0.7*fmul(p(0.1)*x2, p(0.7)*x2) + 0.3*fsub(p(0.9)*x1, p(0.3)*x1)
+funset = tengp.FunctionSet()
+funset.add(np.add, 2)
+funset.add(np.multiply, 2)
+funset.add(np.subtract, 2)
+funset.add(pdivide, 2)
 
-0.6*fmul(p(0.1)*x2, p(0.7)*x2) + 0.4*fsub(p(0.9)*x1, p(0.3)*x1)
+params = tengp.Parameters(3, 1, 1, 2, funset, real_valued=True)
 
-0.5*fmul(p(0.1)*x2, p(0.7)*x2) + 0.5*fsub(p(0.9)*x1, p(0.3)*x1)
+bounds = tengp.individual.IndividualBuilder(params).create().bounds
+bounds
 
-0.4*fmul(p(0.9)*x1, p(0.3)*x1) + 0.6*fsub(p(0.1)*x2, p(0.7)*x2)
+individual = params.individual_class([3, 2, 2,
+                                      3, 3, 3,
+                                      4], bounds, params)
+
+print(individual.active_nodes)
+
+
+y_pred = individual.transform(X)
+
+from sklearn.metrics import mean_squared_error
+
+print('first node')
+print(individual.nodes[3].value, mean_squared_error(individual.nodes[3].value, y))
+
+print('second node')
+print(individual.nodes[4].value, mean_squared_error(individual.nodes[4].value, y))
+
+print('final output')
+print([x[0] for x in list(y_pred)], mean_squared_error(y_pred, y))
+
