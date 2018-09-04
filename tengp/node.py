@@ -21,8 +21,5 @@ class Node():
         return f'{name}, {self.inputs}'
 
 class RealValuedNode(Node):
-    def evaluate(self):
-        print('no nech ti nejebe')
-
     def __repr__(self):
         return f'{self.fun}, {self.inputs}'
