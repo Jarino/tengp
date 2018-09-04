@@ -65,6 +65,6 @@ res = tengp.simple_es(X_train, y_train, cost_function, params, target_fitness=-1
 
 # evaluate the best individual
 y_pred = res[0].transform(X_test)
-labels = np.array(y_pred).argmax(axis=0)
+labels = np.array(y_pred).argmax(axis=1)
 print('Accuracy on test: {:.2}'.format(accuracy_score(y_test, labels)))
 ```
