@@ -34,12 +34,12 @@ def test_str_of_individual(individual):
     """ Should return a phenotype (function expression) as string. """
     expression = individual.get_expression()
 
-    assert expression == ['add(x0,add(x0,x0))']
+    assert expression == ['add(add(x0,x0),x0)']
 
 def test_str_of_multi_individual(individual_multi):
     """ Should return a phenotype (function expression) as string. """
     expression = individual_multi.get_expression()
-    assert expression == ['add(x0,x1)', 'add(x0,x1)']
+    assert expression == ['add(x1,x0)', 'add(x1,x0)']
 
 def test_arity_one_inactivity(individual_sin):
     """ If there is arity of node lesser than max arity, unused inputs should

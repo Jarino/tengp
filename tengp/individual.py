@@ -79,7 +79,7 @@ class Individual(ABC):
                 elif current_node.is_input:
                     stack.append(f'x{node}')
                 else:
-                    operands = reversed([stack.pop() for _ in range(0, current_node.arity)])
+                    operands = [stack.pop() for _ in range(0, current_node.arity)]
                     stack.append('{}({})'.format(current_node.fun.__name__, ','.join(operands)))
 
         return result
