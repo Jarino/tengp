@@ -115,3 +115,9 @@ def handle_invalid_decorator(fun):
         new_args[2] = wrapped_cost_function
         return fun(*new_args, **kwargs)
     return wrapper
+
+def clamp_bottom(number, minimum):
+    if number < minimum:
+        return minimum
+    return number
+
