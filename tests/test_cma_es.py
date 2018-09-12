@@ -2,10 +2,12 @@
 import random
 from time import time
 
+import pytest
 from sklearn.metrics import mean_squared_error
 
 from tengp import cma_es, Parameters
 
+@pytest.mark.skip(reason="to be deleted functionality")
 def test_cma_es_integration(function_set, input_data_1d):
     """ Test happy path for basic CMA-ES run """
     X, y = input_data_1d
@@ -20,6 +22,7 @@ def test_cma_es_integration(function_set, input_data_1d):
 
     assert True, "passed without error"
 
+@pytest.mark.skip(reason="to be deleted functionality")
 def test_integration_with_inf_and_CMA(advanced_function_set, input_data_1d):
     """ Test whether CMA-ES will pass also with NaN or infinity in input for
     cost_function evaluation."""

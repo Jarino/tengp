@@ -8,6 +8,7 @@ import numpy as np
 from .genotype_factory import GenotypeFactory
 from .utils import map_to_tf_phenotype, map_to_np_phenotype, active_paths, join_lists
 
+
 class Individual(ABC):
 
 
@@ -80,7 +81,7 @@ class Individual(ABC):
                 elif current_node.is_input:
                     stack.append(f'x{node}')
                 else:
-                    operands = reversed([stack.pop() for _ in range(0, current_node.arity)])
+                    operands = [stack.pop() for _ in range(0, current_node.arity)]
                     stack.append('{}({})'.format(current_node.fun.__name__, ','.join(operands)))
 
         return result
