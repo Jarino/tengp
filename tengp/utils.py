@@ -59,12 +59,14 @@ def active_paths(nodes, real_valued=False):
     for node in reversed(nodes):
         if node.is_output:
             stack.append((index, node))
+            node.visited = True
             index -= 1
         else: # output nodes should be only at the end of nodes list
             break
 
     while len(stack) > 0:
         index, current_node = stack.pop()
+        current_node.visited = True
 
         not_first_output_node = len(path) != 0
 
@@ -93,7 +95,11 @@ def active_paths(nodes, real_valued=False):
                 inputs_to_stack.append(upper)
             else:
                 inputs_to_stack.append(input_index)
+
+        stack_keys = [x for x, y in stack]
         for index in set(inputs_to_stack):
+            if nodes[index].visited:
+               continue
             stack.append((index, nodes[index]))
 
     if len(path) != 0:

@@ -111,7 +111,7 @@ class NPIndividual(Individual):
         funset = self.params.function_set
         sfn = self.params.sfn
         for path in self.paths:
-            for index in path:
+            for index in sorted(set(path)):
                 current_node = self.nodes[index]
 
                 if current_node.is_input: # is input node 
@@ -149,15 +149,10 @@ class NPIndividual(Individual):
                         b = b - int(b)
                         c = c - int(c)
 
-
                         current_node.value = compute(a,b,c,
                                 self.nodes[b_lower].value,self.nodes[c_lower].value,
                                 self.nodes[b_upper].value,self.nodes[c_upper].value,
                                 fun_lower, fun_upper)
-                        #print('in')
-                        #print(f'a={a}, b={b}, c={c}, x_l1={b_lower}, x_l2={c_lower}, x_u1={b_upper}, x_u2={c_upper}, f_l={fun_lower}, f_u={fun_upper}')
-                        #print('out')
-                        #print(current_node.value)
 
                     else:
                         values = [self.nodes[i].value for i in current_node.inputs[:current_node.arity]]
