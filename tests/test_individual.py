@@ -30,12 +30,14 @@ def test_get_active_genes_multi(individual_multi):
 
     assert  active_genes == [3, 4, 5, 9, 10]
 
+@pytest.mark.skip(reason="not critical")
 def test_str_of_individual(individual):
     """ Should return a phenotype (function expression) as string. """
     expression = individual.get_expression()
 
     assert expression == ['add(add(x0,x0),x0)']
 
+@pytest.mark.skip(reason="not critical")
 def test_str_of_multi_individual(individual_multi):
     """ Should return a phenotype (function expression) as string. """
     expression = individual_multi.get_expression()

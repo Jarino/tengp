@@ -14,12 +14,18 @@ def map_to_np_phenotype(genes, params, real_valued=False):
 
     chunk_size = params.function_set.max_arity + 1
 
+    if real_valued and params.constants:
+        chunk_size += 1
+
     for i in range(params.n_nodes):
         node_genes = genes[i * chunk_size : (i * chunk_size) + chunk_size]
 
 
         if real_valued:
-            nodes.append(RealValuedNode(node_genes[0], node_genes[1:], 2))
+            new_node = RealValuedNode(node_genes[0], node_genes[1:1+params.function_set.max_arity], 2)
+            if params.constants:
+                new_node.constant = node_genes[-1]
+            nodes.append(new_node)
         else:
             function, arity = params.function_set[node_genes[0]]
             nodes.append(Node(function, node_genes[1:], arity))
@@ -36,12 +42,14 @@ def map_to_tf_phenotype(genes, params):
 
     chunk_size = params.function_set.max_arity + 1
 
+
     for i in range(params.n_nodes):
         node_genes = genes[i * chunk_size : (i * chunk_size) + chunk_size]
 
         function, arity = params.function_set[node_genes[0]]
 
-        nodes.append(Node(function, node_genes[1:], arity))
+        nodes.append(Node(function, node_genes[1:1+params.function_set.max_arity], arity))
+
 
     for gene in genes[-params.n_outputs:]:
         nodes.append(Node(tf.Variable, [gene], is_output=True))

@@ -9,6 +9,7 @@ class Parameters():
                  function_set,
                  fitness_of_invalid=float('inf'),
                  real_valued=False,
+                 constants=None,
                  smoothing_fn=None,
                  use_tensorflow=False,
                  max_back=None):
@@ -20,6 +21,7 @@ class Parameters():
         self.n_rows = n_rows
         self.function_set = function_set
         self.fitness_of_invalid = fitness_of_invalid
+        self.constants = constants
 
         if use_tensorflow:
             self.individual_class = TFIndividual

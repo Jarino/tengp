@@ -1,4 +1,5 @@
 from random import randint
+from random import uniform
 
 from .utils import clamp_bottom
 
@@ -22,6 +23,7 @@ class GenotypeFactory():
         self.funset = parameters.function_set
         self.n_fun_nodes = self.n_cols * self.n_rows
         self.n_funs = len(self.funset)
+        self.constants = parameters.constants
 
     def create(self):
         """
@@ -55,6 +57,11 @@ class GenotypeFactory():
                 u_bounds.append(upper_bound)
                 l_bounds.append(lower_bound)
                 genes.append(randint(lower_bound, upper_bound))
+
+            if self.constants:
+                l_bounds.append(0)
+                u_bounds.append(self.constants)
+                genes.append(uniform(0, self.constants))
 
         output_gene_upper_bound = self.n_ins + self.n_fun_nodes - 1
         output_gene_lower_bound = clamp_bottom(

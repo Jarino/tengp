@@ -96,9 +96,16 @@ class Individual(ABC):
 
         return self.params.individual_class(genes, self.bounds, self.params)
 
-def compute(a, b, c, x_l1, x_l2, x_u1, x_u2, f_l, f_u):
-    L = (1-b)*x_l1 + b*x_u1
-    U = (1-c)*x_l2 + c*x_u2
+def compute(a, b, c, x_l1, x_l2, x_u1, x_u2, f_l, f_u, constant):
+    if f_l.__name__ == 'constant':
+        L = np.tile(constant, x_l1.shape)
+    else:
+        L = (1-b)*x_l1 + b*x_u1
+    if f_u.__name__ == 'constant':
+        U = np.tile(constant, x_l1.shape)
+    else:
+        U = (1-c)*x_l2 + c*x_u2
+
     l = (1-a)*f_l(L, U)
     u = a*f_u(L, U)
     return l + u
@@ -150,10 +157,11 @@ class NPIndividual(Individual):
                         b = b - int(b)
                         c = c - int(c)
 
+
                         current_node.value = compute(a,b,c,
                                 self.nodes[b_lower].value,self.nodes[c_lower].value,
                                 self.nodes[b_upper].value,self.nodes[c_upper].value,
-                                fun_lower, fun_upper)
+                                fun_lower, fun_upper, current_node.constant)
 
                     else:
                         values = [self.nodes[i].value for i in current_node.inputs[:current_node.arity]]

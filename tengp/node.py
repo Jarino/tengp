@@ -8,6 +8,7 @@ class Node():
         self.is_output = is_output
         self.is_input = is_input
         self.visited = False
+        self.constant = 1
 
     def __repr__(self):
         name = ''
