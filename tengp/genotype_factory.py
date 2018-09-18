@@ -61,7 +61,7 @@ class GenotypeFactory():
             if self.constants:
                 l_bounds.append(0)
                 u_bounds.append(self.constants)
-                genes.append(uniform(0, self.constants))
+                genes.append(1)
 
         output_gene_upper_bound = self.n_ins + self.n_fun_nodes - 1
         output_gene_lower_bound = clamp_bottom(
