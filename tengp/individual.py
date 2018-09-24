@@ -1,3 +1,5 @@
+""" Module holding some interesting stuff. """
+
 from abc import ABC, abstractmethod
 from functools import reduce
 
@@ -9,9 +11,12 @@ from .utils import map_to_tf_phenotype, map_to_np_phenotype, active_paths, join_
 
 
 class Individual(ABC):
+    """ Individual class """
 
 
     def __init__(self, genes, bounds, params):
+        """
+        """
         self.fitness = None
         self.genes = genes
         self.bounds = bounds
