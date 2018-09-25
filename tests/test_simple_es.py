@@ -24,6 +24,22 @@ def test_simple_es(function_set, input_data_1d):
 
     assert True, "passed without errors"
 
+def test_simple_es_with_log(function_set, input_data_1d):
+    X, y = input_data_1d
+
+    params = Parameters(1, 1, 1, 3, function_set, use_tensorflow=False)
+    log = []
+
+    random.seed(0)
+    start = time()
+    result = simple_es(X, y, mean_squared_error, params, log=log)
+
+    print_result(result, start)
+
+    assert len(log) > 0
+
+    assert True, "passed without errors"
+
 
 def test_simple_es_with_inf(advanced_function_set, input_data_1d):
     X, y = input_data_1d

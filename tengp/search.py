@@ -19,7 +19,11 @@ def simple_es(X, y, cost_function, params,
               random_state=None,
               mutation='point',
               mutation_probability=0.25,
-              verbose=False):
+              verbose=False,
+              log=None):
+    """
+    Returns the last population and log of best fitness during evolution
+    """
 
     if mutation not in MUTATIONS:
         raise UnknownMutationException("Provided type of mutation is not implemented.")
@@ -51,6 +55,9 @@ def simple_es(X, y, cost_function, params,
 
         parent = min(population, key=lambda x: x.fitness)
 
+        if log is not None:
+            log.append(parent.fitness)
+
         if parent.fitness <= target_fitness:
             return population
 
@@ -66,8 +73,14 @@ def simple_es(X, y, cost_function, params,
         if verbose and generation % 100 == 0:
             print(f'Gen: {generation}, population: {sorted([x.fitness for x in population])}')
 
+
     population.sort(key=lambda x: x.fitness)
+
+    if log is not None:
+        log.append(population[0].fitness)
+
     return population
+
 
 @handle_invalid_decorator
 def cma_es(X, y, cost_function, params,
