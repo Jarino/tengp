@@ -1,0 +1,321 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>tengp package &#8212; TenGP 1.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="tengp-package">
+<h1>tengp package<a class="headerlink" href="#tengp-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-tengp.genotype_factory">
+<span id="tengp-genotype-factory-module"></span><h2>tengp.genotype_factory module<a class="headerlink" href="#module-tengp.genotype_factory" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tengp.genotype_factory.GenotypeFactory">
+<em class="property">class </em><code class="descclassname">tengp.genotype_factory.</code><code class="descname">GenotypeFactory</code><span class="sig-paren">(</span><em>parameters</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/genotype_factory.html#GenotypeFactory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.genotype_factory.GenotypeFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="tengp.genotype_factory.GenotypeFactory.create">
+<code class="descname">create</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/genotype_factory.html#GenotypeFactory.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.genotype_factory.GenotypeFactory.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an individual primitives</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">tuple holding list of genes and list of bounds</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">tuple</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tengp.individual">
+<span id="tengp-individual-module"></span><h2>tengp.individual module<a class="headerlink" href="#module-tengp.individual" title="Permalink to this headline">¶</a></h2>
+<p>Module holding some interesting stuff.</p>
+<dl class="class">
+<dt id="tengp.individual.Individual">
+<em class="property">class </em><code class="descclassname">tengp.individual.</code><code class="descname">Individual</code><span class="sig-paren">(</span><em>genes</em>, <em>bounds</em>, <em>params</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/individual.html#Individual"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.individual.Individual" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">abc.ABC</span></code></p>
+<p>Individual class</p>
+<dl class="method">
+<dt id="tengp.individual.Individual.active_gene">
+<code class="descname">active_gene</code><span class="sig-paren">(</span><em>gene_index</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/individual.html#Individual.active_gene"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.individual.Individual.active_gene" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks, whether given index is index of a active gene</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tengp.individual.Individual.apply">
+<code class="descname">apply</code><span class="sig-paren">(</span><em>move</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/individual.html#Individual.apply"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.individual.Individual.apply" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return new individual, as a result of applying given move to current individual.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tengp.individual.Individual.get_active_genes">
+<code class="descname">get_active_genes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/individual.html#Individual.get_active_genes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.individual.Individual.get_active_genes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all active genes.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tengp.individual.Individual.get_expression">
+<code class="descname">get_expression</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/individual.html#Individual.get_expression"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.individual.Individual.get_expression" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return string representation of expression (phenotype).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tengp.individual.Individual.transform">
+<code class="descname">transform</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/individual.html#Individual.transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.individual.Individual.transform" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tengp.individual.IndividualBuilder">
+<em class="property">class </em><code class="descclassname">tengp.individual.</code><code class="descname">IndividualBuilder</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/individual.html#IndividualBuilder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.individual.IndividualBuilder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="tengp.individual.IndividualBuilder.create">
+<code class="descname">create</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/individual.html#IndividualBuilder.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.individual.IndividualBuilder.create" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tengp.individual.NPIndividual">
+<em class="property">class </em><code class="descclassname">tengp.individual.</code><code class="descname">NPIndividual</code><span class="sig-paren">(</span><em>genes</em>, <em>bounds</em>, <em>params</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/individual.html#NPIndividual"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.individual.NPIndividual" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tengp.individual.Individual" title="tengp.individual.Individual"><code class="xref py py-class docutils literal"><span class="pre">tengp.individual.Individual</span></code></a></p>
+<dl class="method">
+<dt id="tengp.individual.NPIndividual.transform">
+<code class="descname">transform</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/individual.html#NPIndividual.transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.individual.NPIndividual.transform" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tengp.individual.TFIndividual">
+<em class="property">class </em><code class="descclassname">tengp.individual.</code><code class="descname">TFIndividual</code><span class="sig-paren">(</span><em>genes</em>, <em>bounds</em>, <em>params</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/individual.html#TFIndividual"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.individual.TFIndividual" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tengp.individual.Individual" title="tengp.individual.Individual"><code class="xref py py-class docutils literal"><span class="pre">tengp.individual.Individual</span></code></a></p>
+<dl class="method">
+<dt id="tengp.individual.TFIndividual.transform">
+<code class="descname">transform</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/individual.html#TFIndividual.transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.individual.TFIndividual.transform" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tengp.mutations">
+<span id="tengp-mutations-module"></span><h2>tengp.mutations module<a class="headerlink" href="#module-tengp.mutations" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tengp.mutations.Move">
+<em class="property">class </em><code class="descclassname">tengp.mutations.</code><code class="descname">Move</code><span class="sig-paren">(</span><em>indices</em>, <em>changes</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/mutations.html#Move"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.mutations.Move" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>class holding a change
+contains two lists:</p>
+<blockquote>
+<div><ul class="simple">
+<li>list of affected indicies</li>
+<li>list of values to apply</li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="tengp.mutations.active_mutation">
+<code class="descclassname">tengp.mutations.</code><code class="descname">active_mutation</code><span class="sig-paren">(</span><em>individual</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/mutations.html#active_mutation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.mutations.active_mutation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform an active mutation - to-be mutated gene is chosen only
+from active genes</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tengp.mutations.point_mutation">
+<code class="descclassname">tengp.mutations.</code><code class="descname">point_mutation</code><span class="sig-paren">(</span><em>individual</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/mutations.html#point_mutation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.mutations.point_mutation" title="Permalink to this definition">¶</a></dt>
+<dd><p>perform a point mutation on given individual
+returns Move object</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tengp.mutations.probabilistic_mutation">
+<code class="descclassname">tengp.mutations.</code><code class="descname">probabilistic_mutation</code><span class="sig-paren">(</span><em>individual</em>, <em>probability=0.25</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/mutations.html#probabilistic_mutation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.mutations.probabilistic_mutation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform a probabilistic mutation - at each gene position there is a
+chance it will mutate</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tengp.mutations.random">
+<code class="descclassname">tengp.mutations.</code><code class="descname">random</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; x in the interval [0, 1).<a class="headerlink" href="#tengp.mutations.random" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="tengp.mutations.single_mutation">
+<code class="descclassname">tengp.mutations.</code><code class="descname">single_mutation</code><span class="sig-paren">(</span><em>individual</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/mutations.html#single_mutation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.mutations.single_mutation" title="Permalink to this definition">¶</a></dt>
+<dd><p>perform a ‘single’ mutation - mutate until active gene is changed</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-tengp.node">
+<span id="tengp-node-module"></span><h2>tengp.node module<a class="headerlink" href="#module-tengp.node" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tengp.node.Node">
+<em class="property">class </em><code class="descclassname">tengp.node.</code><code class="descname">Node</code><span class="sig-paren">(</span><em>fun</em>, <em>inputs</em>, <em>arity=0</em>, <em>is_input=False</em>, <em>is_output=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/node.html#Node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.node.Node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-tengp.parameters">
+<span id="tengp-parameters-module"></span><h2>tengp.parameters module<a class="headerlink" href="#module-tengp.parameters" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tengp.parameters.FunctionSet">
+<em class="property">class </em><code class="descclassname">tengp.parameters.</code><code class="descname">FunctionSet</code><a class="reference internal" href="_modules/tengp/parameters.html#FunctionSet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.parameters.FunctionSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="tengp.parameters.FunctionSet.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>function</em>, <em>arity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/parameters.html#FunctionSet.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.parameters.FunctionSet.add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tengp.parameters.Parameters">
+<em class="property">class </em><code class="descclassname">tengp.parameters.</code><code class="descname">Parameters</code><span class="sig-paren">(</span><em>n_inputs</em>, <em>n_outputs</em>, <em>n_rows</em>, <em>n_columns</em>, <em>function_set</em>, <em>fitness_of_invalid=inf</em>, <em>use_tensorflow=False</em>, <em>max_back=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/parameters.html#Parameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.parameters.Parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Contains construction parameters for CGP individual.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-tengp.search">
+<span id="tengp-search-module"></span><h2>tengp.search module<a class="headerlink" href="#module-tengp.search" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-tengp.utils">
+<span id="tengp-utils-module"></span><h2>tengp.utils module<a class="headerlink" href="#module-tengp.utils" title="Permalink to this headline">¶</a></h2>
+<dl class="exception">
+<dt id="tengp.utils.UnknownMutationException">
+<em class="property">exception </em><code class="descclassname">tengp.utils.</code><code class="descname">UnknownMutationException</code><a class="reference internal" href="_modules/tengp/utils.html#UnknownMutationException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.utils.UnknownMutationException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tengp.utils.active_paths">
+<code class="descclassname">tengp.utils.</code><code class="descname">active_paths</code><span class="sig-paren">(</span><em>nodes</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/utils.html#active_paths"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.utils.active_paths" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="tengp.utils.clamp_bottom">
+<code class="descclassname">tengp.utils.</code><code class="descname">clamp_bottom</code><span class="sig-paren">(</span><em>number</em>, <em>minimum</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/utils.html#clamp_bottom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.utils.clamp_bottom" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="tengp.utils.handle_invalid_decorator">
+<code class="descclassname">tengp.utils.</code><code class="descname">handle_invalid_decorator</code><span class="sig-paren">(</span><em>fun</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/utils.html#handle_invalid_decorator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.utils.handle_invalid_decorator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorates the inner cost_function, so it returns fitness_of_invalid value
+defined in parameters in case of ValueError</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tengp.utils.join_lists">
+<code class="descclassname">tengp.utils.</code><code class="descname">join_lists</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/utils.html#join_lists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.utils.join_lists" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="tengp.utils.map_to_np_phenotype">
+<code class="descclassname">tengp.utils.</code><code class="descname">map_to_np_phenotype</code><span class="sig-paren">(</span><em>genes</em>, <em>params</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/utils.html#map_to_np_phenotype"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.utils.map_to_np_phenotype" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="tengp.utils.map_to_tf_phenotype">
+<code class="descclassname">tengp.utils.</code><code class="descname">map_to_tf_phenotype</code><span class="sig-paren">(</span><em>genes</em>, <em>params</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/utils.html#map_to_tf_phenotype"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.utils.map_to_tf_phenotype" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="tengp.utils.round_cma_vector">
+<code class="descclassname">tengp.utils.</code><code class="descname">round_cma_vector</code><span class="sig-paren">(</span><em>cma_vector</em>, <em>bounds</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/utils.html#round_cma_vector"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.utils.round_cma_vector" title="Permalink to this definition">¶</a></dt>
+<dd><p>convert float vector from CMA-ES to valid genes vector</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-tengp">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-tengp" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Jaroslav Loebl.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/tengp.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

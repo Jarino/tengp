@@ -1,4 +1,5 @@
 #import tensorflow as tf
+from decorator import decorator
 
 from .node import Node
 
@@ -100,6 +101,8 @@ def round_cma_vector(cma_vector, bounds):
         processed_genes.append(gene)
     return processed_genes
 
+
+@decorator
 def handle_invalid_decorator(fun):
     """ Decorates the inner cost_function, so it returns fitness_of_invalid value
     defined in parameters in case of ValueError """

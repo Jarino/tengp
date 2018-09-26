@@ -43,159 +43,123 @@
 <h1>Welcome to TenGP’s documentation!<a class="headerlink" href="#welcome-to-tengp-s-documentation" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
-</div>
-<div class="section" id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
 <li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
 <li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
 <li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
 </ul>
-<span class="target" id="module-tengp.individual"></span><p>Module holding some interesting stuff.</p>
+<p>Here is the very basic description of public classes and functions.</p>
 <dl class="class">
-<dt id="tengp.individual.Individual">
-<em class="property">class </em><code class="descclassname">tengp.individual.</code><code class="descname">Individual</code><span class="sig-paren">(</span><em>genes</em>, <em>bounds</em>, <em>params</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/individual.html#Individual"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.individual.Individual" title="Permalink to this definition">¶</a></dt>
-<dd><p>Individual class</p>
-<dl class="attribute">
-<dt id="tengp.individual.Individual.__abstractmethods__">
-<code class="descname">__abstractmethods__</code><em class="property"> = frozenset({'transform'})</em><a class="headerlink" href="#tengp.individual.Individual.__abstractmethods__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<dt id="tengp.FunctionSet">
+<em class="property">class </em><code class="descclassname">tengp.</code><code class="descname">FunctionSet</code><a class="reference internal" href="_modules/tengp/parameters.html#FunctionSet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.FunctionSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class containing functions which CGP system can use.</p>
 <dl class="method">
-<dt id="tengp.individual.Individual.__eq__">
-<code class="descname">__eq__</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/individual.html#Individual.__eq__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.individual.Individual.__eq__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="tengp.individual.Individual.__hash__">
-<code class="descname">__hash__</code><em class="property"> = None</em><a class="headerlink" href="#tengp.individual.Individual.__hash__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="tengp.individual.Individual.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>genes</em>, <em>bounds</em>, <em>params</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/individual.html#Individual.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.individual.Individual.__init__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="tengp.individual.Individual.__module__">
-<code class="descname">__module__</code><em class="property"> = 'tengp.individual'</em><a class="headerlink" href="#tengp.individual.Individual.__module__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="tengp.individual.Individual.__repr__">
-<code class="descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/individual.html#Individual.__repr__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.individual.Individual.__repr__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="tengp.individual.Individual.active_gene">
-<code class="descname">active_gene</code><span class="sig-paren">(</span><em>gene_index</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/individual.html#Individual.active_gene"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.individual.Individual.active_gene" title="Permalink to this definition">¶</a></dt>
-<dd><p>Checks, whether given index is index of a active gene</p>
+<dt id="tengp.FunctionSet.__getitem__">
+<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/parameters.html#FunctionSet.__getitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.FunctionSet.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a function at given index.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="tengp.individual.Individual.apply">
-<code class="descname">apply</code><span class="sig-paren">(</span><em>move</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/individual.html#Individual.apply"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.individual.Individual.apply" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return new individual, as a result of applying given move to current individual.</p>
+<dt id="tengp.FunctionSet.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/parameters.html#FunctionSet.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.FunctionSet.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize empty function set.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="tengp.individual.Individual.get_active_genes">
-<code class="descname">get_active_genes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/individual.html#Individual.get_active_genes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.individual.Individual.get_active_genes" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return all active genes.</p>
+<dt id="tengp.FunctionSet.__len__">
+<code class="descname">__len__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/parameters.html#FunctionSet.__len__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.FunctionSet.__len__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a number of functions in function set.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="tengp.individual.Individual.get_expression">
-<code class="descname">get_expression</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/individual.html#Individual.get_expression"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.individual.Individual.get_expression" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return string representation of expression (phenotype).</p>
+<dt id="tengp.FunctionSet.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>function</em>, <em>arity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/parameters.html#FunctionSet.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.FunctionSet.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add given function to function set.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>function</strong> (<em>callable</em>) – function to add (must have a workings __name__)</li>
+<li><strong>arity</strong> (<em>int</em>) – arity (number of arguments) of given function</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
-
-<dl class="method">
-<dt id="tengp.individual.Individual.transform">
-<code class="descname">transform</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/individual.html#Individual.transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.individual.Individual.transform" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
-<dt id="tengp.individual.IndividualBuilder">
-<em class="property">class </em><code class="descclassname">tengp.individual.</code><code class="descname">IndividualBuilder</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/individual.html#IndividualBuilder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.individual.IndividualBuilder" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="attribute">
-<dt id="tengp.individual.IndividualBuilder.__dict__">
-<code class="descname">__dict__</code><em class="property"> = mappingproxy({'__module__': 'tengp.individual', '__init__': &lt;function IndividualBuilder.__init__&gt;, 'create': &lt;function IndividualBuilder.create&gt;, '__dict__': &lt;attribute '__dict__' of 'IndividualBuilder' objects&gt;, '__weakref__': &lt;attribute '__weakref__' of 'IndividualBuilder' objects&gt;, '__doc__': None})</em><a class="headerlink" href="#tengp.individual.IndividualBuilder.__dict__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<dt id="tengp.Parameters">
+<em class="property">class </em><code class="descclassname">tengp.</code><code class="descname">Parameters</code><span class="sig-paren">(</span><em>n_inputs</em>, <em>n_outputs</em>, <em>n_rows</em>, <em>n_columns</em>, <em>function_set</em>, <em>fitness_of_invalid=inf</em>, <em>use_tensorflow=False</em>, <em>max_back=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/parameters.html#Parameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.Parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Contains construction parameters for CGP individual.</p>
 <dl class="method">
-<dt id="tengp.individual.IndividualBuilder.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/individual.html#IndividualBuilder.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.individual.IndividualBuilder.__init__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="tengp.individual.IndividualBuilder.__module__">
-<code class="descname">__module__</code><em class="property"> = 'tengp.individual'</em><a class="headerlink" href="#tengp.individual.IndividualBuilder.__module__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="tengp.individual.IndividualBuilder.__weakref__">
-<code class="descname">__weakref__</code><a class="headerlink" href="#tengp.individual.IndividualBuilder.__weakref__" title="Permalink to this definition">¶</a></dt>
-<dd><p>list of weak references to the object (if defined)</p>
+<dt id="tengp.Parameters.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>n_inputs</em>, <em>n_outputs</em>, <em>n_rows</em>, <em>n_columns</em>, <em>function_set</em>, <em>fitness_of_invalid=inf</em>, <em>use_tensorflow=False</em>, <em>max_back=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/parameters.html#Parameters.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.Parameters.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates Parameters object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>n_inputs</strong> (<em>int</em>) – Number of input nodes (i.e. attributes)</li>
+<li><strong>n_outputs</strong> (<em>int</em>) – Number of output nodes</li>
+<li><strong>n_rows</strong> (<em>int</em>) – Number of rows</li>
+<li><strong>n_columns</strong> (<em>int</em>) – Number of columns</li>
+<li><strong>function_set</strong> (<a class="reference internal" href="#tengp.FunctionSet" title="tengp.FunctionSet"><em>FunctionSet</em></a>) – instance of FunctionSet class</li>
+<li><strong>fitness_of_invalid</strong> (<em>number</em>) – penalty fitness assigned to individual producing error</li>
+<li><strong>max_back</strong> (<em>bool</em>) – number of previous nodes (including inputs) to which node can connect. When set to None, not limit is imposed.</li>
+<li><strong>use_tensorflow</strong> (<em>bool</em>) – not used</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Parameters class instance.</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
-
-<dl class="method">
-<dt id="tengp.individual.IndividualBuilder.create">
-<code class="descname">create</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/individual.html#IndividualBuilder.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.individual.IndividualBuilder.create" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="tengp.individual.NPIndividual">
-<em class="property">class </em><code class="descclassname">tengp.individual.</code><code class="descname">NPIndividual</code><span class="sig-paren">(</span><em>genes</em>, <em>bounds</em>, <em>params</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/individual.html#NPIndividual"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.individual.NPIndividual" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="attribute">
-<dt id="tengp.individual.NPIndividual.__abstractmethods__">
-<code class="descname">__abstractmethods__</code><em class="property"> = frozenset()</em><a class="headerlink" href="#tengp.individual.NPIndividual.__abstractmethods__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="tengp.individual.NPIndividual.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>genes</em>, <em>bounds</em>, <em>params</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/individual.html#NPIndividual.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.individual.NPIndividual.__init__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="tengp.individual.NPIndividual.__module__">
-<code class="descname">__module__</code><em class="property"> = 'tengp.individual'</em><a class="headerlink" href="#tengp.individual.NPIndividual.__module__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="tengp.individual.NPIndividual.transform">
-<code class="descname">transform</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/individual.html#NPIndividual.transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.individual.NPIndividual.transform" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 
-<dl class="class">
-<dt id="tengp.individual.TFIndividual">
-<em class="property">class </em><code class="descclassname">tengp.individual.</code><code class="descname">TFIndividual</code><span class="sig-paren">(</span><em>genes</em>, <em>bounds</em>, <em>params</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/individual.html#TFIndividual"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.individual.TFIndividual" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="attribute">
-<dt id="tengp.individual.TFIndividual.__abstractmethods__">
-<code class="descname">__abstractmethods__</code><em class="property"> = frozenset()</em><a class="headerlink" href="#tengp.individual.TFIndividual.__abstractmethods__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="tengp.individual.TFIndividual.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>genes</em>, <em>bounds</em>, <em>params</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/individual.html#TFIndividual.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.individual.TFIndividual.__init__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="tengp.individual.TFIndividual.__module__">
-<code class="descname">__module__</code><em class="property"> = 'tengp.individual'</em><a class="headerlink" href="#tengp.individual.TFIndividual.__module__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="tengp.individual.TFIndividual.transform">
-<code class="descname">transform</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/individual.html#TFIndividual.transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.individual.TFIndividual.transform" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<dl class="function">
+<dt id="tengp.simple_es">
+<code class="descclassname">tengp.</code><code class="descname">simple_es</code><span class="sig-paren">(</span><em>X</em>, <em>y</em>, <em>cost_function</em>, <em>params</em>, <em>target_fitness=0</em>, <em>population_size=5</em>, <em>evaluations=5000</em>, <em>random_state=None</em>, <em>mutation='point'</em>, <em>mutation_probability=0.25</em>, <em>verbose=False</em>, <em>log=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/search.html#simple_es"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.simple_es" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optimize a CGP system using a simple evolutionary strategy.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>X</strong> (<em>numpy.ndarray</em>) – input data, number of columns have to match the n_inputs
+parameter of Parameters object</li>
+<li><strong>y</strong> (<em>numpy.ndarray</em>) – target output data, number of columns have to match
+the n_outputs parameter of Parameters object</li>
+<li><strong>cost_function</strong> (<em>callable</em>) – cost function to minimize. It has two
+arguments <cite>(y_true, y_pred)</cite>, where <cite>y_true</cite> is target output data
+and <cite>y_pred</cite> is output of CGP individual</li>
+<li><strong>params</strong> (<a class="reference internal" href="#tengp.Parameters" title="tengp.Parameters"><em>Parameters</em></a>) – instance of Parameters class</li>
+<li><strong>target_fitness</strong> (<em>number</em>) – fitness, at which evolution will stop</li>
+<li><strong>population_size</strong> (<em>int</em>) – size of population including parent</li>
+<li><strong>evaluations</strong> (<em>int</em>) – maximum number of cost function evaluations</li>
+<li><strong>random_state</strong> (<em>int</em>) – seed for random number generator</li>
+<li><strong>mutation</strong> (<em>string</em>) – type of mutation to use, accept values <cite>‘point’,
+‘active’, ‘single’, ‘probabilistic’</cite></li>
+<li><strong>mutation_probability</strong> (<em>float</em>) – probability of mutating a given gene (
+used only when <cite>mutation</cite> argument is set to <cite>‘probabilistic’</cite></li>
+<li><strong>verbose</strong> (<em>bool</em>) – if <cite>True</cite>, outputs evolution info every 100 generations</li>
+<li><strong>log</strong> (<em>list</em>) – if provided with a list, best fitness of each generation
+is stored here</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">List of individuals, the last generation of evolution</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>

@@ -1,3 +1,5 @@
+"""Search strategies."""
+
 from array import array
 from collections import deque
 import random
@@ -21,8 +23,31 @@ def simple_es(X, y, cost_function, params,
               mutation_probability=0.25,
               verbose=False,
               log=None):
-    """
-    Returns the last population and log of best fitness during evolution
+    """Optimize a CGP system using a simple evolutionary strategy.
+
+    Args:
+        X (numpy.ndarray): input data, number of columns have to match the n_inputs
+            parameter of Parameters object
+        y (numpy.ndarray): target output data, number of columns have to match
+            the n_outputs parameter of Parameters object
+        cost_function (callable): cost function to minimize. It has two
+            arguments `(y_true, y_pred)`, where `y_true` is target output data
+            and `y_pred` is output of CGP individual
+        params (Parameters): instance of Parameters class
+        target_fitness (number): fitness, at which evolution will stop
+        population_size (int): size of population including parent
+        evaluations (int): maximum number of cost function evaluations
+        random_state (int): seed for random number generator
+        mutation (string): type of mutation to use, accept values `'point',
+            'active', 'single', 'probabilistic'`
+        mutation_probability (float): probability of mutating a given gene (
+            used only when `mutation` argument is set to `'probabilistic'`
+        verbose (bool): if `True`, outputs evolution info every 100 generations
+        log (list): if provided with a list, best fitness of each generation
+            is stored here
+
+    Returns:
+        List of individuals, the last generation of evolution
     """
 
     if mutation not in MUTATIONS:
@@ -80,81 +105,4 @@ def simple_es(X, y, cost_function, params,
         log.append(population[0].fitness)
 
     return population
-
-
-@handle_invalid_decorator
-def cma_es(X, y, cost_function, params,
-           sigma=1,
-           lambda_=20,
-           evaluations=5000,
-           hof_size=1,
-           random_state=None,
-           verbose=False):
-    """ Optimizes the CGP system using the CMA-ES algorithm (DEAP library). 
-    Returns the hall of fame object and result object in a tuple."""
-    builder = IndividualBuilder(params)
-    initial_solution = builder.create()
-    bounds = initial_solution.bounds[:]
-
-    if random_state:
-        random.seed(random_state)
-
-    def cost_function_wrapper(cma_vector):
-        """ Wrapper for user provided cost function, so it works with DEAP """
-        genes = round_cma_vector(cma_vector, bounds)
-        individual = params.individual_class(genes, bounds, params)
-        output = individual.transform(X)
-        return cost_function(output, y),
-
-    # deap shit
-    creator.create('FitnessMin', base.Fitness, weights=(-1.0,))
-    creator.create('Individual', array, typecode='f', fitness=creator.FitnessMin)
-
-    strategy = cma.Strategy(
-        centroid=initial_solution.genes, sigma=sigma)
-
-    toolbox = base.Toolbox()
-
-    toolbox.register('evaluate', cost_function_wrapper)
-    toolbox.register('generate', strategy.generate, creator.Individual)
-    toolbox.register('update', strategy.update)
-    halloffame = tools.HallOfFame(hof_size)
-
-#    res = algorithms.eaGenerateUpdate(
-#        toolbox, ngen=max_generations, halloffame=hof, verbose=verbose)
-
-    # this is just a copy paste of eaGenerateUpdate function, with modification
-    # so it can terminate when a maximum number of evaluations is reached
-    logbook = tools.Logbook()
-    logbook.header = ['gen', 'nevals', 'total_evals']
-    nevals = 0
-    gen = 0
-
-    while nevals <= evaluations:
-        gen += 1
-        # Generate a new population
-        population = toolbox.generate()
-        # Evaluate the individuals
-        fitnesses = toolbox.map(toolbox.evaluate, population)
-        for ind, fit in zip(population, fitnesses):
-            ind.fitness.values = fit
-
-        if halloffame is not None:
-            halloffame.update(population)
-
-        # Update the strategy with the evaluated individuals
-        toolbox.update(population)
-
-        #record = stats.compile(population) if stats is not None else {}
-        nevals += len(population)
-        logbook.record(gen=gen, nevals=len(population), total_evals=nevals)#, **record)
-        if verbose:
-            print(logbook.stream)
-
-    # return the best individual
-    individual = params.individual_class(round_cma_vector(halloffame[0], bounds), bounds, params)
-    output = individual.transform(X)
-    individual.fitness = cost_function(y, output)
-    return individual, logbook
-
 

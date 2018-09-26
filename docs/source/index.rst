@@ -12,14 +12,19 @@ Welcome to TenGP's documentation!
 
 
 
-Indices and tables
-==================
+.. Indices and tables
+   ==================
 
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
 
-.. automodule:: tengp.individual
-  :members:
-  :undoc-members:
-  :special-members:
+Here is the very basic description of public classes and functions.
+
+.. autoclass:: tengp.FunctionSet
+  :members: __init__, __getitem__, __len__, add
+
+.. autoclass:: tengp.Parameters
+  :members: __init__
+
+.. autofunction:: tengp.simple_es
