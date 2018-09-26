@@ -7,3 +7,4 @@ tags.*
 tengp.egg-info
 **/.ipynb_checkpoints
 dist
+sphinx/build

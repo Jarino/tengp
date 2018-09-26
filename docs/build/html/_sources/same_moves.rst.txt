@@ -1,7 +1,0 @@
-same\_moves module
-==================
-
-.. automodule:: same_moves
-    :members:
-    :undoc-members:
-    :show-inheritance:

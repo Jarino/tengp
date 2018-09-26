@@ -27,5 +27,4 @@ Here is the very basic description of public classes and functions.
 .. autoclass:: tengp.Parameters
   :members: __init__
 
-.. unfortunately, this has to be here, because of the decorator
 .. autofunction:: tengp.simple_es
