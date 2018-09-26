@@ -114,7 +114,6 @@ class NPIndividual(Individual):
 
     def transform(self, X):
         funset = self.params.function_set
-        sfn = self.params.sfn
         for path in self.paths:
             for index in sorted(set(path)):
                 current_node = self.nodes[index]

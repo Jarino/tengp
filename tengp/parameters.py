@@ -9,7 +9,6 @@ class Parameters():
                  function_set,
                  fitness_of_invalid=float('inf'),
                  real_valued=False,
-                 smoothing_fn=None,
                  use_tensorflow=False,
                  max_back=None):
 
@@ -26,10 +25,6 @@ class Parameters():
         else:
             self.individual_class = NPIndividual
         self.real_valued = real_valued
-        if smoothing_fn:
-            self.sfn = smoothing_fn
-        else:
-            self.sfn = lambda x: x
 
         if max_back is None:
             self.max_back = self.n_nodes + self.n_inputs + self.n_outputs
