@@ -11,7 +11,7 @@ import numpy as np
 from .mutations import MUTATIONS
 from .individual import IndividualBuilder
 from .parameters import FunctionSet, Parameters
-from .utils import round_cma_vector, handle_invalid_decorator, UnknownMutationException
+from .utils import handle_invalid_decorator, UnknownMutationException
 
 @handle_invalid_decorator
 def simple_es(X, y, cost_function, params,
