@@ -93,11 +93,11 @@
 
 <dl class="class">
 <dt id="tengp.Parameters">
-<em class="property">class </em><code class="descclassname">tengp.</code><code class="descname">Parameters</code><span class="sig-paren">(</span><em>n_inputs</em>, <em>n_outputs</em>, <em>n_rows</em>, <em>n_columns</em>, <em>function_set</em>, <em>fitness_of_invalid=inf</em>, <em>use_tensorflow=False</em>, <em>max_back=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/parameters.html#Parameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.Parameters" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">tengp.</code><code class="descname">Parameters</code><span class="sig-paren">(</span><em>n_inputs</em>, <em>n_outputs</em>, <em>n_rows</em>, <em>n_columns</em>, <em>function_set</em>, <em>fitness_of_invalid=inf</em>, <em>use_tensors=False</em>, <em>max_back=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/parameters.html#Parameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.Parameters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Contains construction parameters for CGP individual.</p>
 <dl class="method">
 <dt id="tengp.Parameters.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>n_inputs</em>, <em>n_outputs</em>, <em>n_rows</em>, <em>n_columns</em>, <em>function_set</em>, <em>fitness_of_invalid=inf</em>, <em>use_tensorflow=False</em>, <em>max_back=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/parameters.html#Parameters.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.Parameters.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>n_inputs</em>, <em>n_outputs</em>, <em>n_rows</em>, <em>n_columns</em>, <em>function_set</em>, <em>fitness_of_invalid=inf</em>, <em>use_tensors=False</em>, <em>max_back=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/parameters.html#Parameters.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.Parameters.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates Parameters object.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -110,6 +110,7 @@
 <li><strong>n_columns</strong> (<em>int</em>) – Number of columns</li>
 <li><strong>function_set</strong> (<a class="reference internal" href="#tengp.FunctionSet" title="tengp.FunctionSet"><em>FunctionSet</em></a>) – instance of FunctionSet class</li>
 <li><strong>fitness_of_invalid</strong> (<em>number</em>) – penalty fitness assigned to individual producing error</li>
+<li><strong>use_tensors</strong> (<em>bool</em>) – if true, CGP works with tensors instead of numpy arrays</li>
 <li><strong>max_back</strong> (<em>bool</em>) – number of previous nodes (including inputs) to which node can connect. When set to None, not limit is imposed.</li>
 <li><strong>use_tensorflow</strong> (<em>bool</em>) – not used</li>
 </ul>
@@ -126,7 +127,7 @@
 
 <dl class="function">
 <dt id="tengp.simple_es">
-<code class="descclassname">tengp.</code><code class="descname">simple_es</code><span class="sig-paren">(</span><em>X</em>, <em>y</em>, <em>cost_function</em>, <em>params</em>, <em>target_fitness=0</em>, <em>population_size=5</em>, <em>evaluations=5000</em>, <em>random_state=None</em>, <em>mutation='point'</em>, <em>mutation_probability=0.25</em>, <em>verbose=False</em>, <em>log=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/search.html#simple_es"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.simple_es" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">tengp.</code><code class="descname">simple_es</code><span class="sig-paren">(</span><em>X</em>, <em>y</em>, <em>cost_function</em>, <em>params</em>, <em>target_fitness=0</em>, <em>population_size=5</em>, <em>evaluations=5000</em>, <em>random_state=None</em>, <em>mutation='point'</em>, <em>mutation_probability=0.25</em>, <em>verbose=False</em>, <em>log=None</em>, <em>transformed_individual=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/search.html#simple_es"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.simple_es" title="Permalink to this definition">¶</a></dt>
 <dd><p>Optimize a CGP system using a simple evolutionary strategy.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />

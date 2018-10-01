@@ -64,7 +64,8 @@
               <span class="n">mutation</span><span class="o">=</span><span class="s1">&#39;point&#39;</span><span class="p">,</span>
               <span class="n">mutation_probability</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span>
               <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-              <span class="n">log</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+              <span class="n">log</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+              <span class="n">transformed_individual</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Optimize a CGP system using a simple evolutionary strategy.</span>
 
 <span class="sd">    Args:</span>
@@ -111,9 +112,15 @@
 
     <span class="n">generation</span> <span class="o">=</span> <span class="mi">0</span>
 
+
     <span class="k">for</span> <span class="n">individual</span> <span class="ow">in</span> <span class="n">population</span><span class="p">:</span>
-        <span class="n">output</span> <span class="o">=</span> <span class="n">individual</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-        <span class="n">individual</span><span class="o">.</span><span class="n">fitness</span> <span class="o">=</span> <span class="n">cost_function</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">transformed_individual</span><span class="p">:</span>
+            <span class="c1">#transformed individual at cost_function</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="n">individual</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+            <span class="n">individual</span><span class="o">.</span><span class="n">fitness</span> <span class="o">=</span> <span class="n">cost_function</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1">#individual to be transformed at cost_function</span>
+            <span class="n">individual</span><span class="o">.</span><span class="n">fitness</span> <span class="o">=</span> <span class="n">cost_function</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">individual</span><span class="p">)</span>
         <span class="n">n_evals</span> <span class="o">+=</span> <span class="mi">1</span>
 
 
@@ -133,8 +140,13 @@
         <span class="n">population</span> <span class="o">+=</span> <span class="p">[</span><span class="n">parent</span><span class="p">]</span>
 
         <span class="k">for</span> <span class="n">individual</span> <span class="ow">in</span> <span class="n">population</span><span class="p">:</span>
-            <span class="n">output</span> <span class="o">=</span> <span class="n">individual</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-            <span class="n">individual</span><span class="o">.</span><span class="n">fitness</span> <span class="o">=</span> <span class="n">cost_function</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">transformed_individual</span><span class="p">:</span>
+                <span class="c1">#transformed individual at cost_function</span>
+                <span class="n">output</span> <span class="o">=</span> <span class="n">individual</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+                <span class="n">individual</span><span class="o">.</span><span class="n">fitness</span> <span class="o">=</span> <span class="n">cost_function</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1">#individual to be transformed at cost_function</span>
+                <span class="n">individual</span><span class="o">.</span><span class="n">fitness</span> <span class="o">=</span> <span class="n">cost_function</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">individual</span><span class="p">)</span>
             <span class="n">n_evals</span> <span class="o">+=</span> <span class="mi">1</span>
 
         <span class="k">if</span> <span class="n">verbose</span> <span class="ow">and</span> <span class="n">generation</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
