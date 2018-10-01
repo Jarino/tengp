@@ -108,6 +108,17 @@ class NPIndividual(Individual):
         Individual.__init__(self, genes, bounds, params)
 
     def transform(self, X):
+        """Transforms the input data with expression encoded in individual.
+
+        Args:
+            X (array-like): Numpy array, or tensor (if use_tensors was set to
+            true in Parameters)
+
+        Returns:
+            Transformed data. If use_tensors was set to true, then list
+            containing output tensors is returned. Otherwise Numpy array
+            is returned.
+        """
         for path in self.paths:
             for index in path:
                 current_node = self.nodes[index]

@@ -22,7 +22,7 @@ class Parameters():
             n_columns (int): Number of columns
             function_set (FunctionSet): instance of FunctionSet class
             fitness_of_invalid (number): penalty fitness assigned to individual producing error
-            use_tensors (boo;): if true, CGP works with tensors instead of numpy arrays
+            use_tensors (bool): if true, CGP works with tensors instead of numpy arrays
             max_back (bool): number of previous nodes (including inputs) to which node can connect. When set to None, not limit is imposed.
             use_tensorflow (bool): not used
 
@@ -37,11 +37,9 @@ class Parameters():
         self.n_rows = n_rows
         self.function_set = function_set
         self.fitness_of_invalid = fitness_of_invalid
-
-        if use_tensorflow:
-            self.individual_class = TFIndividual
-        else:
-            self.individual_class = NPIndividual
+        self.use_tensors = True
+        self.individual_class = NPIndividual
+        # self.individual_class = TFIndividual there is probably no reason for that
 
         if max_back is None:
             self.max_back = self.n_nodes + self.n_inputs + self.n_outputs
