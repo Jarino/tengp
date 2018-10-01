@@ -10,7 +10,7 @@ class Parameters():
                  n_columns,
                  function_set,
                  fitness_of_invalid=float('inf'),
-                 use_tensorflow=False,
+                 use_tensors=False,
                  max_back=None):
         """Creates Parameters object.
 
@@ -22,6 +22,7 @@ class Parameters():
             n_columns (int): Number of columns
             function_set (FunctionSet): instance of FunctionSet class
             fitness_of_invalid (number): penalty fitness assigned to individual producing error
+            use_tensors (boo;): if true, CGP works with tensors instead of numpy arrays
             max_back (bool): number of previous nodes (including inputs) to which node can connect. When set to None, not limit is imposed.
             use_tensorflow (bool): not used
 

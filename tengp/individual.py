@@ -125,7 +125,11 @@ class NPIndividual(Individual):
         for i in range(1, self.params.n_outputs + 1):
             output.append(self.nodes[-i].value)
 
-        return np.array(output).T
+        if self.params.use_tensors:
+            # for now
+            return output
+        else:
+            return np.array(output).T
 
 class TFIndividual(Individual):
 
