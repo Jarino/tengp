@@ -28,3 +28,6 @@ Here is the very basic description of public classes and functions.
   :members: __init__
 
 .. autofunction:: tengp.simple_es
+
+.. autoclass:: tengp.individual.NPIndividual
+  :members: transform
