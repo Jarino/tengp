@@ -12,9 +12,9 @@ class Parameters():
                  fitness_of_invalid=float('inf'),
                  real_valued=False,
                  use_tensors=False,
-                 max_back=None):
+                 max_back=None,
+                 cf_individual=False):
         """Creates Parameters object.
-
 
         Args:
             n_inputs (int): Number of input nodes (i.e. attributes)
@@ -25,7 +25,7 @@ class Parameters():
             fitness_of_invalid (number): penalty fitness assigned to individual producing error
             use_tensors (bool): if true, CGP works with tensors instead of numpy arrays
             max_back (bool): number of previous nodes (including inputs) to which node can connect. When set to None, not limit is imposed.
-            use_tensorflow (bool): not used
+            cf_individual (bool): if set to True, cost function recieves ground truth and an individual object as an argument. Otherwise it recieves ground truth and input transformed by individual.
 
         Returns:
             Parameters class instance.
@@ -41,7 +41,7 @@ class Parameters():
         self.real_valued = real_valued
         self.use_tensors = use_tensors
         self.individual_class = NPIndividual
-
+        self.cf_individual = cf_individual
 
         if max_back is None:
             self.max_back = self.n_nodes + self.n_inputs + self.n_outputs

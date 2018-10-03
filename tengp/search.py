@@ -70,8 +70,11 @@ def simple_es(X, y, cost_function, params,
     generation = 0
 
     for individual in population:
-        output = individual.transform(X)
-        individual.fitness = cost_function(y, output)
+        if params.cf_individual:
+            individual.fitness = cost_function(y, individual)
+        else:
+            output = individual.transform(X)
+            individual.fitness = cost_function(y, output)
         n_evals += 1
 
 
@@ -91,11 +94,14 @@ def simple_es(X, y, cost_function, params,
         population += [parent]
 
         for individual in population:
-            output = individual.transform(X)
-            individual.fitness = cost_function(y, output)
+            if params.cf_individual:
+                individual.fitness = cost_function(y, individual)
+            else:
+                output = individual.transform(X)
+                individual.fitness = cost_function(y, output)
             n_evals += 1
 
-        if verbose and generation % 100 == 0:
+        if verbose and generation % verbose == 0:
             print(f'Gen: {generation}, population: {sorted([x.fitness for x in population])}')
 
 
