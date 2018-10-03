@@ -52,19 +52,21 @@
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="k">import</span> <span class="n">map_to_tf_phenotype</span><span class="p">,</span> <span class="n">map_to_np_phenotype</span><span class="p">,</span> <span class="n">active_paths</span><span class="p">,</span> <span class="n">join_lists</span>
 
 
-<div class="viewcode-block" id="Individual"><a class="viewcode-back" href="../../index.html#tengp.individual.Individual">[docs]</a><span class="k">class</span> <span class="nc">Individual</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">Individual</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Individual class &quot;&quot;&quot;</span>
 
 
-<div class="viewcode-block" id="Individual.__init__"><a class="viewcode-back" href="../../index.html#tengp.individual.Individual.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genes</span><span class="p">,</span> <span class="n">bounds</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genes</span><span class="p">,</span> <span class="n">bounds</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fitness</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">genes</span> <span class="o">=</span> <span class="n">genes</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="n">bounds</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">paths</span> <span class="o">=</span> <span class="n">active_paths</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">active_nodes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">reduce</span><span class="p">(</span><span class="n">join_lists</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">paths</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="n">params</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="n">params</span>
 
-<div class="viewcode-block" id="Individual.__eq__"><a class="viewcode-back" href="../../index.html#tengp.individual.Individual.__eq__">[docs]</a>    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">active_nodes</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">active_nodes</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">False</span>
 
@@ -75,16 +77,16 @@
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">me</span><span class="p">]</span><span class="o">.</span><span class="n">inputs</span> <span class="o">!=</span> <span class="n">other</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">them</span><span class="p">]</span><span class="o">.</span><span class="n">inputs</span><span class="p">:</span>
                 <span class="k">return</span> <span class="kc">False</span>
 
-        <span class="k">return</span> <span class="kc">True</span></div>
+        <span class="k">return</span> <span class="kc">True</span>
 
-<div class="viewcode-block" id="Individual.__repr__"><a class="viewcode-back" href="../../index.html#tengp.individual.Individual.__repr__">[docs]</a>    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">f</span><span class="s1">&#39;Program, f:</span><span class="si">{self.fitness}</span><span class="s1">&#39;</span></div>
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">f</span><span class="s1">&#39;Program, f:</span><span class="si">{self.fitness}</span><span class="s1">&#39;</span>
 
-<div class="viewcode-block" id="Individual.transform"><a class="viewcode-back" href="../../index.html#tengp.individual.Individual.transform">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
-        <span class="k">pass</span></div>
+        <span class="k">pass</span>
 
-<div class="viewcode-block" id="Individual.active_gene"><a class="viewcode-back" href="../../index.html#tengp.individual.Individual.active_gene">[docs]</a>    <span class="k">def</span> <span class="nf">active_gene</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gene_index</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">active_gene</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gene_index</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Checks, whether given index is index of a active gene &quot;&quot;&quot;</span>
         <span class="n">arity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">function_set</span><span class="o">.</span><span class="n">max_arity</span>
         <span class="k">if</span> <span class="n">gene_index</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">n_nodes</span><span class="o">*</span><span class="p">(</span><span class="n">arity</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
@@ -92,9 +94,9 @@
         <span class="n">node_id</span> <span class="o">=</span> <span class="p">(</span><span class="n">gene_index</span><span class="o">//</span><span class="p">(</span><span class="n">arity</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">n_inputs</span>
         <span class="k">if</span> <span class="n">node_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">active_nodes</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">True</span>
-        <span class="k">return</span> <span class="kc">False</span></div>
+        <span class="k">return</span> <span class="kc">False</span>
 
-<div class="viewcode-block" id="Individual.get_active_genes"><a class="viewcode-back" href="../../index.html#tengp.individual.Individual.get_active_genes">[docs]</a>    <span class="k">def</span> <span class="nf">get_active_genes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_active_genes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Return all active genes. &quot;&quot;&quot;</span>
         <span class="n">active_genes</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">arity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">function_set</span><span class="o">.</span><span class="n">max_arity</span>
@@ -109,9 +111,9 @@
 
             <span class="n">start_index</span> <span class="o">=</span> <span class="p">(</span><span class="n">arity</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">node</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">n_inputs</span><span class="p">)</span>
             <span class="n">active_genes</span> <span class="o">+=</span> <span class="nb">range</span><span class="p">(</span><span class="n">start_index</span><span class="p">,</span> <span class="n">start_index</span> <span class="o">+</span> <span class="n">arity</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">active_genes</span></div>
+        <span class="k">return</span> <span class="n">active_genes</span>
 
-<div class="viewcode-block" id="Individual.get_expression"><a class="viewcode-back" href="../../index.html#tengp.individual.Individual.get_expression">[docs]</a>    <span class="k">def</span> <span class="nf">get_expression</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_expression</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Return string representation of expression (phenotype).&quot;&quot;&quot;</span>
         <span class="n">stack</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
@@ -128,26 +130,36 @@
                     <span class="n">operands</span> <span class="o">=</span> <span class="p">[</span><span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">current_node</span><span class="o">.</span><span class="n">arity</span><span class="p">)]</span>
                     <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">(</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">current_node</span><span class="o">.</span><span class="n">fun</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">operands</span><span class="p">)))</span>
 
-        <span class="k">return</span> <span class="n">result</span></div>
+        <span class="k">return</span> <span class="n">result</span>
 
 
-<div class="viewcode-block" id="Individual.apply"><a class="viewcode-back" href="../../index.html#tengp.individual.Individual.apply">[docs]</a>    <span class="k">def</span> <span class="nf">apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">move</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">move</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Return new individual, as a result of applying given move to current individual.&quot;&quot;&quot;</span>
         <span class="n">genes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">genes</span><span class="p">[:]</span>
 
         <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">move</span><span class="o">.</span><span class="n">indicies</span><span class="p">,</span> <span class="n">move</span><span class="o">.</span><span class="n">changes</span><span class="p">):</span>
             <span class="n">genes</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">individual_class</span><span class="p">(</span><span class="n">genes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bounds</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">individual_class</span><span class="p">(</span><span class="n">genes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bounds</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="NPIndividual"><a class="viewcode-back" href="../../index.html#tengp.individual.NPIndividual">[docs]</a><span class="k">class</span> <span class="nc">NPIndividual</span><span class="p">(</span><span class="n">Individual</span><span class="p">):</span>
 
-<div class="viewcode-block" id="NPIndividual.__init__"><a class="viewcode-back" href="../../index.html#tengp.individual.NPIndividual.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genes</span><span class="p">,</span> <span class="n">bounds</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genes</span><span class="p">,</span> <span class="n">bounds</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span> <span class="o">=</span> <span class="n">map_to_np_phenotype</span><span class="p">(</span><span class="n">genes</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
-        <span class="n">Individual</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genes</span><span class="p">,</span> <span class="n">bounds</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span></div>
+        <span class="n">Individual</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genes</span><span class="p">,</span> <span class="n">bounds</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
 
 <div class="viewcode-block" id="NPIndividual.transform"><a class="viewcode-back" href="../../index.html#tengp.individual.NPIndividual.transform">[docs]</a>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Transforms the input data with expression encoded in individual.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            X (array-like): Numpy array, or tensor (if use_tensors was set to true in Parameters)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Transformed data. If use_tensors was set to true, then list</span>
+<span class="sd">            containing output tensors is returned. Otherwise Numpy array</span>
+<span class="sd">            is returned.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">paths</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">path</span><span class="p">:</span>
                 <span class="n">current_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
@@ -165,15 +177,19 @@
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">n_outputs</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
             <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="o">-</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">output</span><span class="p">)</span><span class="o">.</span><span class="n">T</span></div></div>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">use_tensors</span><span class="p">:</span>
+            <span class="c1"># for now</span>
+            <span class="k">return</span> <span class="n">output</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">output</span><span class="p">)</span><span class="o">.</span><span class="n">T</span></div></div>
 
-<div class="viewcode-block" id="TFIndividual"><a class="viewcode-back" href="../../index.html#tengp.individual.TFIndividual">[docs]</a><span class="k">class</span> <span class="nc">TFIndividual</span><span class="p">(</span><span class="n">Individual</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">TFIndividual</span><span class="p">(</span><span class="n">Individual</span><span class="p">):</span>
 
-<div class="viewcode-block" id="TFIndividual.__init__"><a class="viewcode-back" href="../../index.html#tengp.individual.TFIndividual.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genes</span><span class="p">,</span> <span class="n">bounds</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genes</span><span class="p">,</span> <span class="n">bounds</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span> <span class="o">=</span> <span class="n">map_to_tf_phenotype</span><span class="p">(</span><span class="n">genes</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
-        <span class="n">Individual</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genes</span><span class="p">,</span> <span class="n">bounds</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span></div>
+        <span class="n">Individual</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genes</span><span class="p">,</span> <span class="n">bounds</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
 
-<div class="viewcode-block" id="TFIndividual.transform"><a class="viewcode-back" href="../../index.html#tengp.individual.TFIndividual.transform">[docs]</a>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">paths</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">path</span><span class="p">:</span>
                 <span class="n">current_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
@@ -195,18 +211,18 @@
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">n_outputs</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
                 <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="o">-</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">eval</span><span class="p">())</span>
 
-        <span class="k">return</span> <span class="n">output</span></div></div>
+        <span class="k">return</span> <span class="n">output</span>
 
 
-<div class="viewcode-block" id="IndividualBuilder"><a class="viewcode-back" href="../../index.html#tengp.individual.IndividualBuilder">[docs]</a><span class="k">class</span> <span class="nc">IndividualBuilder</span><span class="p">():</span>
-<div class="viewcode-block" id="IndividualBuilder.__init__"><a class="viewcode-back" href="../../index.html#tengp.individual.IndividualBuilder.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">IndividualBuilder</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="n">params</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">g_factory</span> <span class="o">=</span> <span class="n">GenotypeFactory</span><span class="p">(</span><span class="n">params</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">g_factory</span> <span class="o">=</span> <span class="n">GenotypeFactory</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
 
-<div class="viewcode-block" id="IndividualBuilder.create"><a class="viewcode-back" href="../../index.html#tengp.individual.IndividualBuilder.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">genes</span><span class="p">,</span> <span class="n">bounds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">g_factory</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
 
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">individual_class</span><span class="p">(</span><span class="n">genes</span><span class="p">,</span> <span class="n">bounds</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">individual_class</span><span class="p">(</span><span class="n">genes</span><span class="p">,</span> <span class="n">bounds</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">)</span>
 
 
 </pre></div>

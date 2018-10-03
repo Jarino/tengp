@@ -1,6 +1,7 @@
 # Cartesian Genetic Programming with NumPy
 
-TensorFlow support is currently in experimental phase (and also not working).
+Cartesian Genetic Programming library based on NumPy.
+
 
 ## Installation
 
@@ -11,15 +12,11 @@ make develop
 
 ## Features
 
-Contains two algorithms for optimization of CGP system:
-
-- simple $(1+4)$ evolution strategy using
-    - point mutation
-    - single mutation
-    - active mutation
-    - probabilistic mutation
-- [Covariance Matrix Adaptation Evolution Strategy](https://deap.readthedocs.io/en/master/examples/cmaes.html?highlight=cma) (provided by [DEAP](https://deap.readthedocs.io/en/master/index.html) package)
-
+Simple $(1+4)$ evolution strategy using:
+  - point mutation
+  - single mutation
+  - active mutation
+  - probabilistic mutation
 
 ## Quick start
 
@@ -60,11 +57,21 @@ def cost_function(y, y_pred):
 params = tengp.Parameters(4, 3, n_columns=25, n_rows=1, function_set=funset, use_tensorflow=False)
 
 res = tengp.simple_es(X_train, y_train, cost_function, params, target_fitness=-1, random_state=42)
-# or one can use CMA-ES:
-# hof, res = tengp.cma_es(...)
 
 # evaluate the best individual
 y_pred = res[0].transform(X_test)
 labels = np.array(y_pred).argmax(axis=1)
 print('Accuracy on test: {:.2}'.format(accuracy_score(y_test, labels)))
+```
+
+## Development
+
+To execute tests:
+```
+make test
+```
+
+To build documentation:
+```
+make html
 ```

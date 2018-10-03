@@ -2,8 +2,10 @@ __pycache__
 **/__pycache__
 .cache
 .pytest_cache
+*.pyc
 tags
 tags.*
 tengp.egg-info
 **/.ipynb_checkpoints
 dist
+sphinx/build

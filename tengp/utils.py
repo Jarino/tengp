@@ -1,5 +1,6 @@
-#import tensorflow as tf
 import math
+
+from decorator import decorator
 
 from .node import Node, RealValuedNode
 
@@ -113,19 +114,10 @@ def join_lists(x, y):
     # reduce would run few ms faster
     return x + y
 
-def round_cma_vector(cma_vector, bounds):
-    """ convert float vector from CMA-ES to valid genes vector """
-    processed_genes = []
-    for number, bound in zip(cma_vector, bounds):
-        gene = int(round(number))
-        if gene > bound:
-            gene = bound
-        if gene < 0:
-            gene = 0
-        processed_genes.append(gene)
-    return processed_genes
 
-def handle_invalid_decorator(fun):
+
+@decorator
+def deprecated_handle_invalid_decorator(fun):
     """ Decorates the inner cost_function, so it returns fitness_of_invalid value
     defined in parameters in case of ValueError """
     def wrapper(*args, **kwargs):
@@ -140,6 +132,23 @@ def handle_invalid_decorator(fun):
         new_args[2] = wrapped_cost_function
         return fun(*new_args, **kwargs)
     return wrapper
+
+@decorator
+def handle_invalid_decorator(fun, *args, **kwargs):
+    """ Decorates the inner cost_function, so it returns fitness_of_invalid value
+    defined in parameters in case of ValueError """
+    new_args = list(args)
+    cost_function = args[2]
+    params = args[3]
+
+    def wrapped_cost_function(*args, **kwargs):
+        try:
+            return cost_function(*args, **kwargs)
+        except ValueError as e:
+            return params.fitness_of_invalid
+
+    new_args[2] = wrapped_cost_function
+    return fun(*new_args, **kwargs)
 
 def clamp_bottom(number, minimum):
     if number < minimum:

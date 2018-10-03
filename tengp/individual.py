@@ -113,6 +113,16 @@ class NPIndividual(Individual):
         Individual.__init__(self, genes, bounds, params)
 
     def transform(self, X):
+        """Transforms the input data with expression encoded in individual.
+
+        Args:
+            X (array-like): Numpy array, or tensor (if use_tensors was set to true in Parameters)
+
+        Returns:
+            Transformed data. If use_tensors was set to true, then list
+            containing output tensors is returned. Otherwise Numpy array
+            is returned.
+        """
         funset = self.params.function_set
         for path in self.paths:
             for index in sorted(set(path)):
@@ -166,7 +176,11 @@ class NPIndividual(Individual):
         for i in range(1, self.params.n_outputs + 1):
             output.append(self.nodes[-i].value)
 
-        return np.array(output).T
+        if self.params.use_tensors:
+            # for now
+            return output
+        else:
+            return np.array(output).T
 
 class TFIndividual(Individual):
 
