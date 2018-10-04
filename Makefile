@@ -22,7 +22,7 @@ develop:
 	python setup.py develop
 
 install:
-	python setup.py install
+	pip install .
 
 # Catch-all target: route all unknown targets to Sphinx using the new
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
