@@ -11,7 +11,6 @@ setup(
         'numpy',
         'scipy',
         'sklearn',
-#       'tensorflow'
-        'deap'
+        'decorator'
     ]
 )
