@@ -9,8 +9,6 @@ setup(
     packages=['tengp'],
     install_requires=[
         'numpy',
-        'scipy',
-        'sklearn',
         'decorator'
     ]
 )

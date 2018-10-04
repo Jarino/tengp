@@ -25,24 +25,6 @@ def map_to_np_phenotype(genes, params):
 
     return nodes
 
-def map_to_tf_phenotype(genes, params):
-    nodes = []
-    for _ in range(params.n_inputs):
-        nodes.append(Node(tf.constant, [], is_input=True))
-
-    chunk_size = params.function_set.max_arity + 1
-
-    for i in range(params.n_nodes):
-        node_genes = genes[i * chunk_size : (i * chunk_size) + chunk_size]
-
-        function, arity = params.function_set[node_genes[0]]
-
-        nodes.append(Node(function, node_genes[1:], arity))
-
-    for gene in genes[-params.n_outputs:]:
-        nodes.append(Node(tf.Variable, [gene], is_output=True))
-
-    return nodes
 
 def active_paths(nodes):
     stack = []
@@ -90,24 +72,6 @@ def join_lists(x, y):
     return x + y
 
 
-
-@decorator
-def deprecated_handle_invalid_decorator(fun):
-    """ Decorates the inner cost_function, so it returns fitness_of_invalid value
-    defined in parameters in case of ValueError """
-    def wrapper(*args, **kwargs):
-        new_args = list(args)
-        cost_function = args[2]
-        params = args[3]
-        def wrapped_cost_function(*args, **kwargs):
-            try:
-                return cost_function(*args, **kwargs)
-            except ValueError as e:
-                return params.fitness_of_invalid
-        new_args[2] = wrapped_cost_function
-        return fun(*new_args, **kwargs)
-    return wrapper
-
 @decorator
 def handle_invalid_decorator(fun, *args, **kwargs):
     """ Decorates the inner cost_function, so it returns fitness_of_invalid value
@@ -124,6 +88,7 @@ def handle_invalid_decorator(fun, *args, **kwargs):
 
     new_args[2] = wrapped_cost_function
     return fun(*new_args, **kwargs)
+
 
 def clamp_bottom(number, minimum):
     if number < minimum:

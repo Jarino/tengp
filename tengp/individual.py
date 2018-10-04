@@ -3,11 +3,10 @@
 from abc import ABC, abstractmethod
 from functools import reduce
 
-#import tensorflow as tf
 import numpy as np
 
 from .genotype_factory import GenotypeFactory
-from .utils import map_to_tf_phenotype, map_to_np_phenotype, active_paths, join_lists
+from .utils import map_to_np_phenotype, active_paths, join_lists
 
 
 class Individual(ABC):
@@ -118,7 +117,6 @@ class NPIndividual(Individual):
             containing output tensors is returned. Otherwise Numpy array
             is returned.
         """
-
         if X.ndim == 0 or X.ndim == 1:
             raise ValueError(
                     "Expected 2D array, got scalar or 1D instead."

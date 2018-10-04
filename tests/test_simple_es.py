@@ -3,10 +3,12 @@ import random
 
 import numpy as np
 import pytest
-from sklearn.metrics import mean_squared_error
 
 from tengp import Parameters, simple_es
 from tengp.utils import UnknownMutationException
+
+def mean_squared_error(y_true, y_pred):
+    return np.square(np.subtract(y_true, y_pred)).mean()
 
 def print_result(result, start):
     print(f'Numpy result: {result}, time: {time() - start}')
