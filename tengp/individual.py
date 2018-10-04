@@ -121,8 +121,6 @@ class NPIndividual(Individual):
         for path in self.paths:
             for index in path:
                 current_node = self.nodes[index]
-                if current_node.value is not None:
-                    continue
 
                 if current_node.is_input: # is input node 
                     current_node.value = X[:, index]

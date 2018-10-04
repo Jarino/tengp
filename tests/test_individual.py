@@ -1,4 +1,5 @@
 """ Tests for individual abstract class and its derivatives """
+import numpy as np
 import pytest
 
 def test_active_gene_check(individual):
@@ -47,6 +48,16 @@ def test_arity_one_inactivity(individual_sin):
     active_nodes = [i for i, n in enumerate(individual_sin.nodes) if not n.is_input and i in individual_sin.active_nodes]
 
     assert active_nodes == [3, 4, 5]
+
+
+def test_computation_of_multiple_instances(individual_multiply):
+    X = np.array([[1], [2], [3], [4]])
+    y = np.array([[2], [8], [18], [32]])
+
+    y_pred = individual_multiply.transform(X)
+
+    assert (y == y_pred).all()
+
 
 
 

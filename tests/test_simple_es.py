@@ -14,7 +14,7 @@ def print_result(result, start):
 def test_simple_es(function_set, input_data_1d):
     X, y = input_data_1d
 
-    params = Parameters(1, 1, 1, 3, function_set, use_tensorflow=False)
+    params = Parameters(1, 1, 1, 3, function_set)
 
     random.seed(0)
     start = time()
@@ -27,7 +27,7 @@ def test_simple_es(function_set, input_data_1d):
 def test_simple_es_with_log(function_set, input_data_1d):
     X, y = input_data_1d
 
-    params = Parameters(1, 1, 1, 3, function_set, use_tensorflow=False)
+    params = Parameters(1, 1, 1, 3, function_set)
     log = []
 
     random.seed(0)
@@ -44,7 +44,7 @@ def test_simple_es_with_log(function_set, input_data_1d):
 def test_simple_es_with_inf(advanced_function_set, input_data_1d):
     X, y = input_data_1d
 
-    params = Parameters(1, 1, 1, 3, advanced_function_set, use_tensorflow=False)
+    params = Parameters(1, 1, 1, 3, advanced_function_set)
 
     random.seed(0)
     start = time()
