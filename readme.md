@@ -74,7 +74,7 @@ make develop
 ```
 which runs the `python setup.py develop` command. Any source code change will be immediately
 
-To execute tests:
+If not installed, install `pytest` (`pip install pytest`), then:
 ```
 make test
 ```
