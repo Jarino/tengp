@@ -5,22 +5,18 @@ Cartesian Genetic Programming library based on NumPy.
 
 ## Installation
 
-Currently only in development mode. Download the repository and at the root (where `setup.py` is located) execute:
+Currently only from source. Download the repository and at the root (where `setup.py` is located) execute:
 ```
-make develop
+make install
+
 ```
+which runs the `python setup.py install` command.
 
-## Features
 
-Simple $(1+4)$ evolution strategy using:
-  - point mutation
-  - single mutation
-  - active mutation
-  - probabilistic mutation
 
 ## Quick start
 
-Example of running a simple classification on Iris dataset. Also available as a jupyter notebook, in `examples` folder.
+Example of running a simple classification on Iris data set. Also available as a Jupyter notebook, in `examples` folder.
 
 ```python
 import numpy as np
@@ -63,8 +59,20 @@ y_pred = res[0].transform(X_test)
 labels = np.array(y_pred).argmax(axis=1)
 print('Accuracy on test: {:.2}'.format(accuracy_score(y_test, labels)))
 ```
+## Features
+
+Simple $(1+4)$ evolution strategy using:
+  - point mutation
+  - single mutation
+  - active mutation
+  - probabilistic mutation
 
 ## Development
+Install for development purposes:
+```
+make develop
+```
+which runs the `python setup.py develop` command. Any source code change will be immediately
 
 To execute tests:
 ```
