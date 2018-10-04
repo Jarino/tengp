@@ -51,12 +51,24 @@ def test_arity_one_inactivity(individual_sin):
 
 
 def test_computation_of_multiple_instances(individual_multiply):
+    """ Should return transform each sample individually."""
     X = np.array([[1], [2], [3], [4]])
     y = np.array([[2], [8], [18], [32]])
 
     y_pred = individual_multiply.transform(X)
 
     assert (y == y_pred).all()
+    
+
+def test_1d_input_into_transform(individual_multiply):
+    X = np.array([1, 2, 3, 4])
+    
+    try:
+        y_pred = individual_multiply.transform(X)
+        assert False, "should throw error about dimensions"
+    except ValueError:
+        assert True, "should throw error about dimensions"
+
 
 
 

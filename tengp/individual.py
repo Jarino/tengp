@@ -111,13 +111,20 @@ class NPIndividual(Individual):
         """Transforms the input data with expression encoded in individual.
 
         Args:
-            X (array-like): Numpy array, or tensor (if use_tensors was set to true in Parameters)
+            X (array-like): 2D Numpy array, or tensor (if use_tensors was set to true in Parameters)
 
         Returns:
             Transformed data. If use_tensors was set to true, then list
             containing output tensors is returned. Otherwise Numpy array
             is returned.
         """
+
+        if X.ndim == 0 or X.ndim == 1:
+            raise ValueError(
+                    "Expected 2D array, got scalar or 1D instead."
+                    "If X is single sample, use array.reshape(1, -1)."
+                    "If X has single feature, use array.reshape(-1, 1).")
+
         for path in self.paths:
             for index in path:
                 current_node = self.nodes[index]
@@ -140,36 +147,6 @@ class NPIndividual(Individual):
             return output
         else:
             return np.array(output).T
-
-class TFIndividual(Individual):
-
-    def __init__(self, genes, bounds, params):
-        self.nodes = map_to_tf_phenotype(genes, params)
-        Individual.__init__(self, genes, bounds, params)
-
-    def transform(self, X):
-        for path in self.paths:
-            for index in path:
-                current_node = self.nodes[index]
-
-                if current_node.fun.__name__ == 'constant': # quite shitty way to check
-                    current_node.value = current_node.fun(X[:, index])
-                elif current_node.fun.__name__ == 'Variable':
-                    input_index = current_node.inputs[0]
-                    initial_value = self.nodes[input_index].value 
-                    current_node.value = current_node.fun(initial_value)
-                else:
-                    values = [self.nodes[i].value for i in current_node.inputs[:current_node.arity]]
-                    current_node.value = current_node.fun(*values)
-
-
-        with tf.Session() as sess:
-            sess.run(tf.global_variables_initializer())
-            output = []
-            for i in range(1, self.params.n_outputs + 1):
-                output.append(self.nodes[-i].value.eval())
-
-        return output
 
 
 class IndividualBuilder():

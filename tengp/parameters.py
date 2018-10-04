@@ -1,4 +1,4 @@
-from .individual import NPIndividual, TFIndividual
+from .individual import NPIndividual
 
 class Parameters():
     """Contains construction parameters for CGP individual."""
