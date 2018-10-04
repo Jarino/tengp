@@ -8,9 +8,8 @@ Cartesian Genetic Programming library based on NumPy.
 Currently only from source. Download the repository and at the root (where `setup.py` is located) execute:
 ```
 make install
-
 ```
-which runs the `python setup.py install` command.
+which runs the `pip install .` command.
 
 
 
