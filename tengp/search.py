@@ -86,6 +86,7 @@ def simple_es(X, y, cost_function, params,
             log.append(parent.fitness)
 
         if parent.fitness <= target_fitness:
+            population.sort(key=lambda x: x.fitness)
             return population
 
         population = [parent.apply(move(parent)) for _ in range(population_size - 1)]
