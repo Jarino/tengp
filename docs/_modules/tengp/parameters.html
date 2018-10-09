@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>tengp.parameters &#8212; TenGP 1.0.0 documentation</title>
-    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -23,16 +23,19 @@
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
-   
-  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
+    <link rel="search" title="Search" href="../../search.html" /> 
   </head>
   <body>
-  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">TenGP 1.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
 
     <div class="document">
       <div class="documentwrapper">
@@ -40,12 +43,12 @@
           <div class="body" role="main">
             
   <h1>Source code for tengp.parameters</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">.individual</span> <span class="k">import</span> <span class="n">NPIndividual</span><span class="p">,</span> <span class="n">TFIndividual</span>
+<span></span><span class="kn">from</span> <span class="nn">.individual</span> <span class="k">import</span> <span class="n">NPIndividual</span>
 
-<div class="viewcode-block" id="Parameters"><a class="viewcode-back" href="../../index.html#tengp.Parameters">[docs]</a><span class="k">class</span> <span class="nc">Parameters</span><span class="p">():</span>
+<div class="viewcode-block" id="Parameters"><a class="viewcode-back" href="../../modules_api.html#tengp.Parameters">[docs]</a><span class="k">class</span> <span class="nc">Parameters</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;Contains construction parameters for CGP individual.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Parameters.__init__"><a class="viewcode-back" href="../../index.html#tengp.Parameters.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+<div class="viewcode-block" id="Parameters.__init__"><a class="viewcode-back" href="../../modules_api.html#tengp.Parameters.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">n_inputs</span><span class="p">,</span>
                  <span class="n">n_outputs</span><span class="p">,</span>
                  <span class="n">n_rows</span><span class="p">,</span>
@@ -53,9 +56,9 @@
                  <span class="n">function_set</span><span class="p">,</span>
                  <span class="n">fitness_of_invalid</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">),</span>
                  <span class="n">use_tensors</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                 <span class="n">max_back</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                 <span class="n">max_back</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">cf_individual</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Creates Parameters object.</span>
-
 
 <span class="sd">        Args:</span>
 <span class="sd">            n_inputs (int): Number of input nodes (i.e. attributes)</span>
@@ -66,7 +69,7 @@
 <span class="sd">            fitness_of_invalid (number): penalty fitness assigned to individual producing error</span>
 <span class="sd">            use_tensors (bool): if true, CGP works with tensors instead of numpy arrays</span>
 <span class="sd">            max_back (bool): number of previous nodes (including inputs) to which node can connect. When set to None, not limit is imposed.</span>
-<span class="sd">            use_tensorflow (bool): not used</span>
+<span class="sd">            cf_individual (bool): if set to True, cost function recieves ground truth and an individual object as an argument. Otherwise it recieves ground truth and input transformed by individual.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            Parameters class instance.</span>
@@ -79,8 +82,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">n_rows</span> <span class="o">=</span> <span class="n">n_rows</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">function_set</span> <span class="o">=</span> <span class="n">function_set</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fitness_of_invalid</span> <span class="o">=</span> <span class="n">fitness_of_invalid</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">use_tensors</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_tensors</span> <span class="o">=</span> <span class="n">use_tensors</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">individual_class</span> <span class="o">=</span> <span class="n">NPIndividual</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cf_individual</span> <span class="o">=</span> <span class="n">cf_individual</span>
         <span class="c1"># self.individual_class = TFIndividual there is probably no reason for that</span>
 
         <span class="k">if</span> <span class="n">max_back</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -88,15 +92,15 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">max_back</span> <span class="o">=</span> <span class="n">max_back</span></div></div>
 
-<div class="viewcode-block" id="FunctionSet"><a class="viewcode-back" href="../../index.html#tengp.FunctionSet">[docs]</a><span class="k">class</span> <span class="nc">FunctionSet</span><span class="p">():</span>
+<div class="viewcode-block" id="FunctionSet"><a class="viewcode-back" href="../../modules_api.html#tengp.FunctionSet">[docs]</a><span class="k">class</span> <span class="nc">FunctionSet</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;Class containing functions which CGP system can use.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="FunctionSet.__init__"><a class="viewcode-back" href="../../index.html#tengp.FunctionSet.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FunctionSet.__init__"><a class="viewcode-back" href="../../modules_api.html#tengp.FunctionSet.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Initialize empty function set.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">functions</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">max_arity</span> <span class="o">=</span> <span class="mi">0</span></div>
 
-<div class="viewcode-block" id="FunctionSet.add"><a class="viewcode-back" href="../../index.html#tengp.FunctionSet.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">function</span><span class="p">,</span> <span class="n">arity</span><span class="p">):</span>
+<div class="viewcode-block" id="FunctionSet.add"><a class="viewcode-back" href="../../modules_api.html#tengp.FunctionSet.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">function</span><span class="p">,</span> <span class="n">arity</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Add given function to function set.</span>
 
 <span class="sd">        Args:</span>
@@ -106,11 +110,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">functions</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">function</span><span class="p">,</span> <span class="n">arity</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">max_arity</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">functions</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])[</span><span class="mi">1</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="FunctionSet.__getitem__"><a class="viewcode-back" href="../../index.html#tengp.FunctionSet.__getitem__">[docs]</a>    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+<div class="viewcode-block" id="FunctionSet.__getitem__"><a class="viewcode-back" href="../../modules_api.html#tengp.FunctionSet.__getitem__">[docs]</a>    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Returns a function at given index.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">functions</span><span class="p">[</span><span class="n">index</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="FunctionSet.__len__"><a class="viewcode-back" href="../../index.html#tengp.FunctionSet.__len__">[docs]</a>    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FunctionSet.__len__"><a class="viewcode-back" href="../../modules_api.html#tengp.FunctionSet.__len__">[docs]</a>    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Returns a number of functions in function set.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">functions</span><span class="p">)</span></div></div>
 
@@ -120,15 +124,14 @@
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="relations">
-<h3>Related Topics</h3>
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../index.html">Table Of Contents</a></h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-  <li><a href="../../index.html">Documentation overview</a><ul>
-  <li><a href="../index.html">Module code</a><ul>
-  </ul></li>
-  </ul></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules_api.html">Modules API</a></li>
 </ul>
-</div>
+
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
@@ -143,17 +146,19 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="footer">
-      &copy;2018, Jaroslav Loebl.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
-      
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">TenGP 1.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
+      </ul>
     </div>
-
-    
-
-    
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Jaroslav Loebl.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
+    </div>
   </body>
 </html>

@@ -5,8 +5,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Welcome to TenGP’s documentation! &#8212; TenGP 1.0.0 documentation</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <title>TenGP &#8212; TenGP 1.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -24,168 +24,98 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-   
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
+    <link rel="next" title="Installation" href="installation.html" /> 
   </head>
   <body>
-  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="installation.html" title="Installation"
+             accesskey="N">next</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">TenGP 1.0.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="welcome-to-tengp-s-documentation">
-<h1>Welcome to TenGP’s documentation!<a class="headerlink" href="#welcome-to-tengp-s-documentation" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="tengp">
+<h1>TenGP<a class="headerlink" href="#tengp" title="Permalink to this headline">¶</a></h1>
+<p>TenGP is an implementation of Cartesian Genetic Programming (CGP) based on NumPy arrays. PyTorch tensors can be used instead of NumPy arrays, thanks to their similar APIs, thus enabling utilization of GPUs for transforming data.</p>
 <div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules_api.html">Modules API</a></li>
+</ul>
 </div>
-<ul class="simple">
-<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
-<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
-<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
-</ul>
-<p>Here is the very basic description of public classes and functions.</p>
-<dl class="class">
-<dt id="tengp.FunctionSet">
-<em class="property">class </em><code class="descclassname">tengp.</code><code class="descname">FunctionSet</code><a class="reference internal" href="_modules/tengp/parameters.html#FunctionSet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.FunctionSet" title="Permalink to this definition">¶</a></dt>
-<dd><p>Class containing functions which CGP system can use.</p>
-<dl class="method">
-<dt id="tengp.FunctionSet.__getitem__">
-<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/parameters.html#FunctionSet.__getitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.FunctionSet.__getitem__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a function at given index.</p>
-</dd></dl>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>PyPI in progress. For know, installation is available only from git repo.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">Jarino</span><span class="o">/</span><span class="n">tensor</span><span class="o">-</span><span class="n">cgp</span>
+</pre></div>
+</div>
+<p>Or clone repo and install using Makefile.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">Jarino</span><span class="o">/</span><span class="n">tensor</span><span class="o">-</span><span class="n">cgp</span>
+<span class="n">cd</span> <span class="n">tensor</span><span class="o">-</span><span class="n">cgp</span>
+<span class="n">make</span> <span class="n">install</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="quickstart">
+<h2>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline">¶</a></h2>
+<p>Quickstart on simple regression problem.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># load data</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="k">import</span> <span class="n">fetch_california_housing</span>
 
-<dl class="method">
-<dt id="tengp.FunctionSet.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/parameters.html#FunctionSet.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.FunctionSet.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize empty function set.</p>
-</dd></dl>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">fetch_california_housing</span><span class="p">()</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">data</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">target</span>
 
-<dl class="method">
-<dt id="tengp.FunctionSet.__len__">
-<code class="descname">__len__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/parameters.html#FunctionSet.__len__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.FunctionSet.__len__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a number of functions in function set.</p>
-</dd></dl>
+<span class="c1"># set-up CGP system</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">tengp</span>
 
-<dl class="method">
-<dt id="tengp.FunctionSet.add">
-<code class="descname">add</code><span class="sig-paren">(</span><em>function</em>, <em>arity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/parameters.html#FunctionSet.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.FunctionSet.add" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add given function to function set.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>function</strong> (<em>callable</em>) – function to add (must have a workings __name__)</li>
-<li><strong>arity</strong> (<em>int</em>) – arity (number of arguments) of given function</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
+<span class="k">def</span> <span class="nf">protected_division</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">where</span><span class="o">=</span><span class="n">y</span><span class="o">!=</span><span class="mi">0</span><span class="p">)</span>
 
-</dd></dl>
+<span class="n">funset</span> <span class="o">=</span> <span class="n">tengp</span><span class="o">.</span><span class="n">FunctionSet</span><span class="p">()</span>
+<span class="n">funset</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">add</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">funset</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">subtract</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">funset</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">funset</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">protected_division</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">funset</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
-<dl class="class">
-<dt id="tengp.Parameters">
-<em class="property">class </em><code class="descclassname">tengp.</code><code class="descname">Parameters</code><span class="sig-paren">(</span><em>n_inputs</em>, <em>n_outputs</em>, <em>n_rows</em>, <em>n_columns</em>, <em>function_set</em>, <em>fitness_of_invalid=inf</em>, <em>use_tensors=False</em>, <em>max_back=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/parameters.html#Parameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.Parameters" title="Permalink to this definition">¶</a></dt>
-<dd><p>Contains construction parameters for CGP individual.</p>
-<dl class="method">
-<dt id="tengp.Parameters.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>n_inputs</em>, <em>n_outputs</em>, <em>n_rows</em>, <em>n_columns</em>, <em>function_set</em>, <em>fitness_of_invalid=inf</em>, <em>use_tensors=False</em>, <em>max_back=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/parameters.html#Parameters.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.Parameters.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates Parameters object.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>n_inputs</strong> (<em>int</em>) – Number of input nodes (i.e. attributes)</li>
-<li><strong>n_outputs</strong> (<em>int</em>) – Number of output nodes</li>
-<li><strong>n_rows</strong> (<em>int</em>) – Number of rows</li>
-<li><strong>n_columns</strong> (<em>int</em>) – Number of columns</li>
-<li><strong>function_set</strong> (<a class="reference internal" href="#tengp.FunctionSet" title="tengp.FunctionSet"><em>FunctionSet</em></a>) – instance of FunctionSet class</li>
-<li><strong>fitness_of_invalid</strong> (<em>number</em>) – penalty fitness assigned to individual producing error</li>
-<li><strong>use_tensors</strong> (<em>bool</em>) – if true, CGP works with tensors instead of numpy arrays</li>
-<li><strong>max_back</strong> (<em>bool</em>) – number of previous nodes (including inputs) to which node can connect. When set to None, not limit is imposed.</li>
-<li><strong>use_tensorflow</strong> (<em>bool</em>) – not used</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Parameters class instance.</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
+<span class="n">params</span> <span class="o">=</span> <span class="n">tengp</span><span class="o">.</span><span class="n">Parameters</span><span class="p">(</span><span class="n">n_inputs</span><span class="o">=</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                          <span class="n">n_outputs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                          <span class="n">n_columns</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+                          <span class="n">n_rows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                          <span class="n">function_set</span><span class="o">=</span><span class="n">funset</span><span class="p">)</span>
 
-</dd></dl>
+<span class="c1"># cost function</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">mean_squared_error</span>
 
-<dl class="function">
-<dt id="tengp.simple_es">
-<code class="descclassname">tengp.</code><code class="descname">simple_es</code><span class="sig-paren">(</span><em>X</em>, <em>y</em>, <em>cost_function</em>, <em>params</em>, <em>target_fitness=0</em>, <em>population_size=5</em>, <em>evaluations=5000</em>, <em>random_state=None</em>, <em>mutation='point'</em>, <em>mutation_probability=0.25</em>, <em>verbose=False</em>, <em>log=None</em>, <em>transformed_individual=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/search.html#simple_es"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.simple_es" title="Permalink to this definition">¶</a></dt>
-<dd><p>Optimize a CGP system using a simple evolutionary strategy.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>X</strong> (<em>numpy.ndarray</em>) – input data, number of columns have to match the n_inputs
-parameter of Parameters object</li>
-<li><strong>y</strong> (<em>numpy.ndarray</em>) – target output data, number of columns have to match
-the n_outputs parameter of Parameters object</li>
-<li><strong>cost_function</strong> (<em>callable</em>) – cost function to minimize. It has two
-arguments <cite>(y_true, y_pred)</cite>, where <cite>y_true</cite> is target output data
-and <cite>y_pred</cite> is output of CGP individual</li>
-<li><strong>params</strong> (<a class="reference internal" href="#tengp.Parameters" title="tengp.Parameters"><em>Parameters</em></a>) – instance of Parameters class</li>
-<li><strong>target_fitness</strong> (<em>number</em>) – fitness, at which evolution will stop</li>
-<li><strong>population_size</strong> (<em>int</em>) – size of population including parent</li>
-<li><strong>evaluations</strong> (<em>int</em>) – maximum number of cost function evaluations</li>
-<li><strong>random_state</strong> (<em>int</em>) – seed for random number generator</li>
-<li><strong>mutation</strong> (<em>string</em>) – type of mutation to use, accept values <cite>‘point’,
-‘active’, ‘single’, ‘probabilistic’</cite></li>
-<li><strong>mutation_probability</strong> (<em>float</em>) – probability of mutating a given gene (
-used only when <cite>mutation</cite> argument is set to <cite>‘probabilistic’</cite></li>
-<li><strong>verbose</strong> (<em>bool</em>) – if <cite>True</cite>, outputs evolution info every 100 generations</li>
-<li><strong>log</strong> (<em>list</em>) – if provided with a list, best fitness of each generation
-is stored here</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">List of individuals, the last generation of evolution</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
+<span class="c1"># run evolution</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">tengp</span><span class="o">.</span><span class="n">simple_es</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span>
+                      <span class="n">y_train</span><span class="p">,</span>
+                      <span class="n">mean_squared_error</span><span class="p">,</span>
+                      <span class="n">params</span><span class="p">,</span>
+                      <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+                      <span class="n">mutation</span><span class="o">=</span><span class="s1">&#39;probabilistic&#39;</span><span class="p">,</span>
+                      <span class="n">verbose</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 
-<dl class="class">
-<dt id="tengp.individual.NPIndividual">
-<em class="property">class </em><code class="descclassname">tengp.individual.</code><code class="descname">NPIndividual</code><span class="sig-paren">(</span><em>genes</em>, <em>bounds</em>, <em>params</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/individual.html#NPIndividual"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.individual.NPIndividual" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
-<dt id="tengp.individual.NPIndividual.transform">
-<code class="descname">transform</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/individual.html#NPIndividual.transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.individual.NPIndividual.transform" title="Permalink to this definition">¶</a></dt>
-<dd><p>Transforms the input data with expression encoded in individual.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>X</strong> (<em>array-like</em>) – Numpy array, or tensor (if use_tensors was set to true in Parameters)</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Transformed data. If use_tensors was set to true, then list
-containing output tensors is returned. Otherwise Numpy array
-is returned.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
+<span class="c1"># print fitness and phenotype of best individual</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">fitness</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_expression</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
 </div>
 
 
@@ -193,13 +123,26 @@ is returned.</td>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="relations">
-<h3>Related Topics</h3>
+        <div class="sphinxsidebarwrapper">
+<h3><a href="#">Table Of Contents</a></h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-  <li><a href="#">Documentation overview</a><ul>
-  </ul></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules_api.html">Modules API</a></li>
 </ul>
-</div>
+
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">TenGP</a><ul>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#quickstart">Quickstart</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Next topic</h4>
+  <p class="topless"><a href="installation.html"
+                        title="next chapter">Installation</a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -214,20 +157,21 @@ is returned.</td>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="footer">
-      &copy;2018, Jaroslav Loebl.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
-      
-      |
-      <a href="_sources/index.rst.txt"
-          rel="nofollow">Page source</a>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="installation.html" title="Installation"
+             >next</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">TenGP 1.0.0 documentation</a> &#187;</li> 
+      </ul>
     </div>
-
-    
-
-    
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Jaroslav Loebl.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
+    </div>
   </body>
 </html>

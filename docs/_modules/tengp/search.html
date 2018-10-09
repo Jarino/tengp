@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>tengp.search &#8212; TenGP 1.0.0 documentation</title>
-    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -23,16 +23,19 @@
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
-   
-  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
+    <link rel="search" title="Search" href="../../search.html" /> 
   </head>
   <body>
-  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">TenGP 1.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
 
     <div class="document">
       <div class="documentwrapper">
@@ -47,7 +50,6 @@
 <span class="kn">import</span> <span class="nn">random</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">partial</span>
 
-<span class="kn">from</span> <span class="nn">deap</span> <span class="k">import</span> <span class="n">creator</span><span class="p">,</span> <span class="n">base</span><span class="p">,</span> <span class="n">cma</span><span class="p">,</span> <span class="n">algorithms</span><span class="p">,</span> <span class="n">tools</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="kn">from</span> <span class="nn">.mutations</span> <span class="k">import</span> <span class="n">MUTATIONS</span>
@@ -55,7 +57,7 @@
 <span class="kn">from</span> <span class="nn">.parameters</span> <span class="k">import</span> <span class="n">FunctionSet</span><span class="p">,</span> <span class="n">Parameters</span>
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="k">import</span> <span class="n">handle_invalid_decorator</span><span class="p">,</span> <span class="n">UnknownMutationException</span>
 
-<div class="viewcode-block" id="simple_es"><a class="viewcode-back" href="../../index.html#tengp.simple_es">[docs]</a><span class="nd">@handle_invalid_decorator</span>
+<div class="viewcode-block" id="simple_es"><a class="viewcode-back" href="../../modules_api.html#tengp.simple_es">[docs]</a><span class="nd">@handle_invalid_decorator</span>
 <span class="k">def</span> <span class="nf">simple_es</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cost_function</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span>
               <span class="n">target_fitness</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
               <span class="n">population_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
@@ -64,8 +66,7 @@
               <span class="n">mutation</span><span class="o">=</span><span class="s1">&#39;point&#39;</span><span class="p">,</span>
               <span class="n">mutation_probability</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span>
               <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-              <span class="n">log</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-              <span class="n">transformed_individual</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+              <span class="n">log</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Optimize a CGP system using a simple evolutionary strategy.</span>
 
 <span class="sd">    Args:</span>
@@ -112,15 +113,12 @@
 
     <span class="n">generation</span> <span class="o">=</span> <span class="mi">0</span>
 
-
     <span class="k">for</span> <span class="n">individual</span> <span class="ow">in</span> <span class="n">population</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">transformed_individual</span><span class="p">:</span>
-            <span class="c1">#transformed individual at cost_function</span>
+        <span class="k">if</span> <span class="n">params</span><span class="o">.</span><span class="n">cf_individual</span><span class="p">:</span>
+            <span class="n">individual</span><span class="o">.</span><span class="n">fitness</span> <span class="o">=</span> <span class="n">cost_function</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">individual</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
             <span class="n">output</span> <span class="o">=</span> <span class="n">individual</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
             <span class="n">individual</span><span class="o">.</span><span class="n">fitness</span> <span class="o">=</span> <span class="n">cost_function</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="c1">#individual to be transformed at cost_function</span>
-            <span class="n">individual</span><span class="o">.</span><span class="n">fitness</span> <span class="o">=</span> <span class="n">cost_function</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">individual</span><span class="p">)</span>
         <span class="n">n_evals</span> <span class="o">+=</span> <span class="mi">1</span>
 
 
@@ -133,6 +131,7 @@
             <span class="n">log</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">fitness</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">parent</span><span class="o">.</span><span class="n">fitness</span> <span class="o">&lt;=</span> <span class="n">target_fitness</span><span class="p">:</span>
+            <span class="n">population</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">fitness</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">population</span>
 
         <span class="n">population</span> <span class="o">=</span> <span class="p">[</span><span class="n">parent</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">move</span><span class="p">(</span><span class="n">parent</span><span class="p">))</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">population_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)]</span>
@@ -140,16 +139,14 @@
         <span class="n">population</span> <span class="o">+=</span> <span class="p">[</span><span class="n">parent</span><span class="p">]</span>
 
         <span class="k">for</span> <span class="n">individual</span> <span class="ow">in</span> <span class="n">population</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">transformed_individual</span><span class="p">:</span>
-                <span class="c1">#transformed individual at cost_function</span>
+            <span class="k">if</span> <span class="n">params</span><span class="o">.</span><span class="n">cf_individual</span><span class="p">:</span>
+                <span class="n">individual</span><span class="o">.</span><span class="n">fitness</span> <span class="o">=</span> <span class="n">cost_function</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">individual</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
                 <span class="n">output</span> <span class="o">=</span> <span class="n">individual</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
                 <span class="n">individual</span><span class="o">.</span><span class="n">fitness</span> <span class="o">=</span> <span class="n">cost_function</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="c1">#individual to be transformed at cost_function</span>
-                <span class="n">individual</span><span class="o">.</span><span class="n">fitness</span> <span class="o">=</span> <span class="n">cost_function</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">individual</span><span class="p">)</span>
             <span class="n">n_evals</span> <span class="o">+=</span> <span class="mi">1</span>
 
-        <span class="k">if</span> <span class="n">verbose</span> <span class="ow">and</span> <span class="n">generation</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">verbose</span> <span class="ow">and</span> <span class="n">generation</span> <span class="o">%</span> <span class="n">verbose</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Gen: </span><span class="si">{generation}</span><span class="s1">, population: {sorted([x.fitness for x in population])}&#39;</span><span class="p">)</span>
 
 
@@ -166,15 +163,14 @@
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="relations">
-<h3>Related Topics</h3>
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../index.html">Table Of Contents</a></h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-  <li><a href="../../index.html">Documentation overview</a><ul>
-  <li><a href="../index.html">Module code</a><ul>
-  </ul></li>
-  </ul></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules_api.html">Modules API</a></li>
 </ul>
-</div>
+
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
@@ -189,17 +185,19 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="footer">
-      &copy;2018, Jaroslav Loebl.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
-      
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">TenGP 1.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
+      </ul>
     </div>
-
-    
-
-    
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Jaroslav Loebl.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
+    </div>
   </body>
 </html>
