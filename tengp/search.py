@@ -21,7 +21,8 @@ def simple_es(X, y, cost_function, params,
               mutation='point',
               mutation_probability=0.25,
               verbose=False,
-              log=None):
+              log=None,
+              input_individual=None):
     """Optimize a CGP system using a simple evolutionary strategy.
 
     Args:
@@ -44,6 +45,9 @@ def simple_es(X, y, cost_function, params,
         verbose (bool): if `True`, outputs evolution info every 100 generations
         log (list): if provided with a list, best fitness of each generation
             is stored here
+        input_individual (Individual): if provided with instance of Individual class,
+            the initial population is created according to this object - parent of first
+            generation.
 
     Returns:
         List of individuals, the last generation of evolution
@@ -62,7 +66,11 @@ def simple_es(X, y, cost_function, params,
     # initial generation
     ib = IndividualBuilder(params)
 
-    population = [ib.create() for _ in range(population_size)]
+    if input_individual:
+        population = [input_individual.apply(move(input_individual)) for _ in range(population_size - 1)]
+        population += [input_individual]
+    else:
+        population = [ib.create() for _ in range(population_size)]
 
     n_evals = 0
 
