@@ -1,77 +1,88 @@
-# Cartesian Genetic Programming with NumPy
+# TenGP - Cartesian Genetic Programming with NumPy (or PyTorch)
 
-Cartesian Genetic Programming library based on NumPy.
+Cartesian Genetic Programming (CGP) based on NumPy arrays.
 
+PyTorch tensors can be used instead of NumPy arrays, thanks to their similar APIs, thus enabling utilization of GPUs for transforming data.
 
 ## Installation
 
-Currently only from source. Download the repository and at the root (where `setup.py` is located) execute:
+PyPI in progress. For know, installation is available only from git repo:
 ```
+pip install git+https://github.com/Jarino/tensor-cgp
+```
+
+Or clone repo and install using Makefile:
+```
+git clone https://github.com/Jarino/tensor-cgp
+cd tensor-cgp
 make install
 ```
-which runs the `pip install .` command.
-
 
 
 ## Quick start
 
-Example of running a simple classification on Iris data set. Also available as a Jupyter notebook, in `examples` folder.
+Symbolic regression example on [California Housing dataset](http://scikit-learn.org/stable/modules/generated/sklearn.datasets.fetch_california_housing.html#sklearn.datasets.fetch_california_housing):
 
-```python
+```
+# load data
+from sklearn.datasets import fetch_california_housing
+
+dataset = fetch_california_housing()
+X_train = dataset.data
+y_train = dataset.target
+
+# set-up CGP system
 import numpy as np
-from sklearn.metrics import accuracy_score
-from sklearn.datasets import load_iris
-from sklearn.model_selection import train_test_split
-
 import tengp
 
-# load data
-X, y = load_iris(return_X_y=True)
-
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-# define function set
-def pdivide(a, b):
-    return np.divide(a, b, out=np.zeros_like(a), where=b!=0)
-
-def plog(a):
-    return np.log(a, out=np.zeros_like(a), where=a>0)
+def protected_division(x, y):
+    return np.divide(x, y, out=np.copy(x), where=y!=0)
 
 funset = tengp.FunctionSet()
 funset.add(np.add, 2)
+funset.add(np.subtract, 2)
 funset.add(np.multiply, 2)
-funset.add(pdivide, 2)
-funset.add(plog, 1)
+funset.add(protected_division, 2)
+funset.add(np.sin, 1)
 
-# define cost function
-def cost_function(y, y_pred):
-    labels = np.array(y_pred).argmax(axis=0)
-    return -accuracy_score(y, labels)
+params = tengp.Parameters(n_inputs=X_train.shape[1],
+                          n_outputs=1,
+                          n_columns=100,
+                          n_rows=1,
+                          function_set=funset)
 
-# tie everything together
-params = tengp.Parameters(4, 3, n_columns=25, n_rows=1, function_set=funset, use_tensorflow=False)
+# cost function
+from sklearn.metrics import mean_squared_error
 
-res = tengp.simple_es(X_train, y_train, cost_function, params, target_fitness=-1, random_state=42)
+# run evolution
+res = tengp.simple_es(X_train,
+                      y_train,
+                      mean_squared_error,
+                      params,
+                      random_state=42,
+                      mutation='probabilistic',
+                      verbose=100)
 
-# evaluate the best individual
-y_pred = res[0].transform(X_test)
-labels = np.array(y_pred).argmax(axis=1)
-print('Accuracy on test: {:.2}'.format(accuracy_score(y_test, labels)))
+# print fitness and phenotype of best individual
+print(res[0].fitness)
+print(res[0].get_expression())
 ```
+
 ## Features
 
-Simple $(1+4)$ evolution strategy using:
+Simple `$(1+n)$` evolution strategy using:
   - point mutation
   - single mutation
   - active mutation
   - probabilistic mutation
 
 ## Development
+
 Install for development purposes:
 ```
 make develop
 ```
-which runs the `python setup.py develop` command. Any source code change will be immediately
+which runs the `python setup.py develop` command.
 
 If not installed, install `pytest` (`pip install pytest`), then:
 ```

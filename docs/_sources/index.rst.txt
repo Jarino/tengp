@@ -3,76 +3,14 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-TenGP
-=================================
+.. mdinclude:: ../../readme.md
 
-TenGP is an implementation of Cartesian Genetic Programming (CGP) based on NumPy arrays. PyTorch tensors can be used instead of NumPy arrays, thanks to their similar APIs, thus enabling utilization of GPUs for transforming data.
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+   :glob:
 
-   installation
-   modules_api
-
-Installation
-------------
-
-PyPI in progress. For know, installation is available only from git repo.::
-
-  pip install git+https://github.com/Jarino/tensor-cgp
-
-Or clone repo and install using Makefile.::
-
-  git clone https://github.com/Jarino/tensor-cgp
-  cd tensor-cgp
-  make install
-
-Quickstart
-----------
-Quickstart on simple regression problem.::
-
-  # load data
-  from sklearn.datasets import fetch_california_housing
-
-  dataset = fetch_california_housing()
-  X_train = dataset.data
-  y_train = dataset.target
-
-  # set-up CGP system
-  import numpy as np
-  import tengp
-
-  def protected_division(x, y):
-      return np.divide(x, y, out=np.copy(x), where=y!=0)
-
-  funset = tengp.FunctionSet()
-  funset.add(np.add, 2)
-  funset.add(np.subtract, 2)
-  funset.add(np.multiply, 2)
-  funset.add(protected_division, 2)
-  funset.add(np.sin, 1)
-
-  params = tengp.Parameters(n_inputs=X_train.shape[1],
-                            n_outputs=1,
-                            n_columns=100,
-                            n_rows=1,
-                            function_set=funset)
-
-  # cost function
-  from sklearn.metrics import mean_squared_error
-
-  # run evolution
-  res = tengp.simple_es(X_train,
-                        y_train,
-                        mean_squared_error,
-                        params,
-                        random_state=42,
-                        mutation='probabilistic',
-                        verbose=100)
-
-  # print fitness and phenotype of best individual
-  print(res[0].fitness)
-  print(res[0].get_expression())
+   about
+   examples
+   modules_api  
 
 
