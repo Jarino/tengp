@@ -124,7 +124,7 @@
 
 <dl class="function">
 <dt id="tengp.simple_es">
-<code class="descclassname">tengp.</code><code class="descname">simple_es</code><span class="sig-paren">(</span><em>X</em>, <em>y</em>, <em>cost_function</em>, <em>params</em>, <em>target_fitness=0</em>, <em>population_size=5</em>, <em>evaluations=5000</em>, <em>random_state=None</em>, <em>mutation='point'</em>, <em>mutation_probability=0.25</em>, <em>verbose=False</em>, <em>log=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/search.html#simple_es"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.simple_es" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">tengp.</code><code class="descname">simple_es</code><span class="sig-paren">(</span><em>X</em>, <em>y</em>, <em>cost_function</em>, <em>params</em>, <em>target_fitness=0</em>, <em>population_size=5</em>, <em>evaluations=5000</em>, <em>random_state=None</em>, <em>mutation='point'</em>, <em>mutation_probability=0.25</em>, <em>verbose=False</em>, <em>log=None</em>, <em>seed_individual=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tengp/search.html#simple_es"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tengp.simple_es" title="Permalink to this definition">¶</a></dt>
 <dd><p>Optimize a CGP system using a simple evolutionary strategy.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -150,6 +150,9 @@ used only when <cite>mutation</cite> argument is set to <cite>‘probabilistic�
 <li><strong>verbose</strong> (<em>bool</em>) – if <cite>True</cite>, outputs evolution info every 100 generations</li>
 <li><strong>log</strong> (<em>list</em>) – if provided with a list, best fitness of each generation
 is stored here</li>
+<li><strong>seed_individual</strong> (<em>Individual</em>) – if provided with instance of Individual class,
+the initial population is created according to this object - parent of first
+generation.</li>
 </ul>
 </td>
 </tr>

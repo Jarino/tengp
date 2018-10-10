@@ -66,7 +66,8 @@
               <span class="n">mutation</span><span class="o">=</span><span class="s1">&#39;point&#39;</span><span class="p">,</span>
               <span class="n">mutation_probability</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span>
               <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-              <span class="n">log</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+              <span class="n">log</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+              <span class="n">seed_individual</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Optimize a CGP system using a simple evolutionary strategy.</span>
 
 <span class="sd">    Args:</span>
@@ -89,6 +90,9 @@
 <span class="sd">        verbose (bool): if `True`, outputs evolution info every 100 generations</span>
 <span class="sd">        log (list): if provided with a list, best fitness of each generation</span>
 <span class="sd">            is stored here</span>
+<span class="sd">        seed_individual (Individual): if provided with instance of Individual class,</span>
+<span class="sd">            the initial population is created according to this object - parent of first</span>
+<span class="sd">            generation.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        List of individuals, the last generation of evolution</span>
@@ -107,7 +111,11 @@
     <span class="c1"># initial generation</span>
     <span class="n">ib</span> <span class="o">=</span> <span class="n">IndividualBuilder</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
 
-    <span class="n">population</span> <span class="o">=</span> <span class="p">[</span><span class="n">ib</span><span class="o">.</span><span class="n">create</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">population_size</span><span class="p">)]</span>
+    <span class="k">if</span> <span class="n">seed_individual</span><span class="p">:</span>
+        <span class="n">population</span> <span class="o">=</span> <span class="p">[</span><span class="n">seed_individual</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">move</span><span class="p">(</span><span class="n">seed_individual</span><span class="p">))</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">population_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)]</span>
+        <span class="n">population</span> <span class="o">+=</span> <span class="p">[</span><span class="n">seed_individual</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">population</span> <span class="o">=</span> <span class="p">[</span><span class="n">ib</span><span class="o">.</span><span class="n">create</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">population_size</span><span class="p">)]</span>
 
     <span class="n">n_evals</span> <span class="o">=</span> <span class="mi">0</span>
 

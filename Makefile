@@ -24,8 +24,6 @@ develop:
 install:
 	pip install .
 
-# Catch-all target: route all unknown targets to Sphinx using the new
-# "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
-%: Makefile
-	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+html:
+	@$(SPHINXBUILD) -Eab html "$(SOURCEDIR)" "$(BUILDDIR)"  $(SPHINXOPTS) $(O)
 	cp -r $(BUILDDIR)/html/. $(DOCSDIR)
