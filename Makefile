@@ -26,4 +26,5 @@ install:
 
 html:
 	@$(SPHINXBUILD) -Eab html "$(SOURCEDIR)" "$(BUILDDIR)"  $(SPHINXOPTS) $(O)
-	cp -r $(BUILDDIR)/html/. $(DOCSDIR)
+	echo 'copy'
+	cp -r $(BUILDDIR)/. $(DOCSDIR)

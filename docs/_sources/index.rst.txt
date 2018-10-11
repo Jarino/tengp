@@ -11,6 +11,7 @@
 
    about
    examples
+   torch
    modules_api  
 
 
