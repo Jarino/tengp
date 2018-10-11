@@ -47,7 +47,7 @@
   <div class="section" id="using-pytorch">
 <h1>Using PyTorch<a class="headerlink" href="#using-pytorch" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="https://pytorch.org/">PyTorch</a> is an deep learning framework, providing many useful features, including tensor computation with GPU if available.</p>
-<p>Since API of PyTorch is designed to be similar to NumPy, not much is needed to execute TenGP individual using GPU::</p>
+<p>Since API of PyTorch is designed to be similar to NumPy, not much is needed to execute TenGP individual using GPU:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># define function set with operation from torch library, instead of numpy</span>
 <span class="n">torch_funset</span> <span class="o">=</span> <span class="n">tengp</span><span class="o">.</span><span class="n">FunctionSet</span><span class="p">()</span>
 <span class="n">torch_funset</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">add</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>

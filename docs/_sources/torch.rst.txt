@@ -3,7 +3,7 @@ Using PyTorch
 
 `PyTorch <https://pytorch.org/>`_ is an deep learning framework, providing many useful features, including tensor computation with GPU if available.
 
-Since API of PyTorch is designed to be similar to NumPy, not much is needed to execute TenGP individual using GPU:::
+Since API of PyTorch is designed to be similar to NumPy, not much is needed to execute TenGP individual using GPU::
   
   # define function set with operation from torch library, instead of numpy
   torch_funset = tengp.FunctionSet()
