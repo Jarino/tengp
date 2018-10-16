@@ -23,7 +23,7 @@ make install
 
 Symbolic regression example on [California Housing dataset](http://scikit-learn.org/stable/modules/generated/sklearn.datasets.fetch_california_housing.html#sklearn.datasets.fetch_california_housing):
 
-```
+```python
 # load data
 from sklearn.datasets import fetch_california_housing
 
