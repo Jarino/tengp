@@ -8,12 +8,12 @@ PyTorch tensors can be used instead of NumPy arrays, thanks to their similar API
 
 PyPI in progress. For know, installation is available only from git repo:
 ```
-pip install git+https://github.com/Jarino/tensor-cgp
+pip install git+https://github.com/Jarino/tengp
 ```
 
 Or clone repo and install using Makefile:
 ```
-git clone https://github.com/Jarino/tensor-cgp
+git clone https://github.com/Jarino/tengp
 cd tensor-cgp
 make install
 ```
