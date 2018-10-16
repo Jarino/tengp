@@ -14,7 +14,7 @@ from .utils import handle_invalid_decorator, UnknownMutationException
 
 @handle_invalid_decorator
 def simple_es(X, y, cost_function, params,
-              target_fitness=0,
+              target_fitness=None,
               population_size=5,
               evaluations=5000,
               random_state=None,
@@ -93,7 +93,7 @@ def simple_es(X, y, cost_function, params,
         if log is not None:
             log.append(parent.fitness)
 
-        if parent.fitness <= target_fitness:
+        if target_fitness is not None and parent.fitness <= target_fitness:
             population.sort(key=lambda x: x.fitness)
             return population
 
