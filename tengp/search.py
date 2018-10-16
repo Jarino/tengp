@@ -34,7 +34,7 @@ def simple_es(X, y, cost_function, params,
             arguments `(y_true, y_pred)`, where `y_true` is target output data
             and `y_pred` is output of CGP individual
         params (Parameters): instance of Parameters class
-        target_fitness (number): fitness, at which evolution will stop
+        target_fitness (number or None): fitness, at which evolution will stop. If None, it is not considered
         population_size (int): size of population including parent
         evaluations (int): maximum number of cost function evaluations
         random_state (int): seed for random number generator

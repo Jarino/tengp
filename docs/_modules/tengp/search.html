@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>tengp.search &#8212; TenGP 1.0.0 documentation</title>
+    <title>tengp.search &#8212; TenGP 0.4 documentation</title>
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.0.0',
+        VERSION:     '0.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -59,7 +59,7 @@
 
 <div class="viewcode-block" id="simple_es"><a class="viewcode-back" href="../../modules_api.html#tengp.simple_es">[docs]</a><span class="nd">@handle_invalid_decorator</span>
 <span class="k">def</span> <span class="nf">simple_es</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cost_function</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span>
-              <span class="n">target_fitness</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+              <span class="n">target_fitness</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
               <span class="n">population_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
               <span class="n">evaluations</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span>
               <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -79,7 +79,7 @@
 <span class="sd">            arguments `(y_true, y_pred)`, where `y_true` is target output data</span>
 <span class="sd">            and `y_pred` is output of CGP individual</span>
 <span class="sd">        params (Parameters): instance of Parameters class</span>
-<span class="sd">        target_fitness (number): fitness, at which evolution will stop</span>
+<span class="sd">        target_fitness (number or None): fitness, at which evolution will stop. If None, it is not considered</span>
 <span class="sd">        population_size (int): size of population including parent</span>
 <span class="sd">        evaluations (int): maximum number of cost function evaluations</span>
 <span class="sd">        random_state (int): seed for random number generator</span>
@@ -138,7 +138,7 @@
         <span class="k">if</span> <span class="n">log</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">log</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">fitness</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">parent</span><span class="o">.</span><span class="n">fitness</span> <span class="o">&lt;=</span> <span class="n">target_fitness</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">target_fitness</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">parent</span><span class="o">.</span><span class="n">fitness</span> <span class="o">&lt;=</span> <span class="n">target_fitness</span><span class="p">:</span>
             <span class="n">population</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">fitness</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">population</span>
 
