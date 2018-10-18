@@ -22,7 +22,8 @@ def simple_es(X, y, cost_function, params,
               mutation_probability=0.25,
               verbose=False,
               log=None,
-              seed_individual=None):
+              seed_individual=None,
+              log_best_individuals=None):
     """Optimize a CGP system using a simple evolutionary strategy.
 
     Args:
@@ -48,6 +49,8 @@ def simple_es(X, y, cost_function, params,
         seed_individual (Individual): if provided with instance of Individual class,
             the initial population is created according to this object - parent of first
             generation.
+        log_best_individuals (list): if provided with a list, best individual of each generation
+            is stored here
 
     Returns:
         List of individuals, the last generation of evolution
@@ -92,6 +95,9 @@ def simple_es(X, y, cost_function, params,
 
         if log is not None:
             log.append(parent.fitness)
+            
+        if log_best_individuals is not None:
+            log_best_individuals.append(parent)
 
         if target_fitness is not None and parent.fitness <= target_fitness:
             population.sort(key=lambda x: x.fitness)
@@ -117,6 +123,9 @@ def simple_es(X, y, cost_function, params,
 
     if log is not None:
         log.append(population[0].fitness)
+        
+    if log_best_individuals is not None:
+        log_best_individuals.append(population[0])
 
     return population
 
