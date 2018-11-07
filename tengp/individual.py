@@ -117,7 +117,8 @@ class NPIndividual(Individual):
             containing output tensors is returned. Otherwise Numpy array
             is returned.
         """
-        if X.ndim == 0 or X.ndim == 1:
+        n_dims = X.dim() if X.__class__.__name__ == 'Tensor' else X.ndim
+        if n_dims == 0 or n_dims == 1:
             raise ValueError(
                     "Expected 2D array, got scalar or 1D instead."
                     "If X is single sample, use array.reshape(1, -1)."
