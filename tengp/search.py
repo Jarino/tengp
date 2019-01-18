@@ -5,7 +5,6 @@ from collections import deque
 import random
 from functools import partial
 
-from deap import creator, base, cma, algorithms, tools
 import numpy as np
 
 from .mutations import MUTATIONS
