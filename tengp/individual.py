@@ -123,6 +123,11 @@ class NPIndividual(Individual):
             containing output tensors is returned. Otherwise Numpy array
             is returned.
         """
+        # reset the values of the nodes
+        for node in self.nodes:
+            node.value = None
+
+
         funset = self.params.function_set
         for path in self.paths:
             for index in sorted(set(path)):
