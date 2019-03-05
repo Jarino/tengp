@@ -22,7 +22,8 @@ def simple_es(X, y, cost_function, params,
               mutation_probability=0.25,
               verbose=False,
               log=None,
-              seed_individual=None):
+              seed_individual=None,
+              initial_population=None):
     """Optimize a CGP system using a simple evolutionary strategy.
 
     Args:
@@ -48,6 +49,8 @@ def simple_es(X, y, cost_function, params,
         seed_individual (Individual): if provided with instance of Individual class,
             the initial population is created according to this object - parent of first
             generation.
+        initial_population (Population): if provided with list of instances of Individial
+            class, the initial population is represented by values of this argument
 
     Returns:
         List of individuals, the last generation of evolution
@@ -66,11 +69,14 @@ def simple_es(X, y, cost_function, params,
     # initial generation
     ib = IndividualBuilder(params)
 
-    if seed_individual:
-        population = [seed_individual.apply(move(seed_individual)) for _ in range(population_size - 1)]
-        population += [seed_individual]
+    if not initial_population:
+        if seed_individual:
+            population = [seed_individual.apply(move(seed_individual)) for _ in range(population_size - 1)]
+            population += [seed_individual]
+        else:
+            population = [ib.create() for _ in range(population_size)]
     else:
-        population = [ib.create() for _ in range(population_size)]
+        population = initial_population.copy()
 
     n_evals = 0
 
