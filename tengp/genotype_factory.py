@@ -49,7 +49,7 @@ class GenotypeFactory():
 
             # upper and lower bound for input gene
             upper_bound = self.n_ins + current_column * self.n_rows - 1
-            lower_bound = clamp_bottom(upper_bound - self.max_back + 1, 0)
+            lower_bound = clamp_bottom(upper_bound - (self.max_back*self.n_rows) + 1, 0)
 
             for _ in range(self.arity):
                 u_bounds.append(upper_bound)
