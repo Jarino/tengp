@@ -2,6 +2,14 @@
 
 Collection of scripts for executing the experiments and evaluating the results.
 
+## Scripts
+
+`baseline.py` runs the baseline experiment of CGP with single mutation. Example usage (from root of project)
+```
+python -m experiments.baseline nguyen7 -d train -t 10 -o baseline.logs
+```
+
+
 
 ## Notes
 
