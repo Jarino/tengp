@@ -11,6 +11,7 @@ from tengp.utils import UnknownMutationException
 def print_result(result, start):
     print(f'Numpy result: {result}, time: {time() - start}')
 
+@pytest.mark.skip
 def test_simple_es(function_set, input_data_1d):
     X, y = input_data_1d
 
@@ -24,6 +25,7 @@ def test_simple_es(function_set, input_data_1d):
 
     assert True, "passed without errors"
 
+@pytest.mark.skip
 def test_simple_es_with_log(function_set, input_data_1d):
     X, y = input_data_1d
 
@@ -41,6 +43,7 @@ def test_simple_es_with_log(function_set, input_data_1d):
     assert True, "passed without errors"
 
 
+@pytest.mark.skip
 def test_simple_es_with_inf(advanced_function_set, input_data_1d):
     X, y = input_data_1d
 

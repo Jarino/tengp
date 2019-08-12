@@ -226,7 +226,8 @@ class IndividualBuilder():
         self.g_factory = GenotypeFactory(params)
 
     def create(self):
-        genes, bounds = self.g_factory.create()
+        bounds = self.g_factory.get_bounds()
+        genes = self.g_factory.get_random_genes()
 
         return self.params.individual_class(genes, bounds, self.params)
 

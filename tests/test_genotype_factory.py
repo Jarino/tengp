@@ -10,8 +10,11 @@ def test_bounds_wo_max_back():
     funset = tengp.FunctionSet()
     funset.add(np.add, 2)
     params = tengp.Parameters(2, 1, 1, 6, funset)
+
     factory = tengp.genotype_factory.GenotypeFactory(params)
-    genes, (l_bounds, u_bounds) = factory.create()
+    l_bounds, u_bounds = factory.get_bounds()
+    genes = factory.get_random_genes()
+
     assert l_bounds == [0, 0, 0,
                         0, 0, 0,
                         0, 0, 0,
@@ -34,8 +37,11 @@ def test_bounds_w_max_back():
     funset = tengp.FunctionSet()
     funset.add(np.add, 2)
     params = tengp.Parameters(2, 1, 1, 6, funset, max_back=3)
+
     factory = tengp.genotype_factory.GenotypeFactory(params)
-    genes, (l_bounds, u_bounds) = factory.create()
+    l_bounds, u_bounds = factory.get_bounds()
+    genes = factory.get_random_genes()
+    
     assert l_bounds == [0, 0, 0,
                         0, 0, 0,
                         0, 1, 1,
