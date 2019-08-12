@@ -8,6 +8,9 @@ from experiments.symreg import (
     get_benchmark_nguyen7,
     get_benchmark_nguyen10
 )
+from experiments.funsets import (
+    nguyen7_funset
+)
 
 def add_constant_input(X_train, y_train, X_test, y_test):
     X_train = np.c_[X_train, np.ones(len(X_train))]
@@ -25,6 +28,11 @@ def nguyen10():
 BENCHMARKS_LIST = {
     'nguyen7': nguyen7,
     'nguyen10': nguyen10
+}
+
+FUNSETS = {
+    'nguyen7': nguyen7_funset,
+    'nguyen10': nguyen7_funset
 }
 
 class SaveOutput():
@@ -45,11 +53,14 @@ class SaveOutput():
 
 
 def get_benchmark_data(name: str):
-    random.seed(42)
-
     if name not in BENCHMARKS_LIST:
         raise RuntimeError(f"Request benchmark not available, available benchmarks: {list(BENCHMARKS_LIST.keys())}")
 
     return BENCHMARKS_LIST[name]()
 
+def get_benchmark_funset(name: str):
+    if name not in FUNSETS:
+        raise RuntimeError(f"Request funset for given benchmark not available, available funsets: {list(FUNSETS.keys())}")
+
+    return FUNSETS[name]
 

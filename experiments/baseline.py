@@ -7,7 +7,7 @@ from sklearn.metrics import mean_squared_error
 
 import tengp
 from experiments.funsets import nguyen7_funset
-from experiments.utils import SaveOutput, get_benchmark_data
+from experiments.utils import SaveOutput, get_benchmark_data, get_benchmark_funset
 
 
 def parse_arugments():
@@ -25,19 +25,18 @@ def parse_arugments():
 def main():
     args = parse_arugments()
 
+    X_train, y_train, X_test, y_test = get_benchmark_data(args.benchmark_name)
+    funset = get_benchmark_funset(args.benchmark_name)
+
     params = tengp.Parameters(
             n_inputs=2,
             n_outputs=1,
             n_rows=1,
             n_columns=50,
-            function_set=nguyen7_funset,
+            function_set=funset,
             real_valued=False,
             max_back=20
         )
-
-    random.seed(42)
-
-    X_train, y_train, X_test, y_test = get_benchmark_data(args.benchmark_name)
 
     with SaveOutput(args.output) as output_file:
         for trial in range(args.trials):
