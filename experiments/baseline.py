@@ -6,8 +6,8 @@ import numpy as np
 from sklearn.metrics import mean_squared_error
 
 import tengp
-from experiments.symreg import get_benchmark_poly
 from experiments.funsets import nguyen7_funset
+from experiments.utils import SaveOutput, get_benchmark_data
 
 
 def parse_arugments():
@@ -21,28 +21,9 @@ def parse_arugments():
     
     return parser.parse_args()
 
-class SaveOutput():
-    def __init__(self, filename):
-        self.filename = filename
-        self.open_file = None
-
-    def __enter__(self):
-        if self.filename is None:
-            return sys.stdout
-        else:
-            self.open_file = open(self.filename, 'w')
-            return self.open_file
-
-    def __exit__(self, *args):
-        if self.open_file is not None:
-            self.open_file.close()
-        
-
 
 def main():
     args = parse_arugments()
-
-    print(args)
 
     params = tengp.Parameters(
             n_inputs=2,
@@ -56,14 +37,9 @@ def main():
 
     random.seed(42)
 
-    X_train, y_train, X_test, y_test = get_benchmark_poly(random, 6)
-
-    # add constant input
-    X_train = np.c_[X_train, np.ones(len(X_train))]
-    X_test = np.c_[X_test, np.ones(len(X_test))]
+    X_train, y_train, X_test, y_test = get_benchmark_data(args.benchmark_name)
 
     with SaveOutput(args.output) as output_file:
-
         for trial in range(args.trials):
             print(f"Trial {trial}")
 
