@@ -27,8 +27,15 @@ class FixedFunctionRowEngine():
 
         # handle the output genes
         for gene in genotype[-self.params.n_outputs:]:
-            exec_stack.append(gene)
-            exec_path.add(gene)
+            lower = math.floor(gene)
+            upper = math.ceil(gene)
+
+            exec_stack.append(lower)
+            exec_path.add(lower)
+
+            if lower != upper:
+                exec_stack.append(upper)
+                exec_path.add(upper)
 
         while len(exec_stack) > 0:
             node_index = exec_stack.pop()
@@ -70,7 +77,10 @@ class FixedFunctionRowEngine():
 
             expr_dict[node_index] = node_function(*inputs)
 
-        final_exp = expr_dict[genotype[-1]]
+        coeff = genotype[-1] - int(genotype[-1])
+        L = (1-coeff)*expr_dict[math.floor(genotype[-1])]
+        R = coeff*expr_dict[math.ceil(genotype[-1])]
+        final_exp = L + R
         f = lambdify(*input_symbols, final_exp, "numpy")
         
         return f(X)

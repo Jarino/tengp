@@ -31,11 +31,11 @@ def test_execution_of_fixed_function_row_genotype_with_real_number():
     
     params = tengp.Parameters(1, 1, len(funset), 2, funset)
 
-    genotype = [0, 0, 0, 0, 1.5, 2, 2, 2, 3]
+    genotype = [0, 0, 0, 0, 1.5, 2, 2, 2, 3.5]
 
     engine = tengp.engines.FixedFunctionRowEngine(params)
 
     res = engine.execute(genotype, X)
 
-    assert (res == [[1], [2], [3]]).all()
+    assert (res == [[0.5], [1], [1.5]]).all()
 
