@@ -1,12 +1,11 @@
 """ Module containing execution engine """
-from .parameters import Parameters
+import math
+
 from sympy import Symbol, lambdify
 
+from .parameters import Parameters
 
-# TODO
-# note, that this for now only works for only one input!
-# but since we dont have multiple outputs in the benchmark set
-# it is not currently important
+
 class FixedFunctionRowEngine():
     def __init__(self, params: Parameters):
         self.params = params
@@ -15,6 +14,10 @@ class FixedFunctionRowEngine():
         self.function_set = params.function_set
 
 
+    # TODO
+    # note, that this for now only works for only one input!
+    # but since we dont have multiple outputs in the benchmark set
+    # it is not currently important
     def execute(self, genotype, X):
         # genotype is a simple list of real values
         exec_stack = []
@@ -34,8 +37,15 @@ class FixedFunctionRowEngine():
             node_genes = genotype[start_gene_index:start_gene_index+self.arity]
 
             for gene in reversed(node_genes):
-                exec_stack.append(gene)
-                exec_path.add(gene)
+                lower = math.floor(gene)
+                upper = math.ceil(gene)
+                exec_stack.append(lower)
+                exec_path.add(lower)
+
+                if lower != upper:
+                    exec_stack.append(upper)
+                    exec_path.add(upper)
+
 
         for node_index in sorted(list(exec_path)):
             # input nodes
@@ -52,7 +62,11 @@ class FixedFunctionRowEngine():
 
             inputs = []
             for i in node_inputs[:function_arity]:
-                inputs.append(expr_dict[i])
+                coeff = i - int(i)
+                L = (1-coeff)*expr_dict[math.floor(i)]
+                R = coeff*expr_dict[math.ceil(i)]
+
+                inputs.append(L + R)
 
             expr_dict[node_index] = node_function(*inputs)
 
