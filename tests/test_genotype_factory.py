@@ -68,8 +68,8 @@ def test_fixed_function_row_genotype_factory():
     params = tengp.Parameters(2, 2, len(funset), 2, funset, max_back=1)
 
     factory = tengp.genotype_factory.FixedFunctionRowGenotypeFactory(params)
-    l_bounds = [0, 0, 0, 2, 2, 2, 5, 5]
-    u_bounds = [1, 1, 1, 4, 4, 4, 7, 7]
+    l_bounds = [0]*6 + [2]*6 + [5]*2
+    u_bounds = [1]*6 + [4]*6 + [7]*2 
     
     assert factory.l_bounds == l_bounds
     assert factory.u_bounds == u_bounds

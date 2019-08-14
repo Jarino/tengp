@@ -10,6 +10,7 @@ class FixedFunctionRowGenotypeFactory():
         self.n_cols = parameters.n_columns
         self.n_rows = len(parameters.function_set)
         self.n_fun_nodes = self.n_cols * self.n_rows
+        self.arity = parameters.function_set.max_arity
 
         self.l_bounds = None
         self.u_bounds = None
@@ -25,12 +26,12 @@ class FixedFunctionRowGenotypeFactory():
         for i in range(self.n_cols):
             # first column is a special case
             if i == 0:
-                self.l_bounds += [0]*self.n_rows
-                self.u_bounds += [self.n_ins - 1]*self.n_rows
+                self.l_bounds += [0]*self.n_rows*self.arity 
+                self.u_bounds += [self.n_ins - 1]*self.n_rows*self.arity
                 continue
             
-            self.l_bounds += [self.n_ins + (i - 1) * self.n_rows]*self.n_rows
-            self.u_bounds += [self.n_ins - 1 + i*self.n_rows]*self.n_rows
+            self.l_bounds += [self.n_ins + (i - 1) * self.n_rows]*self.n_rows*self.arity
+            self.u_bounds += [self.n_ins - 1 + i*self.n_rows]*self.n_rows*self.arity
 
         # then add them output genes
         i += 1
