@@ -2,6 +2,43 @@ from random import randint
 
 from .utils import clamp_bottom
 
+class FixedFunctionRowGenotypeFactory():
+    
+    def __init__(self, parameters):
+        self.n_ins = parameters.n_inputs
+        self.n_outs = parameters.n_outputs
+        self.n_cols = parameters.n_columns
+        self.n_rows = len(parameters.function_set)
+        self.n_fun_nodes = self.n_cols * self.n_rows
+
+        self.l_bounds = None
+        self.u_bounds = None
+
+        self._compute_bounds()
+
+    def _compute_bounds(self):
+        """
+        Compute the lower and upper bounds
+        """
+        self.l_bounds = []
+        self.u_bounds = []
+        for i in range(self.n_cols):
+            # first column is a special case
+            if i == 0:
+                self.l_bounds += [0]*self.n_rows
+                self.u_bounds += [self.n_ins - 1]*self.n_rows
+                continue
+            
+            self.l_bounds += [self.n_ins + (i - 1) * self.n_rows]*self.n_rows
+            self.u_bounds += [self.n_ins - 1 + i*self.n_rows]*self.n_rows
+
+        # then add them output genes
+        i += 1
+        self.l_bounds += [self.n_ins + (i - 1) * self.n_rows]*self.n_outs
+        self.u_bounds += [self.n_ins - 1 + i*self.n_rows]*self.n_outs
+
+
+
 class GenotypeFactory():
 
     def __init__(self, parameters):
