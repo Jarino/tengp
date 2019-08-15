@@ -39,6 +39,9 @@ def pow_minus1(x, y):
     x = np.array(x, dtype=float)
     return np.power(x, -1, out=np.copy(x), where=x!=0)
 
+def identity(x, y):
+    return x
+
 nguyen7_funset = FunctionSet()
 nguyen7_funset.add(np.add, 2)
 nguyen7_funset.add(np.subtract, 2)
@@ -47,3 +50,13 @@ nguyen7_funset.add(pdivide, 2)
 nguyen7_funset.add(plog, 2)
 nguyen7_funset.add(psin, 2)
 nguyen7_funset.add(pcos, 2)
+
+nguyen7_funset_with_identity = FunctionSet()
+nguyen7_funset_with_identity.add(identity, 2)
+nguyen7_funset_with_identity.add(np.add, 2)
+nguyen7_funset_with_identity.add(np.subtract, 2)
+nguyen7_funset_with_identity.add(np.multiply, 2)
+nguyen7_funset_with_identity.add(pdivide, 2)
+nguyen7_funset_with_identity.add(plog, 2)
+nguyen7_funset_with_identity.add(psin, 2)
+nguyen7_funset_with_identity.add(pcos, 2)

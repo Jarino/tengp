@@ -40,24 +40,31 @@ class FixedFunctionRowEngine():
         while len(exec_stack) > 0:
             node_index = exec_stack.pop()
 
+            if node_index < self.n_inputs:
+                continue
+
             start_gene_index = (node_index - self.n_inputs)*self.arity
             node_genes = genotype[start_gene_index:start_gene_index+self.arity]
 
             for gene in reversed(node_genes):
                 lower = math.floor(gene)
                 upper = math.ceil(gene)
-                exec_stack.append(lower)
-                exec_path.add(lower)
+                
+                if lower not in exec_path:
+                    exec_stack.append(lower)
+                    exec_path.add(lower)
 
                 if lower != upper:
-                    exec_stack.append(upper)
-                    exec_path.add(upper)
+                    if upper not in exec_path:
+                        exec_stack.append(upper)
+                        exec_path.add(upper)
 
 
         for node_index in sorted(list(exec_path)):
             # input nodes
             if node_index < self.n_inputs:
-                expr_dict[node_index] = input_symbols[node_index]
+                #expr_dict[node_index] = input_symbols[node_index]
+                expr_dict[node_index] = X[:, node_index]
                 continue
 
             # function nodes here
@@ -81,9 +88,10 @@ class FixedFunctionRowEngine():
         L = (1-coeff)*expr_dict[math.floor(genotype[-1])]
         R = coeff*expr_dict[math.ceil(genotype[-1])]
         final_exp = L + R
-        f = lambdify(*input_symbols, final_exp, "numpy")
+        return final_exp
+        #f = lambdify(*input_symbols, final_exp, "numpy")
         
-        return f(X)
+        #return f(X)
 
 
 
