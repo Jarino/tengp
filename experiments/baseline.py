@@ -1,3 +1,4 @@
+import warnings
 import sys
 import random
 from argparse import ArgumentParser
@@ -23,6 +24,8 @@ def parse_arugments():
 
 
 def main():
+    warnings.filterwarnings('ignore')
+    
     args = parse_arugments()
 
     X_train, y_train, X_test, y_test = get_benchmark_data(args.benchmark_name)
