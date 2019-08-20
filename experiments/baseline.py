@@ -49,7 +49,7 @@ def main():
                     y_train,
                     mean_squared_error,
                     params,
-                    evaluations=100,
+                    evaluations=100000,
                     mutation='single',
                     log=log,
                     random_state=42
