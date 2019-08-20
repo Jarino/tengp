@@ -1,5 +1,7 @@
 from random import randint
 
+import numpy as np
+
 from .utils import clamp_bottom
 
 class FixedFunctionRowGenotypeFactory():
@@ -37,6 +39,13 @@ class FixedFunctionRowGenotypeFactory():
         i += 1
         self.l_bounds += [self.n_ins + (i - 1) * self.n_rows]*self.n_outs
         self.u_bounds += [self.n_ins - 1 + i*self.n_rows]*self.n_outs
+
+    def get_random_genes(self):
+    # (np.random.rand(10) * (u-l)) + l
+        u = np.array(self.u_bounds)
+        l = np.array(self.l_bounds)
+        return (np.random.rand(len(u)) * (u-l)) + l
+
 
 
 
