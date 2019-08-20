@@ -39,6 +39,7 @@ def main():
         )
 
     with SaveOutput(args.output) as output_file:
+        random.seed(42)
         for trial in range(args.trials):
             print(f"Trial {trial}")
 
@@ -51,8 +52,7 @@ def main():
                     params,
                     evaluations=100000,
                     mutation='single',
-                    log=log,
-                    random_state=42
+                    log=log
                 )
 
             print(log, file=output_file)
