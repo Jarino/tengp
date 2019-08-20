@@ -7,7 +7,7 @@ import sys
 import random
 from argparse import ArgumentParser
 
-import pygmo as pg
+import numpy as np
 from sklearn.metrics import mean_squared_error
 
 import tengp
@@ -25,25 +25,15 @@ def parse_arugments():
     
     return parser.parse_args()
 
-
-class CostFunction:
-    def __init__(self, X, Y, engine, bounds):
-        self.X = X
-        self.Y = Y
-        self.engine = engine
-        self.bounds = bounds
-
-    def fitness(self, x):
-        pred = self.engine.execute(list(x), self.X)
-
+def create_fitness_fn(engine, X, y):
+    def fitness_fn(genotype):
+        pred = engine.execute(genotype, X)
         try:
-            return [mean_squared_error(pred, self.Y)]
+            return mean_squared_error(pred, y)
         except ValueError:
-            return [10e10]
+            return 10e10
+    return fitness_fn
 
-    def get_bounds(self):
-        return self.bounds
-        
 
 def main():
     args = parse_arugments()
@@ -65,23 +55,45 @@ def main():
     factory = tengp.FixedFunctionRowGenotypeFactory(params) 
     engine = tengp.FixedFunctionRowEngine(params)
 
-    pg.set_global_rng_seed(seed=42)
+
     with SaveOutput(args.output) as output_file:
         for trial in range(args.trials):
             print(f"Trial {trial}")
+            log = []
+            fitness = create_fitness_fn(engine, X_train, y_train)
+            pop = [factory.get_random_genes() for _ in range(5)]
+            global_best_fitness = None
+            global_best_genes = None
+            
+            n_evals = 0
+            scale = np.array(np.array(factory.u_bounds) - np.array(factory.l_bounds))
+            scale_coeff = 1
+            max_evals = 10000
+            while n_evals < max_evals:
+                scale_coeff = (max_evals + n_evals)/max_evals
+                fitnesses = [fitness(genotype) for genotype in pop]
+                log.append(fitnesses)
+                n_evals += 5
+                
+                if global_best_fitness is None:
+                    global_best_genes = pop[np.argmin(fitnesses)]
+                    global_best_fitness = min(fitnesses)
 
-            cost_function = CostFunction(
-                    X_train, y_train, engine, (factory.l_bounds, factory.u_bounds))
+                best_fitness = min(fitnesses)
+                if best_fitness <= global_best_fitness:
+                    global_best_fitness = best_fitness
+                    global_best_genes = pop[np.argmin(fitnesses)]
 
-            prob = pg.problem(cost_function)
-            algo = pg.algorithm(pg.pso(gen=200))
-            algo.set_verbosity(1)
-            pop = pg.population(prob, 50)
-            pop = algo.evolve(pop)
-            uda = algo.extract(pg.pso)
+                print(n_evals, global_best_fitness)
+
+                
+                pop = [np.random.normal(global_best_genes, scale=(scale*scale_coeff), size=len(global_best_genes)) for _ in range(5)]
+                pop = [np.clip(x, factory.l_bounds, factory.u_bounds) for x in pop]
 
 
-            print([x[2] for x in uda.get_log()], file=output_file)
+
+
+            print(log, file=output_file)
 
 if __name__ == '__main__':
     main()
