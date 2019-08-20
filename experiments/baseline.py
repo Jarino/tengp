@@ -51,7 +51,8 @@ def main():
                     params,
                     evaluations=100,
                     mutation='single',
-                    log=log
+                    log=log,
+                    random_state=42
                 )
 
             print(log, file=output_file)
