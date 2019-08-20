@@ -7,10 +7,19 @@ import random
 from experiments.symreg import (
     get_benchmark_poly,
     get_benchmark_nguyen7,
-    get_benchmark_nguyen10
+    get_benchmark_nguyen8,
+    get_benchmark_nguyen10,
+    get_benchmark_keijzer,
+    get_benchmark_korns,
+    get_benchmark_pagie1,
+    get_benchmark_vladislasleva4
 )
 from experiments.funsets import (
-    nguyen7_funset
+    nguyen7_funset,
+    keijzer_funset,
+    korns_funset,
+    pagie_funset,
+    vlad_funset
 )
 
 def add_constant_input(X_train, y_train, X_test, y_test):
@@ -27,20 +36,74 @@ def nguyen7():
     random.seed(42)
     return add_constant_input(*get_benchmark_nguyen7(random, None))
 
+def nguyen8():
+    random.seed(42)
+    return add_constant_input(*get_benchmark_nguyen8(random, None))
+
 def nguyen10():
     random.seed(42)
     return add_constant_input(*get_benchmark_nguyen10(random, None))
 
+def keijzer4():
+    random.seed(42)
+    return add_constant_input(*get_benchmark_keijzer(random, 1))
+
+def keijzer11():
+    random.seed(42)
+    return add_constant_input(*get_benchmark_keijzer(random, 10))
+
+def keijzer12():
+    random.seed(42)
+    return add_constant_input(*get_benchmark_keijzer(random, 11))
+
+def korns1():
+    random.seed(42)
+    return add_constant_input(*get_benchmark_korns(random, 1))
+
+def korns7():
+    random.seed(42)
+    return add_constant_input(*get_benchmark_korns(random, 7))
+
+def korns12():
+    random.seed(42)
+    return add_constant_input(*get_benchmark_korns(random, 12))
+
+def pagie1():
+    random.seed(42)
+    return add_constant_input(*get_benchmark_pagie1(random, None))
+
+def vladislasleva4():
+    random.seed(42)
+    return add_constant_input(*get_benchmark_vladislasleva4(random, None))
+
 BENCHMARKS_LIST = {
     'nguyen4': nguyen4,
     'nguyen7': nguyen7,
-    'nguyen10': nguyen10
+    'nguyen8': nguyen8,
+    'nguyen10': nguyen10,
+    'keijzer4': keijzer4,
+    'keijzer11': keijzer11,
+    'keijzer12': keijzer12,
+    'korns1': korns1,
+    'korns7': korns7,
+    'korns12': korns12,
+    'pagie1': pagie1,
+    'vladislasleva4': vladislasleva4
 }
 
 FUNSETS = {
     'nguyen4': nguyen7_funset,
     'nguyen7': nguyen7_funset,
-    'nguyen10': nguyen7_funset
+    'nguyen8': nguyen7_funset,
+    'nguyen10': nguyen7_funset,
+    'keijzer4': keijzer_funset,
+    'keijzer11': keijzer_funset,
+    'keijzer12': keijzer_funset,
+    'korns1': korns_funset,
+    'korns7': korns_funset,
+    'korns12': korns_funset,
+    'pagie1': pagie_funset,
+    'vladislasleva4': vlad_funset
 }
 
 class SaveOutput():
