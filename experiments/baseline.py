@@ -44,7 +44,7 @@ def main():
     with SaveOutput(args.output) as output_file:
         random.seed(42)
         for trial in range(args.trials):
-            print(f"Trial {trial}")
+            print(f"{args.benchmark_name}, trial {trial}")
 
             log = []
 
