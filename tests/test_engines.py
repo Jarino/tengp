@@ -20,7 +20,7 @@ def test_execution_of_fixed_function_row_genotype():
 
     res = engine.execute(genotype, X)
 
-    assert (res == [[2], [4], [6]]).all()
+    assert (res == [[2, 4, 6]]).all()
 
 def test_execution_of_fixed_function_row_genotype_with_real_number():
     """ Should execute fixed function row genotype and return its output """
@@ -37,5 +37,5 @@ def test_execution_of_fixed_function_row_genotype_with_real_number():
 
     res = engine.execute(genotype, X)
 
-    assert (res == [[0.5], [1], [1.5]]).all()
+    assert (res == [0.5, 1, 1.5]).all()
 
