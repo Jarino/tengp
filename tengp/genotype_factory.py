@@ -13,6 +13,7 @@ class FixedFunctionRowGenotypeFactory():
         self.n_rows = len(parameters.function_set)
         self.n_fun_nodes = self.n_cols * self.n_rows
         self.arity = parameters.function_set.max_arity
+        self.max_back = parameters.max_back
 
         self.l_bounds = None
         self.u_bounds = None
@@ -32,13 +33,15 @@ class FixedFunctionRowGenotypeFactory():
                 self.u_bounds += [self.n_ins - 1]*self.n_rows*self.arity
                 continue
             
-            self.l_bounds += [self.n_ins + (i - 1) * self.n_rows]*self.n_rows*self.arity
+            self.l_bounds += [self.n_ins + (i - self.max_back) * self.n_rows]*self.n_rows*self.arity
             self.u_bounds += [self.n_ins - 1 + i*self.n_rows]*self.n_rows*self.arity
 
         # then add them output genes
         i += 1
-        self.l_bounds += [self.n_ins + (i - 1) * self.n_rows]*self.n_outs
+        self.l_bounds += [self.n_ins + (i - self.max_back) * self.n_rows]*self.n_outs
         self.u_bounds += [self.n_ins - 1 + i*self.n_rows]*self.n_outs
+
+        self.l_bounds = [0 if x < 0 else x for x in self.l_bounds]
 
     def get_random_genes(self):
     # (np.random.rand(10) * (u-l)) + l

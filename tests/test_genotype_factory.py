@@ -75,3 +75,20 @@ def test_fixed_function_row_genotype_factory():
     assert factory.u_bounds == u_bounds
 
 
+def test_fixed_function_row_genotype_factory_w_max_back():
+    """ Should create an individual, only with input genes respecting
+    the max_back parameter. """
+    funset = tengp.FunctionSet()
+    funset.add(np.add, 2)
+    funset.add(np.subtract, 2)
+    funset.add(np.division, 2)
+    params = tengp.Parameters(2, 2, len(funset), 2, funset, max_back=2)
+
+    factory = tengp.genotype_factory.FixedFunctionRowGenotypeFactory(params)
+    l_bounds = [0]*6 + [0]*6 + [2]*2
+    u_bounds = [1]*6 + [4]*6 + [7]*2 
+    
+    assert factory.l_bounds == l_bounds
+    assert factory.u_bounds == u_bounds
+
+
