@@ -45,6 +45,14 @@ pso:
 	python -m experiments.pso keijzer12 -d train -t 50 -o results/pso-keijzer12.log && fg
 
 
+ffrpso:
+	python -m experiments.ffrpso nguyen4 -d train -t 50 -o results/ffrpso-nguyen4.log &
+	python -m experiments.ffrpso nguyen7 -d train -t 50 -o results/ffrpso-nguyen7.log &
+	python -m experiments.ffrpso nguyen8 -d train -t 50 -o results/ffrpso-nguyen8.log &
+	python -m experiments.ffrpso keijzer4 -d train -t 50 -o results/ffrpso-keijzer4.log &
+	python -m experiments.ffrpso keijzer11 -d train -t 50 -o results/ffrpso-keijzer11.log &
+	python -m experiments.ffrpso keijzer12 -d train -t 50 -o results/ffrpso-keijzer12.log && fg
+
 # Catch-all target: route all unknown targets to Sphinx using the new
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
 %: Makefile
