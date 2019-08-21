@@ -57,13 +57,12 @@ def main():
     X_train, y_train, X_test, y_test = get_benchmark_data(args.benchmark_name)
     funset = get_benchmark_funset(args.benchmark_name)
     n_inputs, n_outputs = get_benchmark_io(args.benchmark_name)
-    funset.add(identity, 2)
 
     params = tengp.Parameters(
             n_inputs=n_inputs,
             n_outputs=n_outputs,
             n_rows=len(funset),
-            n_columns=50,
+            n_columns=50//len(funset),
             function_set=funset,
             max_back=20
         )
