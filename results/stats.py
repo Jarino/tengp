@@ -22,6 +22,8 @@ def stats(d):
 
 def main(files):
     for f in files:
+        print()
+        print(f)
         stats(load(f))
 
 
