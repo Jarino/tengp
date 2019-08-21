@@ -81,6 +81,7 @@ def main():
 
             prob = pg.problem(cost_function)
             algo = pg.algorithm(pg.pso(gen=1000))
+            algo.set_verbosity(1)
             pop = pg.population(prob, 100)
             pop = algo.evolve(pop)
             uda = algo.extract(pg.pso)
