@@ -117,6 +117,9 @@ class GenotypeFactory():
         self.l_bounds = l_bounds
         self.u_bounds = u_bounds
 
+    def get_bounds(self):
+        return self.l_bounds, self.u_bounds
+
     def get_random_genes(self):
         """
         Create an individual primitives
