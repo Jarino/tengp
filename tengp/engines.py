@@ -72,10 +72,11 @@ class RealValuedEngine():
 
                 inputs.append(L + R)
 
-            fun_coeff = start_gene_index - int(start_gene_index)
-
-            l_fun, _ = self.function_set[math.floor(start_gene_index)]
-            u_fun, _ = self.function_set[math.ceil(start_gene_index)]
+            fun_gene = genotype[start_gene_index]
+            fun_coeff = fun_gene - int(fun_gene)
+            
+            l_fun, _ = self.function_set[math.floor(fun_gene)]
+            u_fun, _ = self.function_set[math.ceil(fun_gene)]
 
             expr_dict[node_index] = (1-fun_coeff)*l_fun(*inputs) + fun_coeff*u_fun(*inputs)
 

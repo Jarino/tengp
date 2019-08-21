@@ -72,9 +72,12 @@ class GenotypeFactory():
         self.funset = parameters.function_set
         self.n_fun_nodes = self.n_cols * self.n_rows
         self.n_funs = len(self.funset)
+        self.l_bounds = None
+        self.u_bounds = None
 
+        self._compute_bounds()
 
-    def get_bounds(self):
+    def _compute_bounds(self):
         """
         Create an individual primitives
 
@@ -111,7 +114,8 @@ class GenotypeFactory():
             u_bounds.append(output_gene_upper_bound)
             l_bounds.append(output_gene_lower_bound)
 
-        return l_bounds, u_bounds
+        self.l_bounds = l_bounds
+        self.u_bounds = u_bounds
 
     def get_random_genes(self):
         """
