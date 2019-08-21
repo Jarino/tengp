@@ -106,6 +106,20 @@ FUNSETS = {
     'vladislasleva4': vlad_funset
 }
 
+BENCHMARKS_IO = {
+    'nguyen4': (2,1),
+    'nguyen7': (2,1),
+    'nguyen8': (2,1),
+    'nguyen10': (3,1),
+    'keijzer4': (2,1),
+    'keijzer11': (3,1),
+    'keijzer12': (3,1),
+    'korns1': (5,1),
+    'korns7': (2,1),
+    'korns12': (6, 1),
+    'pagie1': (3,1),
+    'vladislasleva4': (6,1) 
+}
 class SaveOutput():
     def __init__(self, filename):
         self.filename = filename
@@ -134,4 +148,9 @@ def get_benchmark_funset(name: str):
         raise RuntimeError(f"Request funset for given benchmark not available, available funsets: {list(FUNSETS.keys())}")
 
     return FUNSETS[name]
+
+def get_benchmark_io(name: str):
+    if name not in BENCHMARKS_IO:
+        raise RuntimeError(f"Request io for given benchmark not available, available funsets: {list(FUNSETS.keys())}")
+    return BENCHMARKS_IO[name]
 
