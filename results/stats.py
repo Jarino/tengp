@@ -11,6 +11,10 @@ def load(f):
     with open(f, 'r') as fi:
         for line in fi:
             res.append(json.loads(line))
+
+    max_length = max([len(x) for x in res])
+    for x in res:    
+        x += [x[-1]]*(max_length-len(x)) 
     return res
 
 def stats(d):
