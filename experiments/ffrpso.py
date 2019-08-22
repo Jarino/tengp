@@ -58,6 +58,8 @@ def main():
     funset = get_benchmark_funset(args.benchmark_name)
     n_inputs, n_outputs = get_benchmark_io(args.benchmark_name)
 
+    funset.add(identity, 2)
+
     params = tengp.Parameters(
             n_inputs=n_inputs,
             n_outputs=n_outputs,
