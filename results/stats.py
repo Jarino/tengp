@@ -18,6 +18,7 @@ def stats(d):
     print(f'mean: {np.mean(np.min(d, axis=1)):.3e}')
     print(f'median: {np.median(np.min(d, axis=1)):.3e}')
     print(f'std: {np.std(np.min(d, axis=1)):.3e}')
+    print(f'{np.min(d):.3e} | {np.mean(np.min(d, axis=1)):.3e} | {np.median(np.min(d, axis=1)):.3e} | {np.std(np.min(d, axis=1)):.3e}|')
 
 
 def main(files):
