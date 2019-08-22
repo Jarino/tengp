@@ -45,6 +45,14 @@ pso:
 	python -m experiments.pso keijzer11 -d train -t 50 -o results/pso-keijzer11.log &
 	python -m experiments.pso keijzer12 -d train -t 50 -o results/pso-keijzer12.log && fg
 
+sea:
+	python -m experiments.sea nguyen4 -d train -t 50 -o results/sea-nguyen4.log &
+	python -m experiments.sea nguyen7 -d train -t 50 -o results/sea-nguyen7.log &
+	python -m experiments.sea nguyen8 -d train -t 50 -o results/sea-nguyen8.log &
+	python -m experiments.sea nguyen10 -d train -t 50 -o results/sea-nguyen10.log &
+	python -m experiments.sea keijzer4 -d train -t 50 -o results/sea-keijzer4.log &
+	python -m experiments.sea keijzer11 -d train -t 50 -o results/sea-keijzer11.log &
+	python -m experiments.sea keijzer12 -d train -t 50 -o results/sea-keijzer12.log && fg
 
 ffrpso:
 	python -m experiments.ffrpso nguyen4 -d train -t 50 -o results/ffrpso-nguyen4.log &
