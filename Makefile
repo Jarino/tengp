@@ -8,12 +8,14 @@ SPHINXPROJ    = TenGP
 SOURCEDIR     = sphinx/source
 BUILDDIR      = sphinx/build
 DOCSDIR       = docs
+DIST          = $(shell git rev-parse --short HEAD)
 
 # Put it first so that "make" without argument is like "make help".
 help:
 	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
 .PHONY: help Makefile
+
 
 test:
 	python -m pytest -s -v
@@ -53,6 +55,27 @@ sea:
 	python -m experiments.sea keijzer4 -d train -t 50 -o results/sea-keijzer4.log &
 	python -m experiments.sea keijzer11 -d train -t 50 -o results/sea-keijzer11.log &
 	python -m experiments.sea keijzer12 -d train -t 50 -o results/sea-keijzer12.log && fg
+
+xnes:
+	mkdir -p results/$(DIST)/
+	for bench in nguyen4 nguyen7 nguyen8 nguyen10 keijzer4 keijzer11 keijzer12 ; do \
+					python -m experiments.xnes $$bench -d train -t 1 -o results/${DIST}/xnes-$$bench.jsonl & \
+	done
+	fg && fg
+
+cmaes:
+	mkdir -p results/$(DIST)/
+	for bench in nguyen4 nguyen7 nguyen8 nguyen10 keijzer4 keijzer11 keijzer12 ; do \
+					python -m experiments.xnes $$bench -d train -t 1 -o results/${DIST}/cmaes-$$bench.jsonl & \
+	done
+	fg && fg
+
+sa:
+	mkdir -p results/$(DIST)/
+	for bench in nguyen4 nguyen7 nguyen8 nguyen10 keijzer4 keijzer11 keijzer12 ; do \
+					python -m experiments.xnes $$bench -d train -t 1 -o results/${DIST}/sa-$$bench.jsonl & \
+	done
+	fg && fg
 
 ffrpso:
 	python -m experiments.ffrpso nguyen4 -d train -t 50 -o results/ffrpso-nguyen4.log &
