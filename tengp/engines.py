@@ -60,7 +60,6 @@ class RealValuedCoeffEngine():
             if node_index < self.n_inputs:
                 expr_dict[node_index] = X[:, node_index]
                 continue
-            print(node_index)
 
             # function nodes here
             start_gene_index = (node_index - self.n_inputs)*(self.arity+2)
@@ -87,7 +86,6 @@ class RealValuedCoeffEngine():
         L = (1-coeff)*expr_dict[math.floor(genotype[-1])]
         R = coeff*expr_dict[math.ceil(genotype[-1])]
         final_exp = L + R
-        print(expr_dict)
         return final_exp
 
 
