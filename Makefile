@@ -66,14 +66,14 @@ xnes:
 cmaes:
 	mkdir -p results/$(DIST)/
 	for bench in nguyen4 nguyen7 nguyen8 nguyen10 keijzer4 keijzer11 keijzer12 ; do \
-					python -m experiments.xnes $$bench -d train -t 50 -o results/${DIST}/cmaes-$$bench.jsonl & \
+					python -m experiments.cmaes $$bench -d train -t 50 -o results/${DIST}/cmaes-$$bench.jsonl & \
 	done
 	fg && fg
 
 sa:
 	mkdir -p results/$(DIST)/
 	for bench in nguyen4 nguyen7 nguyen8 nguyen10 keijzer4 keijzer11 keijzer12 ; do \
-					python -m experiments.xnes $$bench -d train -t 50 -o results/${DIST}/sa-$$bench.jsonl & \
+					python -m experiments.sa $$bench -d train -t 50 -o results/${DIST}/sa-$$bench.jsonl & \
 	done
 	fg && fg
 
