@@ -69,7 +69,7 @@ def main():
             max_back=20
         )
 
-    factory = tengp.FFRCoeffGenotypeFactory(params, 0, 10) 
+    factory = tengp.FFRCoeffGenotypeFactory(params, -1, 1) 
     engine = tengp.FFRCoeffEngine(params)
 
     pg.set_global_rng_seed(seed=42)
