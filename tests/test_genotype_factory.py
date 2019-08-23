@@ -91,4 +91,19 @@ def test_fixed_function_row_genotype_factory_w_max_back():
     assert factory.l_bounds == l_bounds
     assert factory.u_bounds == u_bounds
 
+def test_fixed_function_row_genotype_factory_w_max_back_and_coefficients():
+    """ Should create an individual, only with input genes respecting
+    the max_back parameter. """
+    funset = tengp.FunctionSet()
+    funset.add(np.add, 2)
+    funset.add(np.subtract, 2)
+    funset.add(np.division, 2)
+    params = tengp.Parameters(2, 2, len(funset), 2, funset, max_back=2)
+
+    factory = tengp.FFRCoeffGenotypeFactory(params, 0, 10)
+    l_bounds = [0, 0, 0]*3 + [0, 0, 0]*3 + [2]*2
+    u_bounds = [10,1, 1]*3 + [10,4, 4]*3 + [7]*2 
+    
+    assert factory.l_bounds == l_bounds
+    assert factory.u_bounds == u_bounds
 

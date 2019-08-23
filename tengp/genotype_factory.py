@@ -50,6 +50,58 @@ class FixedFunctionRowGenotypeFactory():
         return (np.random.rand(len(u)) * (u-l)) + l
 
 
+class FFRCoeffGenotypeFactory():
+    """ Fixed function row with coefficients """
+    
+    def __init__(self, parameters, coeff_min: int, coeff_max: int):
+        self.n_ins = parameters.n_inputs
+        self.n_outs = parameters.n_outputs
+        self.n_cols = parameters.n_columns
+        self.n_rows = len(parameters.function_set)
+        self.n_fun_nodes = self.n_cols * self.n_rows
+        self.arity = parameters.function_set.max_arity
+        self.max_back = parameters.max_back
+        self.c_min = coeff_min
+        self.c_max = coeff_max
+
+        self.l_bounds = None
+        self.u_bounds = None
+
+        self._compute_bounds()
+
+    def _compute_bounds(self):
+        """
+        Compute the lower and upper bounds
+        """
+        self.l_bounds = []
+        self.u_bounds = []
+        for i in range(self.n_cols):
+            # first column is a special case
+            if i == 0:
+                for _ in range(self.n_rows):
+                    self.l_bounds += [self.c_min] + [0]*self.arity 
+                    self.u_bounds += [self.c_max] + [self.n_ins - 1]*self.arity
+                continue
+            
+            for _ in range(self.n_rows):
+                self.l_bounds += [self.c_min] + [self.n_ins + (i - self.max_back) * self.n_rows]*self.arity
+                self.u_bounds += [self.c_max] + [self.n_ins - 1 + i*self.n_rows]*self.arity
+
+        # then add them output genes
+        i += 1
+        self.l_bounds += [self.n_ins + (i - self.max_back) * self.n_rows]*self.n_outs
+        self.u_bounds += [self.n_ins - 1 + i*self.n_rows]*self.n_outs
+
+        self.l_bounds = [0 if x < 0 else x for x in self.l_bounds]
+
+    def get_random_genes(self):
+    # (np.random.rand(10) * (u-l)) + l
+        u = np.array(self.u_bounds)
+        l = np.array(self.l_bounds)
+        return (np.random.rand(len(u)) * (u-l)) + l
+
+
+
 
 
 class GenotypeFactory():
