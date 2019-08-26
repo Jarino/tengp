@@ -63,7 +63,7 @@ def main():
             n_rows=1,
             n_columns=50,
             function_set=funset,
-            max_back=20
+            max_back=50
         )
 
     factory = tengp.genotype_factory.CoeffGenotypeFactory(params, 0, 1)
