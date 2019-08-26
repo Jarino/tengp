@@ -3,6 +3,7 @@ from .search import simple_es
 from .engines import (
     FixedFunctionRowEngine,
     FFRCoeffEngine,
+    FFRWeightEngine,
     RealValuedEngine
 )
 from .genotype_factory import ( 

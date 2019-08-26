@@ -101,9 +101,6 @@ class FFRCoeffGenotypeFactory():
         return (np.random.rand(len(u)) * (u-l)) + l
 
 
-
-
-
 class GenotypeFactory():
 
     def __init__(self, parameters):
