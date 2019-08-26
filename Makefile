@@ -84,6 +84,15 @@ psoc:
 	done
 	fg && fg
 
+
+psow:
+	mkdir -p results/$(DIST)/
+	for bench in nguyen4 nguyen7 nguyen8 nguyen10 keijzer4 keijzer11 keijzer12 ; do \
+					python -m experiments.psow $$bench -d train -t 50 -o results/${DIST}/psow-$$bench.jsonl & \
+	done
+	fg && fg
+
+
 ffrcpso:
 	mkdir -p results/$(DIST)/
 	for bench in nguyen4 nguyen7 nguyen8 nguyen10 keijzer4 keijzer11 keijzer12 ; do \

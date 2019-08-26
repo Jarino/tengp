@@ -4,7 +4,8 @@ from .engines import (
     FixedFunctionRowEngine,
     FFRCoeffEngine,
     FFRWeightEngine,
-    RealValuedEngine
+    RealValuedEngine,
+    RealValuedWeightEngine
 )
 from .genotype_factory import ( 
     FixedFunctionRowGenotypeFactory,
