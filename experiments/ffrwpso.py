@@ -66,7 +66,7 @@ def main():
             n_rows=len(funset),
             n_columns=50//len(funset),
             function_set=funset,
-            max_back=20
+            max_back=50//len(funset)
         )
 
     factory = tengp.FFRCoeffGenotypeFactory(params, 0, 1) 
