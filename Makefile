@@ -91,6 +91,13 @@ ffrcpso:
 	done
 	fg && fg
 
+ffrwpso:
+	mkdir -p results/$(DIST)/
+	for bench in nguyen4 nguyen7 nguyen8 nguyen10 keijzer4 keijzer11 keijzer12 ; do \
+					python -m experiments.ffrwpso $$bench -d train -t 50 -o results/${DIST}/ffrwpso-$$bench.jsonl & \
+	done
+	fg && fg
+
 ffrpso:
 	python -m experiments.ffrpso nguyen4 -d train -t 50 -o results/ffrpso-nguyen4.log &
 	python -m experiments.ffrpso nguyen7 -d train -t 50 -o results/ffrpso-nguyen7.log &
