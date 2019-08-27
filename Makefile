@@ -30,6 +30,7 @@ baseline:
 	done
 	fg && fg
 
+	
 pso:
 	python -m experiments.pso nguyen4 -d train -t 50 -o results/pso-nguyen4.log &
 	python -m experiments.pso nguyen7 -d train -t 50 -o results/pso-nguyen7.log &
@@ -107,6 +108,12 @@ ffrwcmaes:
 	done
 	fg && fg
 
+ffrwde:
+	mkdir -p results/$(DIST)/
+	for bench in nguyen4 nguyen7 nguyen8 nguyen10 keijzer4 keijzer11 keijzer12 ; do \
+					python -m experiments.ffrwde $$bench -d train -t 50 -o results/${DIST}/ffrwde-$$bench.jsonl & \
+	done
+	fg && fg
 
 ffrpso:
 	python -m experiments.ffrpso nguyen4 -d train -t 50 -o results/ffrpso-nguyen4.log &
