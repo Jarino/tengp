@@ -76,7 +76,12 @@ dependencies:
   - zeromq=4.3.2=he1b5a44_2
   - zlib=1.2.11=h7b6447c_3
   - pip:
+    - cycler==0.10.0
+    - ffx==1.3.10
+    - kiwisolver==1.1.0
+    - matplotlib==3.1.1
     - mpmath==1.1.0
+    - pyparsing==2.4.2
     - sympy==1.4
 prefix: /home/jarino/anaconda3/envs/tengp
 
