@@ -79,11 +79,11 @@ def main():
                     X_train, y_train, engine, (factory.l_bounds, factory.u_bounds))
 
             prob = pg.problem(cost_function)
-            algo = pg.algorithm(pg.pso(gen=1000))
+            algo = pg.algorithm(pg.cmaes(gen=1000, force_bounds=True))
             algo.set_verbosity(1)
             pop = pg.population(prob, 100)
             pop = algo.evolve(pop)
-            uda = algo.extract(pg.pso)
+            uda = algo.extract(pg.cmaes)
 
 
             print([x[2] for x in uda.get_log()], file=output_file)
