@@ -58,15 +58,13 @@ def main():
     funset = get_benchmark_funset(args.benchmark_name)
     n_inputs, n_outputs = get_benchmark_io(args.benchmark_name)
 
-    funset.add(identity, 2)
-
     params = tengp.Parameters(
             n_inputs=n_inputs,
             n_outputs=n_outputs,
             n_rows=len(funset),
             n_columns=50//len(funset),
             function_set=funset,
-            max_back=50//len(funset)
+            max_back=1
         )
 
     factory = tengp.FFRCoeffGenotypeFactory(params, 0, 1) 
