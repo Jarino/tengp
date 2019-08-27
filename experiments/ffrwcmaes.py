@@ -5,6 +5,7 @@ Optimized using PSO from PyGMO library.
 
 import sys
 import random
+import math
 from argparse import ArgumentParser
 
 import pygmo as pg
@@ -29,6 +30,8 @@ def parse_arugments():
     
     return parser.parse_args()
 
+def trans(a, b, x):
+    return a + (b-a) * (1-math.cos(math.pi * x / 10)) /2
 
 class CostFunction:
     def __init__(self, X, Y, engine, bounds):
@@ -36,9 +39,16 @@ class CostFunction:
         self.Y = Y
         self.engine = engine
         self.bounds = bounds
+        self.cma_bounds = ([0]*len(self.bounds[0]), [10]*len(self.bounds[1]))
 
     def fitness(self, x):
-        pred = self.engine.execute(list(x), self.X)
+        # x should come in cma_bounds, so [0, 10]
+        # therefore we need to map it back to our domain
+        transformed_genotype = []
+        for gene, l, u in zip(x, self.bounds[0], self.bounds[1]):
+            transformed_genotype.append(trans(l,u,gene))
+
+        pred = self.engine.execute(transformed_genotype, self.X)
 
         try:
             return [mean_squared_error(pred, self.Y)]
@@ -46,7 +56,7 @@ class CostFunction:
             return [10e10]
 
     def get_bounds(self):
-        return self.bounds
+        return self.cma_bounds
         
 def identity(x, y):
     return x
@@ -79,7 +89,7 @@ def main():
                     X_train, y_train, engine, (factory.l_bounds, factory.u_bounds))
 
             prob = pg.problem(cost_function)
-            algo = pg.algorithm(pg.cmaes(gen=1000, force_bounds=True))
+            algo = pg.algorithm(pg.cmaes(gen=1000, sigma0=2))
             algo.set_verbosity(1)
             pop = pg.population(prob, 100)
             pop = algo.evolve(pop)
