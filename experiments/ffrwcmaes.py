@@ -89,7 +89,7 @@ def main():
                     X_train, y_train, engine, (factory.l_bounds, factory.u_bounds))
 
             prob = pg.problem(cost_function)
-            algo = pg.algorithm(pg.cmaes(gen=5000, sigma0=0.1))
+            algo = pg.algorithm(pg.cmaes(gen=5000, sigma0=0.01))
             algo.set_verbosity(1)
             pop = pg.population(prob, 20)
             pop = algo.evolve(pop)
