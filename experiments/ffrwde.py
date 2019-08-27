@@ -79,9 +79,9 @@ def main():
                     X_train, y_train, engine, (factory.l_bounds, factory.u_bounds))
 
             prob = pg.problem(cost_function)
-            algo = pg.algorithm(pg.de(gen=1000, variant=1))
+            algo = pg.algorithm(pg.de(gen=5000, variant=1))
             algo.set_verbosity(1)
-            pop = pg.population(prob, 100)
+            pop = pg.population(prob, 20)
             pop = algo.evolve(pop)
             uda = algo.extract(pg.de)
 
