@@ -50,6 +50,15 @@ class CostFunction:
 
         pred = self.engine.execute(transformed_genotype, self.X)
 
+        # add sum of weights into the cost
+        # lower the sum of weights, lower the number of active genes
+        
+        sum_of_weights = sum(transformed_genotype[0:-1:3])
+
+
+        try:
+            return [sum_of_weights+mean_squared_error(pred, self.Y)]
+
         try:
             return [mean_squared_error(pred, self.Y)]
         except ValueError:
