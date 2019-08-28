@@ -72,7 +72,7 @@ def main():
             n_inputs=n_inputs,
             n_outputs=n_outputs,
             n_rows=len(funset),
-            n_columns=50//len(funset),
+            n_columns=20,
             function_set=funset,
             max_back=1
         )
@@ -89,7 +89,7 @@ def main():
                     X_train, y_train, engine, (factory.l_bounds, factory.u_bounds))
 
             prob = pg.problem(cost_function)
-            algo = pg.algorithm(pg.cmaes(gen=5000, sigma0=0.01))
+            algo = pg.algorithm(pg.cmaes(gen=5000, sigma0=0.1))
             algo.set_verbosity(1)
             pop = pg.population(prob, 20)
             pop = algo.evolve(pop)
