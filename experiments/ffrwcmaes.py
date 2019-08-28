@@ -58,9 +58,6 @@ class CostFunction:
 
         try:
             return [sum_of_weights+mean_squared_error(pred, self.Y)]
-
-        try:
-            return [mean_squared_error(pred, self.Y)]
         except ValueError:
             return [10e10]
 
