@@ -63,7 +63,7 @@ def main():
             n_rows=1,
             n_columns=50,
             function_set=funset,
-            max_back=50
+            max_back=20
         )
 
     factory = tengp.genotype_factory.CoeffGenotypeFactory(params, 0, 1)
@@ -78,9 +78,9 @@ def main():
                     X_train, y_train, engine, (factory.l_bounds, factory.u_bounds))
 
             prob = pg.problem(cost_function)
-            algo = pg.algorithm(pg.pso(gen=1000))
+            algo = pg.algorithm(pg.pso(gen=10000))
             algo.set_verbosity(1)
-            pop = pg.population(prob, 100)
+            pop = pg.population(prob, 10)
             pop = algo.evolve(pop)
             uda = algo.extract(pg.pso)
 
