@@ -32,13 +32,11 @@ baseline:
 
 	
 pso:
-	python -m experiments.pso nguyen4 -d train -t 50 -o results/pso-nguyen4.log &
-	python -m experiments.pso nguyen7 -d train -t 50 -o results/pso-nguyen7.log &
-	python -m experiments.pso nguyen8 -d train -t 50 -o results/pso-nguyen8.log &
-	python -m experiments.pso nguyen10 -d train -t 50 -o results/pso-nguyen10.log &
-	python -m experiments.pso keijzer4 -d train -t 50 -o results/pso-keijzer4.log &
-	python -m experiments.pso keijzer11 -d train -t 50 -o results/pso-keijzer11.log &
-	python -m experiments.pso keijzer12 -d train -t 50 -o results/pso-keijzer12.log && fg
+	mkdir -p results/$(DIST)/
+	for bench in nguyen4 nguyen7 nguyen8 nguyen10 keijzer4 keijzer11 keijzer12 ; do \
+					python -m experiments.pso $$bench -d train -t 50 -o results/${DIST}/pso-$$bench.jsonl & \
+	done
+	fg && fg
 
 sea:
 	python -m experiments.sea nguyen4 -d train -t 50 -o results/sea-nguyen4.log &
