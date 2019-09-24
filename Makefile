@@ -30,6 +30,12 @@ baseline:
 	done
 	fg && fg
 
+random_search:
+	mkdir -p results/$(DIST)/
+	for bench in nguyen4 nguyen7 nguyen8 nguyen10 keijzer4 keijzer11 keijzer12 ; do \
+					python -m experiments.rs $$bench -d train -t 50 -o results/${DIST}/rs-$$bench.jsonl & \
+	done
+	fg && fg
 	
 pso:
 	mkdir -p results/$(DIST)/
